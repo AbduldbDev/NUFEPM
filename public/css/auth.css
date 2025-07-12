@@ -1,0 +1,10 @@
+@import url("/css/components/variables.css");
+
+.right-box {
+    padding: 30px;
+}
+.invalid-feedback {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}

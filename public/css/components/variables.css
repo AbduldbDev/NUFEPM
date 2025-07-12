@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap");
+:root {
+    --main-blue: #35408e;
+    --main-yellow: #ffd41c;
+    --black: #333333;
+    --white: #ffffff;
+    --bg-white: #fcfcfc;
+    --dirty-white: #fafafa;
+    --hover-white: #d1d1d1;
+    --green: #198042;
+    --text-blue: #337ab7;
+    --text-red: #a94442;
+}
+
+@font-face {
+    font-family: "NU Font";
+    src: url("../../Fonts/ClanOT-Book.otf");
+}
+
+@font-face {
+    font-family: "NU Font Bold";
+    src: url("../../Fonts/ClanOT-Bold.otf");
+}
+
+@font-face {
+    font-family: "NU Font BoldItalic";
+    src: url("../../Fonts/ClanOT-BoldItalic.otf");
+}
+
+@font-face {
+    font-family: "NU Font BookItalic";
+    src: url("../../Fonts/ClanOT-BookItalic.otf");
+}
