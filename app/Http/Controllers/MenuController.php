@@ -7,15 +7,28 @@ use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-
-    public function ShowAccountsMenu()
+    public function ShowDashboard()
     {
-        return view('Admin.accounts.menu');
+        return view('Menu.dashboard');
     }
 
-
-    public function ShowExtinguishersMenu()
+    public function ShowAdminAccountsMenu()
     {
-        return view('Admin.extinguisher.menu');
+        return view('Menu.Admin.Accounts');
+    }
+
+    public function ShowAdminExtinguishersMenu()
+    {
+        return view('Menu.Admin.Extinguishers');
+    }
+
+    public function ShowAdminInspectionMenu()
+    {
+        return view('Menu.Admin.Inspections');
+    }
+
+    public function ShowMaintenanceExtinguishersMenu()
+    {
+        return view('Menu.Maintenance.Extinguishers');
     }
 }

@@ -19,6 +19,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 41px;
+    transition: all 0.3s ease-in-out;
 }
 
 .menu-box {
@@ -31,6 +32,8 @@
     height: 140px;
     padding: 20px;
     will-change: transform, opacity;
+    transition: all 0.3s ease-in-out;
+    animation: slideFadeIn 0.4s ease-in-out;
 }
 
 .menu-box-link {
@@ -45,6 +48,7 @@
 }
 
 .menu-icon {
+    text-align: center;
     font-size: 25px;
 }
 
@@ -78,9 +82,41 @@ span.breadcrumbs a {
     font-weight: 500;
     font-family: "NU Font Bold";
 }
+@keyframes slideFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 @media screen and (max-width: 768px) {
     .menu-container {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .menu-title-icon {
+        font-size: 30px;
+    }
+    span.breadcrumbs,
+    span.breadcrumbs a {
+        font-size: 12px;
+    }
+    .menu-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    .menu-container {
+        gap: 20px;
+    }
+    .menu-box {
+        will-change: transform, opacity;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 }

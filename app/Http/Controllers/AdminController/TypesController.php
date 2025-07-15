@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\AdminController;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\ExtinguishersTypes;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 class TypesController extends Controller
 {
     public function ShowTypes()
     {
-        $items = ExtinguishersTypes::with(['user'])->get();
+        $items = ExtinguishersTypes::with(['user'])->paginate(100);
         return view('Admin.types.alltypes', compact('items'));
     }
+
     public function SubmitNewType(Request $request)
     {
         $request->validate([

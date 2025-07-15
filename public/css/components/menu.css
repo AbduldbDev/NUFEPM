@@ -1,4 +1,4 @@
-@import url("/css/variables.css");
+@import url("/css/components/variables.css");
 .pageHeaderDiv {
     padding-left: 10px;
     margin-top: 20px;
@@ -30,6 +30,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 290px));
     gap: 40px;
+    transition: all 0.3s ease-in-out;
 }
 
 .menu-box {
@@ -42,6 +43,8 @@
     height: 140px;
     padding: 20px;
     will-change: transform, opacity;
+    transition: all 0.3s ease-in-out;
+    animation: slideFadeIn 0.4s ease-in-out;
 }
 
 .menu-box-link {
@@ -57,6 +60,7 @@
 
 .menu-icon {
     font-size: 25px;
+    text-align: center;
 }
 
 .menu-icon i {
@@ -66,7 +70,7 @@
 .module-name {
     font-family: "NU Font";
     font-size: 13px;
-    color: #35408e;
+    color: var(--text-blue);
 }
 
 .module-description {
@@ -78,9 +82,36 @@
     line-height: 1.2;
     font-size: 11.9px;
 }
+@keyframes slideFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 @media screen and (max-width: 768px) {
     .menu-container {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+@media screen and (max-width: 500px) {
+    .main-container {
+        margin-top: 10px;
+    }
+    .menu-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    .menu-container {
+        gap: 20px;
+    }
+    .menu-box {
+        will-change: transform, opacity;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 }

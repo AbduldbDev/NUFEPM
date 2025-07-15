@@ -1,20 +1,37 @@
  @if (session('success'))
-     <div class="alert alert-success">
-         {{ session('success') }}
-     </div>
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             showFloatingAlert("{{ session('success') }}", "success");
+         });
+     </script>
  @endif
 
- {{-- Error Message --}}
  @if ($errors->has('error'))
-     <div class="alert alert-danger">
-         {{ $errors->first('error') }}
-     </div>
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             showFloatingAlert("{{ $errors->first('error') }}", "danger");
+         });
+     </script>
  @endif
 
  @if ($errors->any())
      @foreach ($errors->all() as $error)
-         <div class="alert alert-danger">
-             <span>{{ $error }}</span>
-         </div>
+         <script>
+             document.addEventListener('DOMContentLoaded', function() {
+                 showFloatingAlert("{{ $error }}", "danger");
+             });
+         </script>
      @endforeach
  @endif
+
+ <div id="floatingAlert" class="floating-alert shadow" role="alert">
+     <div class="d-flex align-items-center">
+         <div class="icon-container me-3">
+             <i id="alertIcon" class="fas fa-check-circle fa-lg fa-beat"></i>
+         </div>
+         <div class="alert-message flex-grow-1" id="alertMessage" style="text-transform: capitalize">
+             Operation completed successfully.
+         </div>
+         <button type="button" class="btn-close ms-3" aria-label="Close" onclick="hideFloatingAlert()"></button>
+     </div>
+ </div>

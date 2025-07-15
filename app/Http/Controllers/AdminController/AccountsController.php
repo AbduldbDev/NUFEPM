@@ -23,7 +23,7 @@ class AccountsController extends Controller
 
     public function ShowAllAccounts()
     {
-        $items = User::get();
+        $items = User::paginate(100);
         return view('Admin.accounts.allaccounts', compact('items'));
     }
 
@@ -74,11 +74,6 @@ class AccountsController extends Controller
                 $imagePath = $request->file('image')->store('profiles', 'public');
             }
 
-            $imagePath = null;
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('profiles', 'public');
-            }
-
             $user = User::create([
                 'uid' => $validated['uid'],
                 'type' => $validated['type'],
@@ -93,7 +88,7 @@ class AccountsController extends Controller
                 'address' => $address,
                 'image' => $imagePath,
             ]);
-            return back()->with('success', 'Employee edited successfully!');
+            return redirect()->route('admin.ShowAllAccounts')->with('success', 'Account successfully added!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -160,7 +155,7 @@ class AccountsController extends Controller
 
             $user->save();
 
-            return back()->with('success', 'Employee updated successfully!');
+            return back()->with('success', 'Account updated successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

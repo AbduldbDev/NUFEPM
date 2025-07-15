@@ -1,0 +1,88 @@
+@import url("/css/components/variables.css");
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /* font-family: "NU Font"; */
+}
+body {
+    background-color: var(--bg-white);
+    padding-top: 60px;
+}
+.container {
+    transition: 0.3s ease-in-out;
+}
+.animated-container {
+    transition: all 0.3s ease-in-out;
+    animation: slideFadeIn 0.4s ease-in-out;
+}
+
+.navbar {
+    background-color: var(--main-blue);
+    border: 1px solid var(--main-blue);
+    border-bottom: 5px solid var(--main-yellow);
+}
+
+.navbar .navbar-brand {
+    height: 40px;
+    padding-left: 40px;
+    font-size: 18px;
+    font-family: "NU Font";
+    color: var(--white);
+    background: url("../Image/NULogo.png") left / contain no-repeat;
+}
+
+.navbar .navbar-nav {
+    font-family: "NU Font";
+    color: var(--white);
+}
+
+.navbar .nav-toggler {
+    font-size: 14px;
+    color: var(--white);
+}
+
+.navbar .nav-link:hover,
+.navbar .navbar-brand:hover {
+    color: var(--hover-white);
+}
+
+.navbar .profile-pic {
+    width: 30px;
+    height: 30px;
+    background-color: #35408f;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 5px;
+    border-top: 1px solid rgb(201, 201, 201);
+    font-size: 15px;
+    background-color: var(--bg-white);
+}
+footer a {
+    color: var(--text-blue);
+}
+footer span {
+    color: var(--text-black);
+    font-size: 13px;
+}
+.pagination .page-item.active .page-link {
+    background-color: var(--text-blue);
+    border-color: var(--text-blue);
+    color: #fff;
+}
+@keyframes slideFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Extinguishers extends Model
 {
-    protected $table = 'fire_extinguishers';
+    protected $table = 'extinguishers';
     protected $fillable = [
+        'created_by',
         'extinguisher_id',
+        'location_id',
+        'type_id',
         'serial_number',
-        'type',
         'capacity',
-        'location',
         'installation_date',
         'last_maintenance',
         'next_maintenance',
@@ -21,5 +22,18 @@ class Extinguishers extends Model
         'qr_code_path',
     ];
 
+    public function location()
+    {
+        return $this->belongsTo(ExtinguisherLocations::class, 'location_id');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(ExtinguishersTypes::class, 'type_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
     use HasFactory;
 }

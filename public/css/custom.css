@@ -1,0 +1,225 @@
+@import url("/css/components/variables.css");
+.form-container {
+    border: 1px solid rgb(219, 219, 219);
+    padding: 50px 70px;
+    margin-top: 30px;
+    background-color: var(--drity-white);
+    font-family: "TikTok Sans", sans-serif;
+    margin-bottom: 100px;
+}
+
+.form-title {
+    font-size: 20px;
+}
+
+.form-container label,
+.col-form-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: black;
+}
+
+.form-container .required {
+    font-weight: 400;
+    color: var(--text-red);
+}
+
+.info-header .fullname {
+    color: var(--black);
+    font-size: 30px;
+    font-weight: 600;
+    font-family: "TikTok Sans", sans-serif;
+}
+.sortable-table {
+    border-bottom: 2px solid var(--text-blue);
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sortable-table th,
+.sortable-table td {
+    border: 1px solid rgb(218, 218, 218);
+    font-size: 15px;
+}
+
+.sortable-table th:first-child,
+.sortable-table td:first-child {
+    width: 70px;
+    min-width: 70px;
+    max-width: 100px;
+    white-space: nowrap;
+}
+.sortable-table th:last-child,
+.sortable-table td:last-child {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+    white-space: nowrap;
+}
+
+.sortable-table thead th {
+    background-color: var(--text-blue);
+    color: var(--white);
+    font-weight: 500;
+    text-align: center;
+}
+
+.sortable-table th.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.sortable-table th.sorted {
+    background-color: rgb(83, 139, 196);
+}
+
+.sortable-table .sort-icons {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 0.8em;
+}
+
+.sortable-table .sort-icons span {
+    opacity: 0.3;
+    margin: 0 1px;
+}
+
+.sortable-table .sort-icons .active {
+    opacity: 1;
+    color: var(--white);
+    font-weight: bold;
+}
+
+.sortable-table tbody tr:hover td {
+    background-color: rgb(240, 240, 240);
+    color: black;
+}
+
+.sortable-table tbody tr:hover td:first-child {
+    border-left: 2px solid #0d6efd;
+}
+
+.sortable-table .edit-btn {
+    color: var(--text-blue);
+}
+
+.sortable-table .delete-btn {
+    color: var(--text-red);
+}
+
+.addnew-title {
+    font-size: 23px;
+    color: var(--black);
+    margin-bottom: 20px;
+}
+.add-extinguisher-container {
+    font-family: "TikTok Sans", sans-serif;
+    padding: 40px;
+    border-radius: 10px;
+    background-color: var(--dirty-white);
+}
+
+.add-extinguisher-container label {
+    font-weight: 500;
+}
+
+.table-container-fluid {
+    margin: 0px 100px;
+}
+
+.border-success {
+    border: 1px solid green !important;
+}
+
+.border-danger {
+    border: 1px solid rgb(226, 6, 6) !important;
+}
+
+.validation-title {
+    font-size: 15px;
+    font-weight: 400;
+    font-style: italic;
+}
+.question-green {
+    color: #0c882a;
+}
+.question-blue {
+    color: #074ba4;
+}
+.question-red {
+    color: #cb2613;
+}
+
+.floating-alert {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    z-index: 1055;
+    max-width: 90%;
+    min-width: 260px;
+    padding: 1rem;
+    border-left: 6px solid #198754;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 0.5rem;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-120%);
+    transition: all 0.5s ease-in-out;
+}
+
+.floating-alert.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.floating-alert.hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-120%);
+}
+
+.floating-alert .icon-container {
+    color: #198754;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 576px) {
+    .floating-alert {
+        left: 10px;
+        right: 10px;
+        width: auto;
+        max-width: calc(100% - 20px);
+    }
+}
+@media screen and (max-width: 500px) {
+    .form-container {
+        padding: 20px 20px;
+    }
+    .add-extinguisher-container {
+        padding: 10px;
+    }
+    .addnew-title {
+        font-size: 19px;
+        margin-bottom: 10px;
+    }
+}

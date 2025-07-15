@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg  fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ route('dashboard') }}"> NUFEPM
             LAGUNA</a>
@@ -8,7 +8,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNavDropdown ">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link  dropdown-toggle nav-toggler" href="#" id="userDropdown" role="button"
@@ -43,5 +43,5 @@
             </ul>
         </div>
     </div>
+
 </nav>
-<div class="nav-yellow"></div>

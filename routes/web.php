@@ -6,52 +6,95 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AdminController\AccountsController;
 use App\Http\Controllers\AdminController\ExtinguisherController;
 use App\Http\Controllers\AdminController\LocationsController;
+use App\Http\Controllers\AdminController\QuestionController;
 use App\Http\Controllers\AdminController\TypesController;
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+use App\Http\Controllers\AdminController\InspectionLogsController;
+use App\Http\Controllers\MaintenanceController\InspectionController;
 
-Route::get('/', function () {
-    return view('admin.dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/', [MenuController::class, 'ShowDashboard'])->middleware(['auth'])->name('dashboard');
 
-
-
-
-Route::get('/Accounts', [MenuController::class, 'ShowAccountsMenu'])->name('admin.ShowAccountsMenu');
-Route::get('/Accounts/All', [AccountsController::class, 'ShowAllAccounts'])->name('admin.ShowAllAccounts');
-Route::get('/Accounts/New', [AccountsController::class, 'ShowAddUserForm'])->name('admin.ShowAddUserForm');
-Route::get('/Accounts/Profile', [AccountsController::class, 'ShowProfile'])->name('admin.ShowProfile');
-Route::get('/Accounts/Details/{id}', [AccountsController::class, 'ShowAccountDetails'])->name('admin.ShowAccountDetails');
-
-
-Route::get('/Extinguisher', [MenuController::class, 'ShowExtinguishersMenu'])->name('admin.ShowExtinguishersMenu');
-Route::get('/Extinguisher/Add', [ExtinguisherController::class, 'ShowAddTankForm'])->name('admin.ShowAddTankForm');
-Route::post('/Extinguisher/Submit', [ExtinguisherController::class, 'AddNewTank'])->name('SubmitNewTank');
-
-Route::delete('/Accounts/Submit', [AccountsController::class, 'DeleteAccount'])->name('admin.DeleteAccount');
-Route::post('/Accounts/Submit', [AccountsController::class, 'CreateUser'])->name('admin.CreateUser');
-Route::post('/Accounts/Update', [AccountsController::class, 'UpdateUserAccount'])->name('admin.UpdateUserAccount');
-
-
-Route::get('/Locations', [LocationsController::class, 'ShowLocations'])->name('admin.ShowLocations');
-
-Route::get('/Types', [TypesController::class, 'ShowTypes'])->name('admin.ShowTypes');
-Route::post('/Types/Submit', [TypesController::class, 'SubmitNewType'])->name('admin.SubmitNewType');
-Route::put('/Types/Update', [TypesController::class, 'UpdateType'])->name('admin.UpdateType');
-Route::delete('/Types/Delete', [TypesController::class, 'DeleteTypes'])->name('admin.DeleteTypes');
+Route::middleware(['auth', 'UserType:admin'])->group(function () {
+    Route::get('/Admin/Menu/Accounts', [MenuController::class, 'ShowAdminAccountsMenu'])->name('admin.ShowAccountsMenu');
+    Route::get('/Admin/Menu/Extinguisher', [MenuController::class, 'ShowAdminExtinguishersMenu'])->name('admin.ShowExtinguishersMenu');
+    Route::get('/Admin/Menu/Inspections', [MenuController::class, 'ShowAdminInspectionMenu'])->name('admin.ShowAdminInspectionMenu');
 
 
 
 
+    Route::prefix('Accounts/')->group(function () {
+        Route::get('/All', [AccountsController::class, 'ShowAllAccounts'])->name('admin.ShowAllAccounts');
+        Route::get('/New', [AccountsController::class, 'ShowAddUserForm'])->name('admin.ShowAddUserForm');
+        Route::get('/Profile', [AccountsController::class, 'ShowProfile'])->name('admin.ShowProfile');
+        Route::get('/Details/{id}', [AccountsController::class, 'ShowAccountDetails'])->name('admin.ShowAccountDetails');
+        Route::put('/Update', [AccountsController::class, 'UpdateUserAccount'])->name('admin.UpdateUserAccount');
+        Route::post('/Submit', [AccountsController::class, 'CreateUser'])->name('admin.CreateUser');
+        Route::delete('/Delete', [AccountsController::class, 'DeleteAccount'])->name('admin.DeleteAccount');
+    });
+
+    Route::prefix('Extinguisher/')->group(function () {
+        Route::get('/', [ExtinguisherController::class, 'ShowActiveExtinguishers'])->name('admin.ShowActiveExtinguishers');
+        Route::get('/Add', [ExtinguisherController::class, 'ShowAddTankForm'])->name('admin.ShowAddTankForm');
+        Route::get('/Details/{id}', [ExtinguisherController::class, 'ShowExtinguishersDetails'])->name('admin.ShowExtinguishersDetails');
+        Route::put('/Update', [ExtinguisherController::class, 'UpdateExtinguishers'])->name('admin.UpdateExtinguishers');
+        Route::post('/Submit', [ExtinguisherController::class, 'AddNewTank'])->name('SubmitNewTank');
+        Route::delete('/Delete', [ExtinguisherController::class, 'DeleteExtinguisher'])->name('admin.DeleteExtinguisher');
+    });
+
+    Route::prefix('Types/')->group(function () {
+        Route::get('/', [TypesController::class, 'ShowTypes'])->name('admin.ShowTypes');
+        Route::put('/Update', [TypesController::class, 'UpdateType'])->name('admin.UpdateType');
+        Route::post('/Submit', [TypesController::class, 'SubmitNewType'])->name('admin.SubmitNewType');
+        Route::delete('/Delete', [TypesController::class, 'DeleteTypes'])->name('admin.DeleteTypes');
+    });
+
+    Route::prefix('Locations/')->group(function () {
+        Route::get('/', [LocationsController::class, 'ShowLocations'])->name('admin.ShowLocations');
+        Route::put('/Update', [LocationsController::class, 'UpdateLocation'])->name('admin.UpdateLocation');
+        Route::post('/Submit', [LocationsController::class, 'SubmitNewLocation'])->name('admin.SubmitNewLocation');
+        Route::delete('/Delete', [LocationsController::class, 'DeleteLocation'])->name('admin.DeleteLocation');
+    });
+
+    Route::prefix('Questions/')->group(function () {
+        Route::get('/', [QuestionController::class, 'ShowAllQuestions'])->name('admin.ShowAllQuestions');
+        Route::put('/Update', [QuestionController::class, 'UpdateQuestion'])->name('admin.UpdateQuestion');
+        Route::put('/Asign', [QuestionController::class, 'AssignInspectionQuestion'])->name('admin.AssignInspectionQuestion');
+        Route::post('/Submit', [QuestionController::class, 'SubmitNewQuestion'])->name('admin.SubmitNewQuestion');
+        Route::delete('/Delete', [QuestionController::class, 'DeleteQuestions'])->name('admin.DeleteQuestions');
+    });
+
+    Route::prefix('/Inspection/Logs/')->group(function () {
+        Route::get('/Recent', [InspectionLogsController::class, 'ShowRecentLogs'])->name('admin.ShowRecentLogs');
+        Route::get('/Answer/{id}', [InspectionLogsController::class, 'ShowInspectionAnswer'])->name('admin.ShowInspectionAnswer');
+        Route::get('/Extinguishers', [InspectionLogsController::class, 'ShowInspectionExtinguishers'])->name('admin.ShowInspectionExtinguishers');
+        Route::get('/Table/{id}', [InspectionLogsController::class, 'ShowInspectionLogsTable'])->name('admin.ShowInspectionLogsTable');
+    });
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    // Route::get('/Extinguisher/New', [ExtinguisherController::class, 'ShowAddTankForm'])->name('ShowAddTankForm');
+    Route::get('/Extinguisher/location/get', [ExtinguisherController::class, 'GetLocations']);
+    Route::get('/Extinguisher/location/edit', [ExtinguisherController::class, 'GetEditLocations']);
+    Route::get('/Extinguisher/location-id', [ExtinguisherController::class, 'getLocationId']);
+    Route::get('/Extinguisher/location/show/{id}', [ExtinguisherController::class, 'showLocationById']);
+    Route::get('/Extinguisher/location/show/{id}', [ExtinguisherController::class, 'ShowLocationID']);
+});
 
+Route::middleware(['auth', 'UserType:maintenance'])->group(function () {
+    Route::get('/Maintenance/Menu/Inspections', [MenuController::class, 'ShowMaintenanceExtinguishersMenu'])->name('maintenance.ShowMaintenanceExtinguishersMenu');
+
+    Route::prefix('Scanner')->group(function () {
+        Route::get('/', [InspectionController::class, 'ShowScanner'])->name('maintenance.ShowScanner');
+    });
+
+    Route::prefix('Inspection')->group(function () {
+        Route::get('/Details/{id}', [InspectionController::class, 'ShowInspectionDetail'])->name('maintenance.ShowInspectionDetail');
+        Route::get('/Start/{id}', [InspectionController::class, 'StartInspection'])->name('maintenance.StartInspection');
+        Route::get('/confirmation', [InspectionController::class, 'ShowConfirmation'])->name('maintenance.ShowConfirmation');
+        Route::post('/Submit', [InspectionController::class, 'SubmitInspection'])->name('maintenance.SubmitInspection');
+    });
+
+    Route::prefix('Logs')->group(function () {
+        Route::get('/Recent', [InspectionController::class, 'ShowRecentInspected'])->name('maintenance.ShowRecentInspected');
+        Route::get('/History/Answer/{id}', [InspectionController::class, 'ShowInspectionAnswer'])->name('maintenance.ShowInspectionAnswer');
+    });
 });
 
 require __DIR__ . '/auth.php';

@@ -15,11 +15,20 @@
         <hr>
     </div>
 
-    <div class="container">
-        <input type="text" id="tableSearch" class="form-control mb-3 w-25" placeholder="Search..."
-            onkeyup="filterTable()">
-        <div class="table-responsive">
-            <table class="accounts-table table table-responsive table-bordered w-100" id="employeeTable">
+    <div class="container animated-container">
+        <div class="row mt-3 mb-3">
+            <div class="col-12 col-lg-3">
+                <div class="input-group">
+                    <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
+                    <input type="text" id="tableSearch" class="form-control" placeholder="Search..."
+                        onkeyup="filterTable()">
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive ">
+
+            <table class="sortable-table table table-responsive table-bordered w-100" id="sortableTable">
                 <thead>
                     <tr>
                         <th class="text-center sortable" data-index="0" onclick="sortTable(this)">
@@ -60,9 +69,9 @@
                                     <span class="badge rounded-pill text-bg-warning">Inactive</span>
                                 @endif
                             </td>
-                            <td class="text-center d-flex justify-content-center">
-                                <div class="d-flex">
-                                    <a class="mx-2" href="{{ url('Accounts/Details/' . $item->id) }}">
+                            <td class="text-center align-middle">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <a class="mx-2 edit-btn" href="{{ url('Accounts/Details/' . $item->id) }}">
                                         <i class="fa-regular fa-eye"></i>
                                     </a>
                                     <form action="{{ route('admin.DeleteAccount') }}" method="POST"
@@ -70,11 +79,12 @@
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="id" value="{{ $item->id }}">
-                                        <button class="mx-2" type="submit" title="Delete"
+                                        <button class="mx-2 delete-btn" type="submit" title="Delete"
                                             style="border: none; background-color: transparent">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </button>
                                     </form>
+                                    @include('layouts.components.deletepopup')
                                 </div>
                             </td>
                         </tr>
@@ -82,76 +92,24 @@
 
                 </tbody>
             </table>
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+
+                <div class="mb-2 mt-2 small text-muted">
+                    Showing <b>{{ $items->firstItem() }}</b> to <b>{{ $items->lastItem() }}</b> of
+                    <b>{{ $items->total() }}</b> Items
+                </div>
+
+                <div class="mt-3">
+                    {{ $items->onEachSide(1)->links() }}
+                </div>
+            </div>
+
         </div>
     </div>
-    <script>
-        function confirmDelete(form) {
-            return confirm('Are you sure you want to delete this account?');
-        }
-    </script>
-    <script>
-        let sortDirection = {};
-        let lastSortedTh = null;
-
-        function sortTable(thElement) {
-            const columnIndex = thElement.getAttribute('data-index');
-            const table = document.querySelector(".accounts-table");
-            const tbody = table.querySelector("tbody");
-            const rows = Array.from(tbody.querySelectorAll("tr"));
-
-
-            sortDirection[columnIndex] = !sortDirection[columnIndex];
-            const direction = sortDirection[columnIndex] ? 1 : -1;
-
-
-            if (lastSortedTh && lastSortedTh !== thElement) {
-                lastSortedTh.classList.remove('sorted');
-                lastSortedTh.querySelector('.asc').classList.remove('active');
-                lastSortedTh.querySelector('.desc').classList.remove('active');
-            }
-
-
-            thElement.classList.add('sorted');
-            thElement.querySelector('.asc').classList.toggle('active', direction === 1);
-            thElement.querySelector('.desc').classList.toggle('active', direction === -1);
-            lastSortedTh = thElement;
-
-
-            rows.sort((a, b) => {
-                const aText = a.children[columnIndex].innerText.trim().toLowerCase();
-                const bText = b.children[columnIndex].innerText.trim().toLowerCase();
-                return aText.localeCompare(bText, undefined, {
-                    numeric: true
-                }) * direction;
-            });
-
-            rows.forEach(row => tbody.appendChild(row));
-        }
-
-        function filterTable() {
-            const input = document.getElementById("tableSearch");
-            const filter = input.value.toLowerCase();
-            const table = document.getElementById("employeeTable");
-            const rows = table.getElementsByTagName("tr");
-
-            for (let i = 1; i < rows.length; i++) {
-                const row = rows[i];
-                const cells = row.getElementsByTagName("td");
-                let match = false;
-
-                for (let j = 0; j < cells.length; j++) {
-                    const cell = cells[j];
-                    if (cell.textContent.toLowerCase().includes(filter)) {
-                        match = true;
-                        break;
-                    }
-                }
-                row.style.display = match ? "" : "none";
-            }
-        }
-    </script>
+    <script src="{{ asset('/js/table/search.js') }}"></script>
+    <script src="{{ asset('/js/table/sort.js') }}"></script>
 @endsection
 @push('css')
     <link href="{{ asset('css/components/submenu.css') }}?v={{ time() }}" rel="stylesheet">
-    <link href="{{ asset('css/accounts.css') }}?v={{ time() }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}?v={{ time() }}" rel="stylesheet">
 @endpush
