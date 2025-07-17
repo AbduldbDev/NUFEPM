@@ -100,7 +100,7 @@ Route::middleware(['auth', 'UserType:maintenance'])->group(function () {
     Route::prefix('Inspection')->group(function () {
         Route::get('/Details/{id}', [InspectionController::class, 'ShowInspectionDetail'])->name('maintenance.ShowInspectionDetail');
         Route::get('/Start/{id}', [InspectionController::class, 'StartInspection'])->name('maintenance.StartInspection');
-        Route::get('/confirmation', [InspectionController::class, 'ShowConfirmation'])->name('maintenance.ShowConfirmation');
+        Route::get('/confirmation', [InspectionController::class, 'ShowInspectionConfirmation'])->name('maintenance.ShowConfirmation');
         Route::post('/Submit', [InspectionController::class, 'SubmitInspection'])->name('maintenance.SubmitInspection');
     });
 

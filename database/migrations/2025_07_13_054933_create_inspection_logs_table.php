@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('extinguisher_id')->constrained()->onDelete('cascade');
             $table->foreignId('inspected_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamp('inspected_at');
-            $table->timestamp('next_due');
+            $table->timestamp('next_due')->nullable();
             $table->integer('time');
             $table->string('status');
             $table->text('remarks')->nullable();
