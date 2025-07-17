@@ -14,61 +14,36 @@
         </div>
         <hr>
 
-        <div class="add-extinguisher-container shadow-sm animated-container">
-            <form action="{{ route('admin.SubmitNewType') }}" method="POST">
-                @csrf
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <h1 class="text-lg addnew-title"><i class="fa-solid fa-file-circle-plus"></i> Add New Type
-                        </h1>
-                        <div class="mb-3">
-                            <label for="serial_number" class="form-label">Created By: </label>
-                            <input type="text" name="serial_number" class="form-control" readonly
-                                value="{{ Auth::user()->lname }}, {{ Auth::user()->fname }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="type" class="form-label">Name:</label>
-                            <input type="text" name="name" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="capacity" class="form-label">Color</label>
-                            <input type="color" name="color" class="form-control w-25" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-12 col-lg-3">
-                        <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-floppy-disk"></i> Save
-                            Type</button>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-
-        <div class="mt-5 animated-container">
-            <div class="row mt-3 mb-3">
-                <div class="col-12 col-lg-3">
+        <div class="table-container animated-container">
+            <div
+                class="row mt-3 mb-3 d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center">
+                <div class="col-12 col-lg-3 ">
                     <div class="input-group">
                         <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
                         <input type="text" id="tableSearch" class="form-control" placeholder="Search..."
                             onkeyup="filterTable()">
                     </div>
                 </div>
+                <div class="col-12 col-lg-3 W mt-3 mt-lg-0 text-end">
+                    <button class="btn w-50 w-lg-auto add-new-btn" data-bs-toggle="modal" data-bs-target="#addTypeModal"><i
+                            class="bi bi-file-earmark-plus"></i> Add
+                        New</button>
+                </div>
+                @include('Admin.types.modals.addtype')
             </div>
+
             <div class="table-responsive ">
                 <table class="sortable-table table table-responsive table-bordered w-100" id="sortableTable">
                     <thead>
                         <tr>
-                            <th class="text-center sortable" data-index="0" onclick="sortTable(this)">
+                            <th class="text-center sortable align-middle" data-index="0" onclick="sortTable(this)">
                                 # <span class="sort-icons"><span class="asc">▲</span><span class="desc">▼</span></span>
                             </th>
-                            <th class="text-center sortable" data-index="1" onclick="sortTable(this)">
+                            <th class="text-center sortable align-middle" data-index="1" onclick="sortTable(this)">
                                 Created By <span class="sort-icons"><span class="asc">▲</span><span
                                         class="desc">▼</span></span>
                             </th>
-                            <th class="sortable" data-index="2" onclick="sortTable(this)">
+                            <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
                                 Name<span class="sort-icons"><span class="asc">▲</span><span
                                         class="desc">▼</span></span>
                             </th>
@@ -95,51 +70,7 @@
                                             data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
-                                        <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1"
-                                            aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <form method="POST" action="{{ route('admin.UpdateType', $item->id) }}">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <div class="modal-content text-start">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="editModalLabel{{ $item->id }}">
-                                                                Edit
-                                                                Type</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                        </div>
-
-                                                        <div class="modal-body">
-                                                            <div class="mb-3">
-                                                                <input type="hidden" name="id"
-                                                                    value="{{ $item->id }}">
-                                                                <label for="name{{ $item->id }}"
-                                                                    class="form-label">Type
-                                                                    Name</label>
-                                                                <input type="text" name="name"
-                                                                    id="name{{ $item->id }}" class="form-control"
-                                                                    value="{{ $item->name }}">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="color{{ $item->id }}"
-                                                                    class="form-label">Color</label>
-                                                                <input type="color" name="color"
-                                                                    id="color{{ $item->id }}"
-                                                                    class="form-control w-25"
-                                                                    value="{{ $item->color }}">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Cancel</button>
-                                                            <button type="submit" class="btn btn-success">Update</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
+                                        @include('Admin.types.modals.edittype')
 
                                         <form action="{{ route('admin.DeleteTypes') }}" method="POST"
                                             onsubmit="return confirmDelete(this);">
@@ -148,7 +79,7 @@
                                             <input type="hidden" name="id" value="{{ $item->id }}">
                                             <button class="mx-2 delete-btn" type="submit" title="Delete"
                                                 style="border: none; background-color: transparent">
-                                                <i class="fa-solid fa-trash-can"></i>
+                                                <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
                                         @include('layouts.components.deletepopup')

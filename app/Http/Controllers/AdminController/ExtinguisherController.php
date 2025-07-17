@@ -23,7 +23,13 @@ class ExtinguisherController extends Controller
 {
     public function ShowActiveExtinguishers()
     {
-        $items = Extinguishers::with(['location', 'type', 'user'])->where('status', '!=', 'Retired')->paginate(2);
+        $items = Extinguishers::with(['location', 'type', 'user'])->where('status', '!=', 'Retired')->paginate(50);
+        return view('Admin.extinguisher.table', compact('items'));
+    }
+
+    public function ShowRetiredExtinguishers()
+    {
+        $items = Extinguishers::with(['location', 'type', 'user'])->where('status', 'Retired')->paginate(50);
         return view('Admin.extinguisher.table', compact('items'));
     }
 
@@ -45,6 +51,7 @@ class ExtinguisherController extends Controller
             'serial_number' => 'required|string',
             'type' => 'required|integer',
             'capacity' => 'required|string',
+            'location_id' => 'required|string',
             'installation_date' => 'nullable|date',
         ]);
 
@@ -69,6 +76,7 @@ class ExtinguisherController extends Controller
             'serial_number' => 'required|string',
             'type' => 'required|integer',
             'capacity' => 'required|string',
+            'loc_id'  => 'required|string',
             'installation_date' => 'nullable|date',
 
         ]);
@@ -93,7 +101,6 @@ class ExtinguisherController extends Controller
             $binaryData = $result->getString();
 
             Storage::disk('public')->put("QRcodes/{$filename}", $binaryData);
-
 
             Extinguishers::create([
                 'created_by' => Auth::user()->id,
@@ -183,7 +190,7 @@ class ExtinguisherController extends Controller
         ]);
     }
 
-    public function getLocationId(Request $request)
+    public function GetLocationID(Request $request)
     {
         $query = ExtinguisherLocations::query();
 

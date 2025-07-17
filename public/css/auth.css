@@ -1,5 +1,10 @@
 @import url("/css/components/variables.css");
-
+body {
+    overflow: hidden;
+}
+.login-form {
+    min-height: 50vh;
+}
 .right-box {
     padding: 30px;
 }
@@ -7,4 +12,30 @@
     word-break: break-word;
     overflow-wrap: break-word;
     max-width: 100%;
+}
+.login-btn {
+    background-color: var(--main-blue);
+    border-radius: 20px;
+    color: var(--white);
+    transition: 0.2s ease-in-out;
+}
+.login-btn:hover {
+    border: 1px solid var(--main-blue);
+    color: var(--main-blue);
+}
+.login-btn:active {
+    transform: scale(0.95);
+}
+.form-check-input:checked {
+    background-color: var(--main-blue);
+    border-color: var(--main-blue);
+}
+@media screen and (max-width: 500px) {
+    .right-box {
+        padding: 20px 10px;
+    }
+    .login-img {
+        height: 20vh;
+        object-fit: contain;
+    }
 }

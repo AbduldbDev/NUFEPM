@@ -45,7 +45,7 @@
             </div>
 
             <div class="menu-box">
-                <a href="{{ route('admin.ShowActiveExtinguishers') }}" class="menu-box-link"></a>
+                <a href="{{ route('admin.ShowRetiredExtinguishers') }}" class="menu-box-link"></a>
                 <div class="row">
                     <div class="col-sm-12 col-md-2">
                         <div class="menu-icon"><i class="fa-solid fa-box-archive"></i></div>

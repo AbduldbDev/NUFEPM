@@ -2,24 +2,23 @@
 
 @section('content')
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="row border rounded-5 p-3 bg-white shadow box-area">
+        <div class="login-form row border rounded-5 p-3 bg-white shadow box-area">
             <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
                 style="background: #323e8f;">
                 <div class="featured-image mb-3">
-                    <img src="{{ asset('/Image/NULogo.png') }}" class="img-fluid" style="width: 250px;">
+                    <img src="{{ asset('/Image/NULogo.png') }}" class="img-fluid login-img" style="width: 250px;">
                 </div>
             </div>
 
             <div class="col-md-6 right-box">
                 <div class="row align-items-center">
-                    <div class="header-text mb-4">
+                    <div class="header-text mb-2 mg-lg-4">
                         <h2>Hello, Again</h2>
                         <p>Fire Extinguisher Preventive Maintenance</p>
                     </div>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-1 mg-lg-3">
                             <input type="email" name="email" id="email"
                                 class="form-control form-control-lg bg-light fs-6 @error('email') is-invalid @enderror"
                                 value="{{ old('email') }}" required autofocus>
@@ -30,7 +29,7 @@
                             @enderror
                         </div>
 
-                        <div class="input-group mb-1">
+                        <div class="input-group mb-1 mg-lg-1">
                             <input type="password" name="password" id="password"
                                 class="form-control form-control-lg bg-light fs-6 @error('password') is-invalid @enderror"
                                 required>
@@ -44,18 +43,18 @@
                             @enderror
                         </div>
 
-                        <div class="input-group mb-5 d-flex justify-content-between">
+                        <div class="input-group mb-3 mg-lg-5 d-flex justify-content-between">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="formCheck">
                                 <label for="formCheck" class="form-check-label text-secondary"><small>Remember
                                         Me</small></label>
                             </div>
-                            <div class="forgot">
+                            {{-- <div class="forgot">
                                 <small><a href="#">Forgot Password?</a></small>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="input-group mb-3">
-                            <button class="btn btn-lg btn-primary w-100 fs-6">Login</button>
+                            <button class="btn btn-lg login-btn  w-100 fs-6">Login</button>
                         </div>
                     </form>
                 </div>

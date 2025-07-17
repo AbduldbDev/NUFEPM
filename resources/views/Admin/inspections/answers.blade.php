@@ -17,7 +17,7 @@
             <div class="card shadow-sm rounded-3 p-3 mb-3" style="border-left: 4px solid #35408e;">
                 <h5 class="fw-bold mb-3"><i class="fa-solid fa-clipboard-check me-2"></i>Inspection Answers</h5>
                 <div class="row fw-medium px-0">
-                    <div class="col-12 col-md-6 mb-2">
+                    <div class="col-12 col-md-4 mb-2">
                         <span class="text-muted">Inspected By:</span><br>
                         <span class="fw-semibold">
                             @if ($details->user && $details->user->lname && $details->user->fname)
@@ -28,11 +28,18 @@
                         </span>
                     </div>
 
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-4 mb-2">
                         <span class="text-muted">Inspected At:</span><br>
                         <span class="fw-semibold">
                             {{ optional($details->inspected_at ? \Carbon\Carbon::parse($details->inspected_at) : null)->format('F d, Y') ?? 'N/A' }}
                             {{ optional($details->inspected_at ? \Carbon\Carbon::parse($details->inspected_at) : null)->format('h:m a') ?? 'N/A' }}
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <span class="text-muted">Completion Time:</span><br>
+                        <span class="fw-semibold">
+                            {{ gmdate($details->time > 3600 ? 'H:i:s' : ($details->time >= 60 ? 'i:s' : 's'), $details->time) }}
+                            {{ $details->time > 3600 ? 'Hr' : ($details->time >= 60 ? 'Min' : 'Sec') }}
                         </span>
                     </div>
                 </div>

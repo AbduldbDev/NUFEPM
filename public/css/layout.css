@@ -3,7 +3,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* font-family: "NU Font"; */
+    font-family: "TikTok Sans", sans-serif;
 }
 body {
     background-color: var(--bg-white);
@@ -12,6 +12,22 @@ body {
 .container {
     transition: 0.3s ease-in-out;
 }
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #35408e;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+
 .animated-container {
     transition: all 0.3s ease-in-out;
     animation: slideFadeIn 0.4s ease-in-out;
@@ -71,11 +87,7 @@ footer span {
     color: var(--text-black);
     font-size: 13px;
 }
-.pagination .page-item.active .page-link {
-    background-color: var(--text-blue);
-    border-color: var(--text-blue);
-    color: #fff;
-}
+
 @keyframes slideFadeIn {
     0% {
         opacity: 0;

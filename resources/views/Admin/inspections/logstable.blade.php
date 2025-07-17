@@ -15,26 +15,57 @@
         </div>
         <hr>
     </div>
-    <div class="container animated-container">
-        <div class="card shadow-sm rounded-3 p-3 ">
-            <h5 class="fw-bold mb-3"><i class="fa-solid fa-clipboard-check me-2"></i>Extinguisher No:
-                {{ $details->extinguisher_id }}</h5>
-            <div class="row fw-medium px-0">
-                <div class="col-12 col-md-6 mb-2">
-                    <span class="text-muted">Last Inspected:</span><br>
-                    <span class="fw-semibold">
-                        {{ optional($details->last_maintenance ? \Carbon\Carbon::parse($details->last_maintenance) : null)->format('F d, Y') ?? 'N/A' }}
-                    </span>
+    <div class="table-container container animated-container">
+        <div class="border rounded-3 p-4 mb-4 bg-light position-relative">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <h5 class="fw-bold  mb-0" style="color: #35408e">
+                    <i class="fa-solid fa-fire-extinguisher me-2"></i>Extinguisher #{{ $details->extinguisher_id }}
+                </h5>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-4 ">
+                    <div class="d-flex ">
+                        <i class="fa-solid fa-calendar-check me-2 mt-1 text-muted"></i>
+                        <div>
+                            <small class="text-muted">Last Maintenance</small><br>
+                            <span class="fw-medium">
+                                {{ optional($details->last_maintenance ? \Carbon\Carbon::parse($details->last_maintenance) : null)->format('F d, Y') ?? 'N/A' }}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="col-12 col-md-6">
-                    <span class="text-muted">Next Maintenance:</span><br>
-                    <span class="fw-semibold">
-
-                        {{ optional($details->next_maintenance ? \Carbon\Carbon::parse($details->next_maintenance) : null)->format('F d, Y') ?? 'N/A' }}
-                    </span>
+                <div class="col-12 col-md-4 ">
+                    <div class="d-flex ">
+                        <i class="fa-solid fa-calendar-plus me-2 mt-1 text-muted"></i>
+                        <div>
+                            <small class="text-muted">Next Maintenance</small><br>
+                            <span class="fw-medium text-danger">
+                                {{ optional($details->next_maintenance ? \Carbon\Carbon::parse($details->next_maintenance) : null)->format('F d, Y') ?? 'N/A' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 ">
+                    <div class="d-flex">
+                        <i class="fa-solid fa-bars-progress me-2 mt-1 text-muted"></i>
+                        <div>
+                            <small class="text-muted">Current Status</small><br>
+                            @php
+                                $status = $details->status;
+                                $badgeClass = match ($status) {
+                                    'Good' => 'success',
+                                    'Overcharged' => 'primary',
+                                    'Undercharged', 'Retired' => 'danger',
+                                    default => 'secondary',
+                                };
+                            @endphp
+                            <span class="badge bg-{{ $badgeClass }} px-3 py-2 rounded-pill">{{ $status }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
         <div class="row mt-3 mb-3">
             <div class="col-12 col-lg-3">
@@ -52,32 +83,36 @@
                     <tr>
                         <thead>
                             <tr>
-                                <th class="text-center sortable" data-index="0" onclick="sortTable(this)">
+                                <th class="text-center sortable align-middle" data-index="0" onclick="sortTable(this)">
                                     # <span class="sort-icons"><span class="asc">▲</span><span
                                             class="desc">▼</span></span>
                                 </th>
-                                <th class="text-center sortable" data-index="1" onclick="sortTable(this)">
+                                <th class="text-center sortable align-middle" data-index="1" onclick="sortTable(this)">
                                     Extinguisher Id<span class="sort-icons"><span class="asc">▲</span><span
                                             class="desc">▼</span></span>
                                 </th>
-                                <th class="sortable" data-index="2" onclick="sortTable(this)">
+                                <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
                                     Inspected By<span class="sort-icons"><span class="asc">▲</span><span
                                             class="desc">▼</span></span>
                                 </th>
-                                <th class="sortable" data-index="2" onclick="sortTable(this)">
+                                <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
                                     Inspected At<span class="sort-icons"><span class="asc">▲</span><span
                                             class="desc">▼</span></span>
                                 </th>
-                                <th class="sortable" data-index="2" onclick="sortTable(this)">
+                                <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
                                     Next Due<span class="sort-icons"><span class="asc">▲</span><span
                                             class="desc">▼</span></span>
                                 </th>
-                                <th class="sortable" data-index="2" onclick="sortTable(this)">
+                                <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
+                                    Completion Time<span class="sort-icons"><span class="asc">▲</span><span
+                                            class="desc">▼</span></span>
+                                </th>
+                                <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
                                     Status<span class="sort-icons"><span class="asc">▲</span><span
                                             class="desc">▼</span></span>
                                 </th>
 
-                                <th class="text-center">Action</th>
+                                <th class="text-center sortable align-middle">Action</th>
                             </tr>
                         </thead>
                     </tr>
@@ -118,7 +153,11 @@
 
                             <td class="text-center {{ $class }}">
                                 {{ $next ? $next->format('F d, Y ') : 'N/A' }}<br>
-                                {{-- <small>{{ number_format($diffInDays, 0) }} days</small> --}}
+
+                            </td>
+                            <td class="text-center">
+                                {{ gmdate($details->time > 3600 ? 'H:i:s' : ($details->time >= 60 ? 'i:s' : 's'), $details->time) }}
+                                {{ $details->time > 3600 ? 'Hr' : ($details->time >= 60 ? 'Min' : 'Sec') }}
                             </td>
                             <td class="text-center">
                                 @if ($item->status === 'Good')

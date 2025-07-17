@@ -26,4 +26,9 @@ class InspectionLogs extends Model
     {
         return $this->belongsTo(User::class, 'inspected_by');
     }
+    
+    public function answers()
+    {
+        return $this->hasMany(InspectionAnswer::class, 'inspection_id', 'id');
+    }
 }

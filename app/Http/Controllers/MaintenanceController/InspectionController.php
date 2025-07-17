@@ -20,10 +20,12 @@ class InspectionController extends Controller
     {
         return view('Maintenance.Inspection.confirmation');
     }
+
     public function ShowScanner()
     {
         return view('Maintenance.Inspection.scanner');
     }
+   
 
     public function ShowInspectionDetail($id)
     {
@@ -121,20 +123,5 @@ class InspectionController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e);
         }
-    }
-
-
-    public function ShowRecentInspected()
-    {
-        $latestIds = InspectionLogs::select(DB::raw('MAX(id) as id'))->groupBy('extinguisher_id')->pluck('id');
-        $items = InspectionLogs::with(['user', 'extinguisher'])->where('inspected_by', Auth::id())->latest()->paginate(20);
-        return view('Maintenance.logs.logs', compact('items'));
-    }
-
-    public function ShowInspectionAnswer($id)
-    {
-        $details = InspectionLogs::with(['user', 'extinguisher'])->find($id);
-        $items = InspectionAnswer::with(['questions'])->where('inspection_id', $details->id)->get();
-        return view('Maintenance.logs.answers', compact('details', 'items'));
     }
 }

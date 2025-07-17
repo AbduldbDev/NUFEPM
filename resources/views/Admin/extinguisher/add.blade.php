@@ -14,12 +14,12 @@
         </div>
         <hr>
 
-        <div class="add-extinguisher-container shadow-sm animated-container">
+        <div class="card shadow-sm border-0 rounded-4 p-4 animated-container">
             <form action="{{ route('SubmitNewTank') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <h1 class="text-lg addnew-title"><i class="fa-solid fa-file-circle-plus"></i> Add New Extinguishers
+                        <h1 class="text-lg addnew-title"><i class="fa-solid fa-file-circle-plus"></i> Extinguishers Details
                         </h1>
                         <div class="mb-3">
                             <label for="serial_number" class="form-label">Serial Number: <span
@@ -89,7 +89,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-12 col-lg-3">
-                        <button id="submit-button" type="submit" class="btn btn-primary mt-2 w-100" disabled>
+                        <button id="submit-button" type="submit" class="btn add-new-btn mt-2 w-100" disabled>
                             <i class="fa-solid fa-floppy-disk"></i> Save Extinguisher
                         </button>
                     </div>
@@ -97,72 +97,7 @@
 
             </form>
         </div>
-
     </div>
-    {{-- 
-    <div class="container-fluid p-5 my-5 shadow-sm">
-        <table class="sortable-table table table-responsive">
-            <thead>
-                <tr>
-                    <th class="text-center sortable" data-index="0" onclick="sortTable(this)">
-                        # <span class="sort-icons"><span class="asc">▲</span><span class="desc">▼</span></span>
-                    </th>
-                    <th class="text-center sortable" data-index="1" onclick="sortTable(this)">
-                        QR Codes <span class="sort-icons"><span class="asc">▲</span><span
-                                class="desc">▼</span></span>
-                    </th>
-                    <th class="sortable" data-index="2" onclick="sortTable(this)">
-                        Serial Number <span class="sort-icons"><span class="asc">▲</span><span
-                                class="desc">▼</span></span>
-                    </th>
-                    <th class="sortable" data-index="3" onclick="sortTable(this)">
-                        Extinguisher Type <span class="sort-icons"><span class="asc">▲</span><span
-                                class="desc">▼</span></span>
-                    </th>
-                    <th class="sortable" data-index="4" onclick="sortTable(this)">
-                        Extinguisher Location <span class="sort-icons"><span class="asc">▲</span><span
-                                class="desc">▼</span></span>
-                    </th>
-                    <th class="text-center sortable" data-index="5" onclick="sortTable(this)">
-                        Last Maintenance <span class="sort-icons"><span class="asc">▲</span><span
-                                class="desc">▼</span></span>
-                    </th>
-                    <th class="text-center">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($tanks as $index => $item)
-                    <tr>
-                        <td style="vertical-align: middle; text-align: center;">
-                            {{ $index + 1 }}
-                        </td>
-                        <td style="vertical-align: middle; text-align: center;">
-
-                            <img src="{{ asset($item->qr_code_path) }}" alt="QR Code" width="100px">
-                            {{ $item->extinguisher_id }}
-
-                        </td>
-                        <td style="vertical-align: middle; text-align: center;">
-                            {{ $item->serial_number }}
-                        </td>
-                        <td style="vertical-align: middle; text-align: center;">
-                            {{ $item->type }}
-                        </td>
-                        <td style="vertical-align: middle; text-align: center;">
-                            {{ $item->location->building ?? '' }}
-                        </td>
-                        <td style="vertical-align: middle; text-align: center;">
-                            {{ \Carbon\Carbon::parse($item->last_maintenance)->format('F d, Y') }}
-
-                        </td>
-                        <td style="vertical-align: middle; text-align: center;">
-                            {{ $item->status }}
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div> --}}
 
     <script src="{{ asset('/js/extinguishers/locationdropdown.js') }}"></script>
 @endsection

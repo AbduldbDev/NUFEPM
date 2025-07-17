@@ -16,9 +16,13 @@ class UserType
      */
     public function handle(Request $request, Closure $next, ...$types)
     {
+        if (!Auth::check()) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $user = Auth::user();
 
-        if (!$user || !in_array($user->type, $types)) {
+        if (!in_array($user->type, $types)) {
             abort(403, 'Unauthorized action.');
         }
 

@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-sm-12 col-md-10">
                         <div class="passport-title user-link">
-                            <span class="module-name">Recent Inspections</span>
+                            <span class="module-name">My Recent Inspections</span>
                         </div>
                         <div class="module-description small text-muted">
                             View the latest fire extinguisher inspection records conducted in the system.
@@ -27,7 +27,7 @@
             </div>
 
             <div class="menu-box">
-                <a href="{{ route('maintenance.ShowRecentInspected') }}" class="menu-box-link"></a>
+                <a href="{{ route('maintenance.ShowNearInspection') }}" class="menu-box-link"></a>
                 <div class="row">
                     <div class="col-sm-12 col-md-2">
                         <div class="menu-icon"><i class="fa-solid fa-file-circle-plus"></i></div>

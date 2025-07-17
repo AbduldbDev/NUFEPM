@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
 
 class AccountsController extends Controller
@@ -23,8 +24,13 @@ class AccountsController extends Controller
 
     public function ShowAllAccounts()
     {
-        $items = User::paginate(100);
+        $items = User::paginate(50);
         return view('Admin.accounts.allaccounts', compact('items'));
+    }
+
+    public function ShowChangePassword()
+    {
+        return view('Admin.accounts.changepass');
     }
 
     public function ShowAccountDetails($id)
@@ -167,5 +173,30 @@ class AccountsController extends Controller
         $user = User::findOrFail($request->id);
         $user->delete();
         return redirect()->back()->with('success', 'User deleted successfully.');
+    }
+
+    public function ChangePasswowrd(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required'],
+            'new_password' => ['required', 'min:8', 'confirmed'],
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with('error', 'Current password is incorrect.');
+        }
+
+        $action = User::where('id', Auth::id())->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        if ($action) {
+            Auth::logout();
+            return redirect()->route('login')->with('success', 'Password changed successfully. Please log in again.');
+        } else {
+            return back()->with('errorr', 'Current password is incorrect.');
+        }
     }
 }

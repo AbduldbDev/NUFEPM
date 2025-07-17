@@ -5,7 +5,13 @@
          });
      </script>
  @endif
-
+ @if (session('error'))
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             showFloatingAlert("{{ session('error') }}", "danger");
+         });
+     </script>
+ @endif
  @if ($errors->has('error'))
      <script>
          document.addEventListener('DOMContentLoaded', function() {

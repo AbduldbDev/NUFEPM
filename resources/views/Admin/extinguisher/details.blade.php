@@ -58,6 +58,15 @@
                             <input id="installation_date" type="date" name="installation_date" class="form-control"
                                 required value="{{ $details->installation_date }}">
                         </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status: <span class="text-danger">*</span></label>
+                            <select class="form-control" name="status" id="status">
+                                <option value="Good">Good</option>
+                                <option value="Overcharged">Overcharged</option>
+                                <option value="Undercharged">Undercharged</option>
+                                <option value="Retired">Retired</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <h1 class="text-lg addnew-title"><i class="fa-solid fa-building"></i> Extinguisher Location
@@ -93,7 +102,7 @@
                         <h1 id="location-status" style="display: none;" class="validation-title"></h1>
                     </div>
                 </div>
-                <button id="submit-button" type="submit" class="btn btn-primary mt-3">
+                <button id="submit-button" type="submit" class="btn save-btn mt-3">
                     <i class="fa-solid fa-floppy-disk"></i> Update Extinguisher
                 </button>
             </form>
@@ -118,6 +127,9 @@
                                     <small>
                                         Maintenance Interval: <span
                                             class="text-primary">{{ $question->maintenance_interval }}</span> |
+
+                                    </small>
+                                    <small>
                                         Fail Reschedule Days: <span
                                             class="text-danger">{{ $question->fail_reschedule_days }}</span>
                                     </small>

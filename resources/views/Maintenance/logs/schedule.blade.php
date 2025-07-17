@@ -4,12 +4,13 @@
     <div class="main-container container ">
         <div class="title">
             <span class="menu-title-icon"><i class="fa-solid fa-qrcode"></i></span> &nbsp;
+
             <span class="crumb">
                 <span class="breadcrumbs"><a
                         href="{{ route('maintenance.ShowMaintenanceExtinguishersMenu') }}">Inspections</a> &gt; </span>
             </span>
 
-            <span class="breadcrumbs">Answers</span>
+            <span class="breadcrumbs">Upcoming Inspection</span>
         </div>
         <hr>
 
@@ -21,38 +22,35 @@
                             <h6 class="card-title mb-2">
                                 <strong>#{{ $items->firstItem() + $index }}</strong>
                             </h6>
-                            <span
-                                class="badge px-3 py-2 rounded-pill {{ $item->status === 'Good'
-                                    ? 'bg-success'
-                                    : ($item->status === 'Undercharged'
-                                        ? 'bg-danger'
-                                        : ($item->status === 'Overcharged'
-                                            ? 'bg-primary'
-                                            : ($item->status === 'Retired'
-                                                ? 'bg-secondary'
-                                                : 'bg-light text-dark'))) }}">
-                                {{ $item->status ?? 'N/A' }}
-                            </span>
+
                         </div>
 
                         <p class="mb-1"><strong>Extinguisher ID:</strong>
-                            {{ $item->extinguisher->extinguisher_id ?? 'N/A' }}</p>
-                        <p class="mb-1"><strong>Inspected By:</strong>
-                            @if ($item->user && $item->user->lname && $item->user->fname)
-                                {{ $item->user->lname }}, {{ $item->user->fname }}
-                            @else
-                                N/A
+                            {{ $item->extinguisher_id ?? 'N/A' }}</p>
+                        <p class="mb-1"><strong>Last Maintenance:</strong>
+                            {{ optional($item->last_maintenance ? \Carbon\Carbon::parse($item->last_maintenance) : null)->format('F d, Y') ?? 'N/A' }}
+                        </p>
+                        @php
+
+                            $next = $item->next_maintenance ? Carbon\Carbon::parse($item->next_maintenance) : null;
+                            $remainingDays = $next ? now()->diffInDays($next, false) : null;
+                        @endphp
+
+                        <p class="mb-1">
+                            <strong>Next Maintenance:</strong>
+                            {{ $next ? $next->format('F d, Y') : 'N/A' }}
+
+                            @if (!is_null($remainingDays))
+                                <br>
+                                <span
+                                    class="{{ $remainingDays < 0 ? 'text-danger' : ($remainingDays <= 7 ? 'text-success' : '') }}">
+                                    ({{ $remainingDays < 0
+                                        ? number_format(abs($remainingDays), 0) . ' day(s) overdue'
+                                        : number_format($remainingDays, 0) . ' day(s) remaining' }})
+                                </span>
                             @endif
                         </p>
-                        <p class="mb-1"><strong>Inspected At:</strong>
-                            {{ optional($item->inspected_at ? \Carbon\Carbon::parse($item->inspected_at) : null)->format('F d, Y h:i a') ?? 'N/A' }}
-                        </p>
 
-                        <div class="mt-3 text-end">
-                            <a href="{{ url('/Logs/History/Answer/' . $item->id) }}" class="btn add-new-btn btn-sm">
-                                <i class="fa-regular fa-eye"></i> View Answers
-                            </a>
-                        </div>
                     </div>
                 </div>
             @empty

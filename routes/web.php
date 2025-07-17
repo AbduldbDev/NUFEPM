@@ -8,8 +8,10 @@ use App\Http\Controllers\AdminController\ExtinguisherController;
 use App\Http\Controllers\AdminController\LocationsController;
 use App\Http\Controllers\AdminController\QuestionController;
 use App\Http\Controllers\AdminController\TypesController;
+use App\Http\Controllers\AdminController\ExportController;
 use App\Http\Controllers\AdminController\InspectionLogsController;
 use App\Http\Controllers\MaintenanceController\InspectionController;
+use App\Http\Controllers\MaintenanceController\LogsController;
 
 Route::get('/', [MenuController::class, 'ShowDashboard'])->middleware(['auth'])->name('dashboard');
 
@@ -18,26 +20,26 @@ Route::middleware(['auth', 'UserType:admin'])->group(function () {
     Route::get('/Admin/Menu/Extinguisher', [MenuController::class, 'ShowAdminExtinguishersMenu'])->name('admin.ShowExtinguishersMenu');
     Route::get('/Admin/Menu/Inspections', [MenuController::class, 'ShowAdminInspectionMenu'])->name('admin.ShowAdminInspectionMenu');
 
-
-
-
     Route::prefix('Accounts/')->group(function () {
         Route::get('/All', [AccountsController::class, 'ShowAllAccounts'])->name('admin.ShowAllAccounts');
         Route::get('/New', [AccountsController::class, 'ShowAddUserForm'])->name('admin.ShowAddUserForm');
-        Route::get('/Profile', [AccountsController::class, 'ShowProfile'])->name('admin.ShowProfile');
+        Route::get('/Password', [AccountsController::class, 'ShowChangePassword'])->name('admin.ShowChangePassword');
         Route::get('/Details/{id}', [AccountsController::class, 'ShowAccountDetails'])->name('admin.ShowAccountDetails');
         Route::put('/Update', [AccountsController::class, 'UpdateUserAccount'])->name('admin.UpdateUserAccount');
+        Route::put('/ChangePassword', [AccountsController::class, 'ChangePasswowrd'])->name('admin.ChangePasswowrd');
         Route::post('/Submit', [AccountsController::class, 'CreateUser'])->name('admin.CreateUser');
         Route::delete('/Delete', [AccountsController::class, 'DeleteAccount'])->name('admin.DeleteAccount');
     });
 
     Route::prefix('Extinguisher/')->group(function () {
-        Route::get('/', [ExtinguisherController::class, 'ShowActiveExtinguishers'])->name('admin.ShowActiveExtinguishers');
+        Route::get('/Active', [ExtinguisherController::class, 'ShowActiveExtinguishers'])->name('admin.ShowActiveExtinguishers');
+        Route::get('/Retired', [ExtinguisherController::class, 'ShowRetiredExtinguishers'])->name('admin.ShowRetiredExtinguishers');
         Route::get('/Add', [ExtinguisherController::class, 'ShowAddTankForm'])->name('admin.ShowAddTankForm');
         Route::get('/Details/{id}', [ExtinguisherController::class, 'ShowExtinguishersDetails'])->name('admin.ShowExtinguishersDetails');
         Route::put('/Update', [ExtinguisherController::class, 'UpdateExtinguishers'])->name('admin.UpdateExtinguishers');
         Route::post('/Submit', [ExtinguisherController::class, 'AddNewTank'])->name('SubmitNewTank');
         Route::delete('/Delete', [ExtinguisherController::class, 'DeleteExtinguisher'])->name('admin.DeleteExtinguisher');
+        Route::post('/Qr/Download/Zip', [ExtinguisherController::class, 'downloadZip'])->name('qr.download.zip');
     });
 
     Route::prefix('Types/')->group(function () {
@@ -69,12 +71,17 @@ Route::middleware(['auth', 'UserType:admin'])->group(function () {
         Route::get('/Table/{id}', [InspectionLogsController::class, 'ShowInspectionLogsTable'])->name('admin.ShowInspectionLogsTable');
     });
 
-
     Route::get('/Extinguisher/location/get', [ExtinguisherController::class, 'GetLocations']);
     Route::get('/Extinguisher/location/edit', [ExtinguisherController::class, 'GetEditLocations']);
-    Route::get('/Extinguisher/location-id', [ExtinguisherController::class, 'getLocationId']);
+    Route::get('/Extinguisher/location-id', [ExtinguisherController::class, 'GetLocationID']);
     Route::get('/Extinguisher/location/show/{id}', [ExtinguisherController::class, 'showLocationById']);
     Route::get('/Extinguisher/location/show/{id}', [ExtinguisherController::class, 'ShowLocationID']);
+
+
+    Route::prefix('Export')->group(function () {
+        Route::get('/Logs', [ExportController::class, 'ShowExportForm'])->name('admin.ShowExportForm');
+    });
+    Route::get('/export-inspections', [ExportController::class, 'export'])->name('inspections.export');
 });
 
 Route::middleware(['auth', 'UserType:maintenance'])->group(function () {
@@ -92,9 +99,16 @@ Route::middleware(['auth', 'UserType:maintenance'])->group(function () {
     });
 
     Route::prefix('Logs')->group(function () {
-        Route::get('/Recent', [InspectionController::class, 'ShowRecentInspected'])->name('maintenance.ShowRecentInspected');
-        Route::get('/History/Answer/{id}', [InspectionController::class, 'ShowInspectionAnswer'])->name('maintenance.ShowInspectionAnswer');
+        Route::get('/Recent', [LogsController::class, 'ShowRecentInspected'])->name('maintenance.ShowRecentInspected');
+        Route::get('/History/Answer/{id}', [LogsController::class, 'ShowInspectionAnswer'])->name('maintenance.ShowInspectionAnswer');
+        Route::get('/History/{id}', [LogsController::class, 'ShowInspectionLogs'])->name('maintenance.ShowInspectionLogs');
+        Route::get('/Nextdue', [LogsController::class, 'ShowNearInspection'])->name('maintenance.ShowNearInspection');
     });
 });
 
+Route::middleware(['auth', 'UserType:admin,maintenance'])->group(function () {
+    Route::prefix('Accounts/')->group(function () {
+        Route::get('/Profile', [AccountsController::class, 'ShowProfile'])->name('admin.ShowProfile');
+    });
+});
 require __DIR__ . '/auth.php';

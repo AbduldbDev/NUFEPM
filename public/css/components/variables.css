@@ -2,14 +2,16 @@
 :root {
     --main-blue: #35408e;
     --main-yellow: #ffd41c;
+    --text-red: #c91512;
     --black: #333333;
     --white: #ffffff;
     --bg-white: #fcfcfc;
     --dirty-white: #fafafa;
     --hover-white: #d1d1d1;
     --green: #198042;
+    --gray: #939393;
     --text-blue: #337ab7;
-    --text-red: #a94442;
+    /* --text-red: #a94442; */
 }
 
 @font-face {

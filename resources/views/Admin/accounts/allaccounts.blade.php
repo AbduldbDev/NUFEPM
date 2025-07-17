@@ -15,7 +15,7 @@
         <hr>
     </div>
 
-    <div class="container animated-container">
+    <div class="container table-container animated-container">
         <div class="row mt-3 mb-3">
             <div class="col-12 col-lg-3">
                 <div class="input-group">
@@ -31,27 +31,27 @@
             <table class="sortable-table table table-responsive table-bordered w-100" id="sortableTable">
                 <thead>
                     <tr>
-                        <th class="text-center sortable" data-index="0" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="0" onclick="sortTable(this)">
                             # <span class="sort-icons"><span class="asc">▲</span><span class="desc">▼</span></span>
                         </th>
-                        <th class="text-center sortable" data-index="1" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="1" onclick="sortTable(this)">
                             Role <span class="sort-icons"><span class="asc">▲</span><span class="desc">▼</span></span>
                         </th>
-                        <th class="sortable" data-index="2" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
                             Name <span class="sort-icons"><span class="asc">▲</span><span class="desc">▼</span></span>
                         </th>
-                        <th class="sortable" data-index="3" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="3" onclick="sortTable(this)">
                             Employee ID <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
-                        <th class="sortable" data-index="4" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="4" onclick="sortTable(this)">
                             Email <span class="sort-icons"><span class="asc">▲</span><span class="desc">▼</span></span>
                         </th>
-                        <th class="text-center sortable" data-index="5" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="5" onclick="sortTable(this)">
                             Status <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
-                        <th class="text-center">Action</th>
+                        <th class="text-center sortable align-middle">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,7 +81,7 @@
                                         <input type="hidden" name="id" value="{{ $item->id }}">
                                         <button class="mx-2 delete-btn" type="submit" title="Delete"
                                             style="border: none; background-color: transparent">
-                                            <i class="fa-solid fa-trash-can"></i>
+                                            <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
                                     @include('layouts.components.deletepopup')

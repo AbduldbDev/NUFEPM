@@ -13,7 +13,7 @@ class QuestionController extends Controller
 {
     public function ShowAllQuestions()
     {
-        $items = InspectionQuestions::with(['user'])->paginate(100);
+        $items = InspectionQuestions::with(['user'])->paginate(50);
         return view('Admin.questions.allquestions', compact('items'));
     }
 
@@ -49,9 +49,9 @@ class QuestionController extends Controller
 
             ]);
 
-            return redirect()->back()->with('success', 'Maintenance Question added successfully!');
+            return redirect()->back()->with('success', 'Maintenance Question edited successfully!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to Add Question. Please try again.');
+            return redirect()->back()->with('error', 'Failed to edit Question. Please try again.');
         }
     }
 

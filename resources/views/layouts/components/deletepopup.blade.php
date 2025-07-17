@@ -6,7 +6,7 @@
                      <i class="fa-solid fa-triangle-exclamation fa-3x text-danger fa-beat"></i>
                  </div>
                  <h5 class="mb-3">Confirm Deletion</h5>
-                 <p class="text-muted">Are you sure you want to delete this item?
+                 <p class="text-muted">Are you sure you want to delete this item? <br>
                      This action cannot be undone.</p>
                  <div class="d-flex justify-content-center gap-2 mt-4">
                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

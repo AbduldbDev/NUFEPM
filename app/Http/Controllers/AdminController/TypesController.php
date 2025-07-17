@@ -12,7 +12,7 @@ class TypesController extends Controller
 {
     public function ShowTypes()
     {
-        $items = ExtinguishersTypes::with(['user'])->paginate(100);
+        $items = ExtinguishersTypes::with(['user'])->paginate(20);
         return view('Admin.types.alltypes', compact('items'));
     }
 
@@ -22,6 +22,7 @@ class TypesController extends Controller
             'name' => 'required|string',
             'color' => 'required|string',
         ]);
+
         try {
 
             ExtinguishersTypes::create([
@@ -33,7 +34,7 @@ class TypesController extends Controller
 
             return redirect()->back()->with('success', 'Extinguisher type added successfully!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to add type. Please try again.');
+            return redirect()->back()->with('error', 'Failed to add Extinguisher type. Please try again.');
         }
     }
 
@@ -43,6 +44,7 @@ class TypesController extends Controller
             'name' => 'required|string',
             'color' => 'required|string',
         ]);
+
         try {
 
             ExtinguishersTypes::where('id', $request->id)->update([
@@ -50,9 +52,9 @@ class TypesController extends Controller
                 'color' => $request->color,
             ]);
 
-            return redirect()->back()->with('success', 'Extinguisher type added successfully!');
+            return redirect()->back()->with('success', 'Extinguisher type edited successfully!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to add type. Please try again.');
+            return redirect()->back()->with('error', 'Failed to edit Extinguisher type. Please try again.');
         }
     }
 

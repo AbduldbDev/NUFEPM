@@ -25,7 +25,8 @@
 
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user"></i> Profile</a>
+                        <li><a class="dropdown-item" href="{{ route('admin.ShowProfile') }}"><i
+                                    class="fa-solid fa-user"></i> Profile</a>
                         </li>
                         <li>
                             <hr class="dropdown-divider" />

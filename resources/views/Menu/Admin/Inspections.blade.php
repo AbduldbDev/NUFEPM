@@ -45,7 +45,7 @@
             </div>
 
             <div class="menu-box">
-                <a href="{{ route('admin.ShowProfile') }}" class="menu-box-link"></a>
+                <a href="{{ route('admin.ShowExportForm') }}" class="menu-box-link"></a>
                 <div class="row">
                     <div class="col-sm-12 col-md-2">
                         <div class="menu-icon"><i class="fa-solid fa-file-export"></i></div>

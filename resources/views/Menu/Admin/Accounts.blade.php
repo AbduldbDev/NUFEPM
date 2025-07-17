@@ -61,6 +61,24 @@
                 </div>
             </div>
 
+            <div class="menu-box">
+                <a href="{{ route('admin.ShowChangePassword') }}" class="menu-box-link"></a>
+                <div class="row">
+                    <div class="col-sm-12 col-md-2">
+                        <div class="menu-icon"><i class="bi bi-person-fill-lock"></i></div>
+                    </div>
+                    <div class="col-sm-12 col-md-10">
+                        <div class="passport-title user-link">
+                            <span class="module-name">Change Password</span>
+                        </div>
+                        <div class="module-description small text-muted">
+                            Secure your account by updating your current password. Use a strong, unique password for better
+                            protection.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection

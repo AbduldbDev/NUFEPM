@@ -16,7 +16,7 @@
         <hr>
     </div>
 
-    <div class="container animated-container">
+    <div class="container table-container animated-container">
         <div class="row mt-3 mb-3">
             <div class="col-12 col-lg-3">
                 <div class="input-group">
@@ -51,6 +51,10 @@
                                 </th>
                                 <th class="sortable" data-index="2" onclick="sortTable(this)">
                                     Next Due<span class="sort-icons"><span class="asc">▲</span><span
+                                            class="desc">▼</span></span>
+                                </th>
+                                <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
+                                    Completion Time<span class="sort-icons"><span class="asc">▲</span><span
                                             class="desc">▼</span></span>
                                 </th>
                                 <th class="sortable" data-index="2" onclick="sortTable(this)">
@@ -100,6 +104,10 @@
                             <td class="text-center {{ $class }}">
                                 {{ $next ? $next->format('F d, Y ') : 'N/A' }}<br>
                                 {{-- <small>{{ number_format($diffInDays, 0) }} days</small> --}}
+                            </td>
+                            <td class="text-center">
+                                {{ gmdate($item->time > 3600 ? 'H:i:s' : ($item->time >= 60 ? 'i:s' : 's'), $item->time) }}
+                                {{ $item->time > 3600 ? 'Hr' : ($item->time >= 60 ? 'Min' : 'Sec') }}
                             </td>
                             <td class="text-center">
                                 @if ($item->status === 'Good')

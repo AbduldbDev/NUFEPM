@@ -1,11 +1,5 @@
 @import url("/css/components/variables.css");
 .form-container {
-    border: 1px solid rgb(219, 219, 219);
-    padding: 50px 70px;
-    margin-top: 30px;
-    background-color: var(--drity-white);
-    font-family: "TikTok Sans", sans-serif;
-    margin-bottom: 100px;
 }
 
 .form-title {
@@ -18,20 +12,31 @@
     font-weight: 700;
     color: black;
 }
-
+.form-control:read-only {
+    background-color: #f8f9fa;
+}
 .form-container .required {
     font-weight: 400;
     color: var(--text-red);
 }
-
+.profile-img {
+    aspect-ratio: 4/4;
+    object-fit: cover;
+}
 .info-header .fullname {
     color: var(--black);
     font-size: 30px;
     font-weight: 600;
-    font-family: "TikTok Sans", sans-serif;
+}
+.table-container {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    margin-top: 2rem;
 }
 .sortable-table {
-    border-bottom: 2px solid var(--text-blue);
+    border-bottom: 2px solid var(--main-blue);
     width: 100%;
     border-collapse: collapse;
 }
@@ -58,7 +63,9 @@
 }
 
 .sortable-table thead th {
-    background-color: var(--text-blue);
+    background-color: var(--main-blue);
+    border-top: 2px solid var(--main-blue);
+    border-bottom: 2px solid var(--main-blue);
     color: var(--white);
     font-weight: 500;
     text-align: center;
@@ -70,7 +77,7 @@
 }
 
 .sortable-table th.sorted {
-    background-color: rgb(83, 139, 196);
+    background-color: #4351b4;
 }
 
 .sortable-table .sort-icons {
@@ -96,11 +103,17 @@
 }
 
 .sortable-table tbody tr:hover td:first-child {
-    border-left: 2px solid #0d6efd;
+    border-left: 2px solid var(--main-blue);
+}
+.sortable-table th:first-child {
+    border-left: 2px solid var(--main-blue);
+}
+.sortable-table th:last-child {
+    border-right: 2px solid var(--main-blue);
 }
 
 .sortable-table .edit-btn {
-    color: var(--text-blue);
+    color: var(--main-blue);
 }
 
 .sortable-table .delete-btn {
@@ -115,8 +128,8 @@
 .add-extinguisher-container {
     font-family: "TikTok Sans", sans-serif;
     padding: 40px;
-    border-radius: 10px;
-    background-color: var(--dirty-white);
+    border-radius: 1rem;
+    background-color: var(--white);
 }
 
 .add-extinguisher-container label {
@@ -186,6 +199,75 @@
     animation: pulse 1.5s infinite;
 }
 
+.pagination .page-item.active .page-link {
+    background-color: var(--main-blue);
+    border-color: var(--main-blue);
+    color: #fff;
+}
+.add-new-btn {
+    background-color: var(--main-blue);
+    border-radius: 20px;
+    color: var(--white);
+    transition: 0.2s ease-in-out;
+}
+.add-new-btn:hover {
+    border: 1px solid var(--main-blue);
+    color: var(--main-blue);
+}
+.add-new-btn:active {
+    transform: scale(0.95);
+}
+
+.save-btn {
+    background-color: var(--green);
+    border-radius: 20px;
+    color: var(--white);
+    transition: 0.2s ease-in-out;
+}
+.save-btn:hover {
+    border: 1px solid var(--green);
+    color: var(--green);
+}
+.save-btn:active {
+    transform: scale(0.95);
+}
+
+.cancel-btn {
+    background-color: var(--gray);
+
+    border-radius: 20px;
+    color: var(--white);
+    transition: 0.2s ease-in-out;
+}
+.cancel-btn:hover {
+    border: 1px solid var(--gray);
+    color: var(--gray);
+}
+.cancel-btn:active {
+    transform: scale(0.95);
+}
+.bounce-icon {
+    animation: bounce 1s infinite;
+}
+.form-check-input {
+    transform: scale(1.5);
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--main-blue);
+    border-color: var(--main-blue);
+}
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
 @keyframes pulse {
     0% {
         transform: scale(1);

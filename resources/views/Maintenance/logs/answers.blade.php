@@ -17,7 +17,7 @@
             <div class="card shadow-sm rounded-3 p-3 mb-3" style="border-left: 4px solid #35408e;">
                 <h5 class="fw-bold mb-3"><i class="fa-solid fa-clipboard-check me-2"></i>Inspection Answers</h5>
                 <div class="row fw-medium px-0">
-                    <div class="col-12 col-md-6 mb-2">
+                    <div class="col-12 col-md-4 mb-2">
                         <span class="text-muted">Inspected By:</span><br>
                         <span class="fw-semibold">
                             @if ($details->user && $details->user->lname && $details->user->fname)
@@ -28,11 +28,18 @@
                         </span>
                     </div>
 
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-4  mb-2">
                         <span class="text-muted">Inspected At:</span><br>
                         <span class="fw-semibold">
                             {{ optional($details->inspected_at ? \Carbon\Carbon::parse($details->inspected_at) : null)->format('F d, Y') ?? 'N/A' }}
                             {{ optional($details->inspected_at ? \Carbon\Carbon::parse($details->inspected_at) : null)->format('h:i a') ?? 'N/A' }}
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <span class="text-muted">Completion Time:</span><br>
+                        <span class="fw-semibold">
+                            {{ gmdate($details->time > 3600 ? 'H:i:s' : ($details->time >= 60 ? 'i:s' : 's'), $details->time) }}
+                            {{ $details->time > 3600 ? 'Hr' : ($details->time >= 60 ? 'Min' : 'Sec') }}
                         </span>
                     </div>
                 </div>
@@ -44,7 +51,15 @@
                     $answers = $items->keyBy('question_id');
                 @endphp
                 @foreach ($items as $index => $item)
-                    <div class="card shadow-sm rounded-3 mb-3 border-bottom p-3" style="border-left: 4px solid #35408e">
+                    @php
+                        $color = match ($item->answer) {
+                            'yes' => '#198754',
+                            'no' => '#dc3545',
+                            default => '#6c757d',
+                        };
+                    @endphp
+                    <div class="card shadow-sm rounded-3 mb-3 border-bottom p-3"
+                        style="border-left:  4px solid {{ $color }}">
                         <p class="fw-semibold mb-3">{{ $index + 1 }}. {{ $item->questions->question }}</p>
 
                         <div class="d-flex flex-column gap-2">
@@ -72,12 +87,18 @@
 
                 @php
                     $lastIndex = count($items) + 1;
+                    $status = $details->status ?? null;
+                    $color2 = match ($status) {
+                        'Good' => '#198754',
+                        'Undercharged' => '#dc3545',
+                        'Overcharged' => '#35408e',
+                        default => '#6c757d',
+                    };
                 @endphp
-                <div class="card shadow-sm rounded-3 mb-3 border-bottom p-3" style="border-left: 4px solid #35408e">
+                <div class="card shadow-sm rounded-3 mb-3 border-bottom p-3"
+                    style="border-left: 4px solid {{ $color2 }}">
                     <p class="fw-semibold mb-3">{{ $lastIndex }}. Examine where the gauge needle is...</p>
-                    @php
-                        $status = $details->status ?? null;
-                    @endphp
+
                     <div class="d-flex flex-column gap-2">
                         <div class="form-check">
                             <input class="form-check-input" name="status" type="radio" value="good" id="good"
