@@ -51,7 +51,15 @@
                     $answers = $items->keyBy('question_id');
                 @endphp
                 @foreach ($items as $index => $item)
-                    <div class="card shadow-sm rounded-3 mb-3 border-bottom p-3" style="border-left: 4px solid #35408e">
+                    @php
+                        $color = match ($item->answer) {
+                            'yes' => '#198754',
+                            'no' => '#dc3545',
+                            default => '#6c757d',
+                        };
+                    @endphp
+                    <div class="card shadow-sm rounded-3 mb-3 border-bottom p-3"
+                        style="border-left: 4px solid {{ $color }}">
                         <p class="fw-semibold mb-3">{{ $index + 1 }}. {{ $item->questions->question }}</p>
 
                         <div class="d-flex flex-column gap-2">
@@ -59,8 +67,7 @@
                                 <input class="form-check-input" type="radio" name="answers[{{ $item->id }}]"
                                     id="yes-{{ $item->id }}" value="yes"
                                     {{ $item->answer === 'yes' ? 'checked' : '' }} disabled>
-                                <label class="form-check-label fw-semibold text question-green"
-                                    for="yes-{{ $item->id }}">
+                                <label class="fw-semibold text question-green" for="yes-{{ $item->id }}">
                                     Yes
                                 </label>
                             </div>
@@ -69,7 +76,7 @@
                                 <input class="form-check-input" type="radio" name="answers[{{ $item->id }}]"
                                     id="no-{{ $item->id }}" value="no"
                                     {{ $item->answer === 'no' ? 'checked' : '' }} disabled>
-                                <label class="form-check-label fw-semibold question-red" for="no-{{ $item->id }}">
+                                <label class="fw-semibold question-red" for="no-{{ $item->id }}">
                                     No
                                 </label>
                             </div>
@@ -79,8 +86,16 @@
 
                 @php
                     $lastIndex = count($items) + 1;
+                    $status = $details->status ?? null;
+                    $color2 = match ($status) {
+                        'Good' => '#198754',
+                        'Undercharged' => '#dc3545',
+                        'Overcharged' => '#35408e',
+                        default => '#6c757d',
+                    };
                 @endphp
-                <div class="card shadow-sm rounded-3 mb-3 border-bottom p-3" style="border-left: 4px solid #35408e">
+                <div class="card shadow-sm rounded-3 mb-3 border-bottom p-3"
+                    style="border-left: 4px solid {{ $color2 }}">
                     <p class="fw-semibold mb-3">{{ $lastIndex }}. Examine where the gauge needle is...</p>
                     @php
                         $status = $details->status ?? null;
@@ -89,17 +104,17 @@
                         <div class="form-check">
                             <input class="form-check-input" name="status" type="radio" value="good" id="good"
                                 {{ $status === 'Good' ? 'checked' : '' }} disabled>
-                            <label class="form-check-label question-green fw-semibold " for="good">GOOD</label>
+                            <label class=" question-green fw-semibold " for="good">GOOD</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" name="status" type="radio" value="undercharged"
                                 id="undercharged" {{ $status === 'Undercharged' ? 'checked' : '' }} disabled>
-                            <label class="form-check-label question-red fw-semibold" for="undercharged">UNDERCHARGED</label>
+                            <label class="question-red fw-semibold" for="undercharged">UNDERCHARGED</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" name="status" type="radio" value="overcharged"
                                 id="overcharged" {{ $status === 'Overcharged' ? 'checked' : '' }} disabled>
-                            <label class="form-check-label question-blue fw-semibold" for="overcharged">OVERCHARGED</label>
+                            <label class="question-blue fw-semibold" for="overcharged">OVERCHARGED</label>
                         </div>
                     </div>
                 </div>

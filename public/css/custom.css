@@ -1,7 +1,4 @@
 @import url("/css/components/variables.css");
-.form-container {
-}
-
 .form-title {
     font-size: 20px;
 }
@@ -246,6 +243,21 @@
 .cancel-btn:active {
     transform: scale(0.95);
 }
+
+.red-btn {
+    background-color: var(--text-red);
+    border-radius: 20px;
+    color: var(--white);
+    transition: 0.2s ease-in-out;
+}
+.red-btn:hover {
+    border: 1px solid var(--text-red);
+    color: var(--text-red);
+}
+.red-btn:active {
+    transform: scale(0.95);
+}
+
 .bounce-icon {
     animation: bounce 1s infinite;
 }

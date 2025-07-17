@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\InspectionLogs;
 use App\Models\InspectionAnswer;
 use App\Models\Extinguishers;
+use App\Models\ExtinguisherRefill;
 use Illuminate\Support\Facades\DB;
 
 class InspectionLogsController extends Controller
@@ -38,4 +39,6 @@ class InspectionLogsController extends Controller
 
         return view('Admin.inspections.logstable', compact('items', 'details'));
     }
+
+
 }

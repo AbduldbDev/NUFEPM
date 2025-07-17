@@ -21,6 +21,11 @@ class Extinguishers extends Model
         'status',
         'qr_code_path',
     ];
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 
     public function location()
     {
@@ -31,9 +36,10 @@ class Extinguishers extends Model
     {
         return $this->belongsTo(ExtinguishersTypes::class, 'type_id');
     }
-    public function user()
+
+    public function refillLogs()
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->hasMany(ExtinguisherRefill::class);
     }
     use HasFactory;
 }

@@ -67,8 +67,7 @@
                                 <input class="form-check-input" type="radio" name="answers[{{ $item->id }}]"
                                     id="yes-{{ $item->id }}" value="yes"
                                     {{ $item->answer === 'yes' ? 'checked' : '' }} disabled>
-                                <label class="form-check-label fw-semibold text question-green"
-                                    for="yes-{{ $item->id }}">
+                                <label class=" fw-semibold text question-green" for="yes-{{ $item->id }}">
                                     Yes
                                 </label>
                             </div>
@@ -77,7 +76,7 @@
                                 <input class="form-check-input" type="radio" name="answers[{{ $item->id }}]"
                                     id="no-{{ $item->id }}" value="no"
                                     {{ $item->answer === 'no' ? 'checked' : '' }} disabled>
-                                <label class="form-check-label  fw-semibold question-red" for="no-{{ $item->id }}">
+                                <label class="  fw-semibold question-red" for="no-{{ $item->id }}">
                                     No
                                 </label>
                             </div>
@@ -103,17 +102,17 @@
                         <div class="form-check">
                             <input class="form-check-input" name="status" type="radio" value="good" id="good"
                                 {{ $status === 'Good' ? 'checked' : '' }} disabled>
-                            <label class="form-check-label question-green fw-semibold " for="good">GOOD</label>
+                            <label class=" question-green fw-semibold " for="good">GOOD</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" name="status" type="radio" value="undercharged"
                                 id="undercharged" {{ $status === 'Undercharged' ? 'checked' : '' }} disabled>
-                            <label class="form-check-label question-red fw-semibold" for="undercharged">UNDERCHARGED</label>
+                            <label class=" question-red fw-semibold" for="undercharged">UNDERCHARGED</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" name="status" type="radio" value="overcharged"
                                 id="overcharged" {{ $status === 'Overcharged' ? 'checked' : '' }} disabled>
-                            <label class="form-check-label question-blue fw-semibold" for="overcharged">OVERCHARGED</label>
+                            <label class=" question-blue fw-semibold" for="overcharged">OVERCHARGED</label>
                         </div>
                     </div>
                 </div>

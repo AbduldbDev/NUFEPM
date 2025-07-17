@@ -57,11 +57,12 @@ class ExtinguisherController extends Controller
 
         try {
             Extinguishers::where('id', $request->id)->update([
-                'serial_number'     => $request->serial_number,
-                'type_id'              => $request->type,
-                'capacity'          => $request->capacity,
-                'location_id'          => $request->location_id,
+                'serial_number' => $request->serial_number,
+                'type_id'  => $request->type,
+                'capacity' => $request->capacity,
+                'location_id' => $request->location_id,
                 'installation_date' => $request->installation_date,
+                'status' => $request->status,
             ]);
             return redirect()->back()->with('success', 'Extinguisher updated successfully.');
         } catch (\Exception $e) {

@@ -51,6 +51,22 @@
                 </div>
 
                 <div class="mb-2">
+                    <strong>Status:</strong>
+                    <div class="text-muted"> <span
+                            class="badge px-3 py-1 rounded-pill {{ $extinguisher->status === 'Good'
+                                ? 'bg-success'
+                                : ($extinguisher->status === 'Undercharged'
+                                    ? 'bg-danger'
+                                    : ($extinguisher->status === 'Overcharged'
+                                        ? 'bg-primary'
+                                        : ($extinguisher->status === 'Retired'
+                                            ? 'bg-secondary'
+                                            : 'bg-light text-dark'))) }}">
+                            {{ $extinguisher->status ?? 'N/A' }}
+                        </span></div>
+                </div>
+
+                <div class="mb-2">
                     <strong>Last Inspection:</strong>
                     <div class="text-muted">
                         {{ \Carbon\Carbon::parse($extinguisher->last_maintenance)->format('F d, Y') }}</div>
@@ -95,6 +111,12 @@
                     <a href="{{ url('/Logs/History/' . $extinguisher->id) }}" class="btn add-new-btn w-100"><i
                             class="fa-solid fa-folder-open"></i> View
                         Inspection Logs</a>
+                </div>
+
+                <div class="mb-2">
+                    <a href="{{ url('/Refill/Form/' . $extinguisher->id) }}" class="btn red-btn w-100"><i
+                            class="fa-solid fa-fire-extinguisher"></i>
+                        Refill Extinguisher</a>
                 </div>
             </div>
         </div>

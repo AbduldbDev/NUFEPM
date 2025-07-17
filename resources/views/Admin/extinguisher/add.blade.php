@@ -13,92 +13,109 @@
             <span class="breadcrumbs">Add New </span>
         </div>
         <hr>
+        <form action="{{ route('SubmitNewTank') }}" method="POST">
+            @csrf
+            <div class="row">
+                <!-- Extinguisher Details Card -->
+                <div class="col-lg-6 col-md-12 mb-4 ">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header text-white d-flex align-items-center py-3"
+                            style="background-color: #35408e;">
+                            <i class="fa-solid fa-fire-extinguisher me-2"></i>
+                            <h5 class="mb-0">Extinguisher Details</h5>
+                        </div>
+                        <div class="card-body px-4">
+                            <div class="form-floating mb-3">
+                                <input id="serial_number" type="text" name="serial_number" class="form-control"
+                                    placeholder="Serial Number" required>
+                                <label for="serial_number">Serial Number <span class="text-danger">*</span></label>
+                            </div>
 
-        <div class="card shadow-sm border-0 rounded-4 p-4 animated-container">
-            <form action="{{ route('SubmitNewTank') }}" method="POST">
-                @csrf
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <h1 class="text-lg addnew-title"><i class="fa-solid fa-file-circle-plus"></i> Extinguishers Details
-                        </h1>
-                        <div class="mb-3">
-                            <label for="serial_number" class="form-label">Serial Number: <span
-                                    class="text-danger">*</span></label>
-                            <input id="serial_number" type="text" name="serial_number" class="form-control" required>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <select id="type" name="type" class="form-select" required>
+                                    <option value="" disabled selected hidden>-- SELECT TYPE --</option>
+                                    @foreach ($types as $item)
+                                        <option value="{{ $item->id }}" style="color: {{ $item->color }}">
+                                            {{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="type">Type <span class="text-danger">*</span></label>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="type" class="form-label">Type: <span class="text-danger">*</span></label>
-                            <select id="type" name="type" class="form-control" required>
-                                <option value="">-- SELECT TYPE --</option>
-                                @foreach ($types as $item)
-                                    <option value="{{ $item->id }}" style="color: {{ $item->color }}">
-                                        {{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <input id="capacity" type="text" name="capacity" class="form-control"
+                                    placeholder="Capacity" required>
+                                <label for="capacity">Capacity <span class="text-danger">*</span></label>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="capacity" class="form-label">Capacity: <span class="text-danger">*</span></label>
-                            <input id="capacity" type="text" name="capacity" class="form-control" required>
+                            <div class="form-floating mb-3">
+                                <input id="installation_date" type="date" name="installation_date" class="form-control"
+                                    placeholder="Installation Date" required>
+                                <label for="installation_date">Installation Date <span class="text-danger">*</span></label>
+                            </div>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="installation_date" class="form-label">Installation Date: <span
-                                    class="text-danger">*</span></label>
-                            <input id="installation_date" type="date" name="installation_date" class="form-control"
-                                required>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <h1 class="text-lg addnew-title"><i class="fa-solid fa-building"></i> Extinguisher Location
-                        </h1>
-                        <input type="hidden" name="loc_id" id="location_id_display" class="form-control" readonly>
-                        <div class="form-group mb-3">
-                            <label for="building" class="form-label">Building: <span class="text-danger">*</span></label>
-                            <select id="building" class="form-control" name="building" required>
-                                <option value="">-- SELECT BUILDING --</option>
-                                @foreach ($buildings as $building)
-                                    <option value="{{ $building }}">{{ $building }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group mb-3" id="floor-group" style="display: none;">
-                            <label for="floor" class="form-label">Floor: </label>
-                            <select id="floor" class="form-control" name="floor">
-                                <option value="">-- SELECT FLOOR --</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group mb-3" id="room-group" style="display: none;">
-                            <label for="room" class="form-label">Room: </label>
-                            <select id="room" class="form-control" name="room">
-                                <option value="">-- SELECT ROOM --</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group mb-3" id="spot-group" style="display: none;">
-                            <label for="spot" class="form-label">Spot: </label>
-                            <select id="spot" class="form-control" name="spot">
-                                <option value="">-- SELECT SPOT --</option>
-                            </select>
-                        </div>
-                        <h1 id="location-status" class="validation-title"></h1>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-12 col-lg-3">
-                        <button id="submit-button" type="submit" class="btn add-new-btn mt-2 w-100" disabled>
-                            <i class="fa-solid fa-floppy-disk"></i> Save Extinguisher
-                        </button>
                     </div>
                 </div>
 
-            </form>
-        </div>
+                <!-- Extinguisher Location Card -->
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-header text-white d-flex align-items-center py-3"
+                            style="background-color: #35408e;">
+                            <i class="fa-solid fa-building me-2"></i>
+                            <h5 class="mb-0">Extinguisher Location</h5>
+                        </div>
+                        <div class="card-body">
+                            <input type="hidden" name="loc_id" id="location_id_display" class="form-control" readonly>
+
+                            <div class="form-floating mb-3">
+                                <select id="building" class="form-select" name="building" required>
+                                    <option value="" disabled selected hidden>-- SELECT BUILDING --</option>
+                                    @foreach ($buildings as $building)
+                                        <option value="{{ $building }}">{{ $building }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="building">Building <span class="text-danger">*</span></label>
+                            </div>
+
+                            <div class="form-floating mb-3" id="floor-group" style="display: none;">
+                                <select id="floor" class="form-select" name="floor">
+                                    <option value="">-- SELECT FLOOR --</option>
+                                </select>
+                                <label for="floor">Floor</label>
+                            </div>
+
+                            <div class="form-floating mb-3" id="room-group" style="display: none;">
+                                <select id="room" class="form-select" name="room">
+                                    <option value="">-- SELECT ROOM --</option>
+                                </select>
+                                <label for="room">Room</label>
+                            </div>
+
+                            <div class="form-floating mb-3" id="spot-group" style="display: none;">
+                                <select id="spot" class="form-select" name="spot">
+                                    <option value="">-- SELECT SPOT --</option>
+                                </select>
+                                <label for="spot">Spot</label>
+                            </div>
+
+                            <h1 id="location-status" class="validation-title"></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Save Button Row -->
+            <div class="row mb-3">
+                <div class="col-12 col-lg-3">
+                    <button id="submit-button" type="submit" class="btn add-new-btn mt-2 w-100" disabled>
+                        <i class="fa-solid fa-floppy-disk"></i> Save Extinguisher
+                    </button>
+                </div>
+            </div>
+
+        </form>
     </div>
-
     <script src="{{ asset('/js/extinguishers/locationdropdown.js') }}"></script>
 @endsection
 @push('css')

@@ -15,6 +15,7 @@ class ExportController extends Controller
     {
         return view('Admin.export.exportlogs',);
     }
+    
     public function export(Request $request)
     {
         $request->validate([

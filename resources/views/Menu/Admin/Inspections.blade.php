@@ -45,6 +45,24 @@
             </div>
 
             <div class="menu-box">
+                <a href="{{ route('admin.ShowAllRefills') }}" class="menu-box-link"></a>
+                <div class="row">
+                    <div class="col-sm-12 col-md-2">
+                        <div class="menu-icon"><i class="fa-solid fa-fire-extinguisher"></i></div>
+                    </div>
+                    <div class="col-sm-12 col-md-10">
+                        <div class="passport-title user-link">
+                            <span class="module-name">Refill Logs </span>
+                        </div>
+                        <div class="module-description small text-muted">
+                            Track and review the refill history of each fire extinguisher, including dates, personnel, and
+                            remarks.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-box">
                 <a href="{{ route('admin.ShowExportForm') }}" class="menu-box-link"></a>
                 <div class="row">
                     <div class="col-sm-12 col-md-2">

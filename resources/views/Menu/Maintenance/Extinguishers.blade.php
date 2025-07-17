@@ -43,6 +43,23 @@
                 </div>
             </div>
 
+            {{-- <div class="menu-box">
+                <a href="{{ route('maintenance.ShowNearInspection') }}" class="menu-box-link"></a>
+                <div class="row">
+                    <div class="col-sm-12 col-md-2">
+                        <div class="menu-icon"><i class="fa-solid fa-file-circle-plus"></i></div>
+                    </div>
+                    <div class="col-sm-12 col-md-10">
+                        <div class="passport-title user-link">
+                            <span class="module-name">Refill Inspections</span>
+                        </div>
+                        <div class="module-description small text-muted">
+                            Check extinguishers that are due for inspection soon or within the next few days.
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+
         </div>
     </div>
 @endsection

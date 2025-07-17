@@ -10,8 +10,10 @@ use App\Http\Controllers\AdminController\QuestionController;
 use App\Http\Controllers\AdminController\TypesController;
 use App\Http\Controllers\AdminController\ExportController;
 use App\Http\Controllers\AdminController\InspectionLogsController;
+use App\Http\Controllers\AdminController\RefillLogsController;
 use App\Http\Controllers\MaintenanceController\InspectionController;
 use App\Http\Controllers\MaintenanceController\LogsController;
+use App\Http\Controllers\MaintenanceController\RefillController;
 
 Route::get('/', [MenuController::class, 'ShowDashboard'])->middleware(['auth'])->name('dashboard');
 
@@ -80,8 +82,12 @@ Route::middleware(['auth', 'UserType:admin'])->group(function () {
 
     Route::prefix('Export')->group(function () {
         Route::get('/Logs', [ExportController::class, 'ShowExportForm'])->name('admin.ShowExportForm');
+        Route::get('/Export', [ExportController::class, 'export'])->name('inspections.export');
     });
-    Route::get('/export-inspections', [ExportController::class, 'export'])->name('inspections.export');
+
+    Route::prefix('Refill/Logs')->group(function () {
+        Route::get('/History', [RefillLogsController::class, 'ShowAllRefills'])->name('admin.ShowAllRefills');
+    });
 });
 
 Route::middleware(['auth', 'UserType:maintenance'])->group(function () {
@@ -103,6 +109,13 @@ Route::middleware(['auth', 'UserType:maintenance'])->group(function () {
         Route::get('/History/Answer/{id}', [LogsController::class, 'ShowInspectionAnswer'])->name('maintenance.ShowInspectionAnswer');
         Route::get('/History/{id}', [LogsController::class, 'ShowInspectionLogs'])->name('maintenance.ShowInspectionLogs');
         Route::get('/Nextdue', [LogsController::class, 'ShowNearInspection'])->name('maintenance.ShowNearInspection');
+    });
+
+
+    Route::prefix('Refill')->group(function () {
+        Route::get('/Form/{id}', [RefillController::class, 'ShowRefillForm'])->name('maintenance.ShowRefillForm');
+        Route::get('/confirmation', [RefillController::class, 'ShowRefillConfirmation'])->name('maintenance.ShowRefillConfirmation');
+        Route::post('/Submit', [RefillController::class, 'SubmitRefill'])->name('maintenance.SubmitRefill');
     });
 });
 

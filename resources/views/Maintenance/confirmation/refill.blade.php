@@ -9,9 +9,9 @@
                     <i class="fa-solid fa-circle-check text-success display-3 bounce-icon"></i>
                 </div>
 
-                <h3 class="text-success fw-bold mb-3">Inspection Submitted!</h3>
+                <h3 class="text-success fw-bold mb-3">Refill Log Submitted!</h3>
                 <p class="text-muted mb-4">
-                    The inspection was recorded successfully. You may now return to the dashboard.
+                    The refill log was recorded successfully. You may now return to the dashboard.
                 </p>
 
                 <a href="{{ route('dashboard') }}" class="btn add-new-btn w-100">

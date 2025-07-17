@@ -68,8 +68,9 @@
                 </div>
             </div>
         </div>
-    @endsection
-    @push('css')
-        <link href="{{ asset('css/custom.css') }}?v={{ time() }}" rel="stylesheet">
-        <link href="{{ asset('css/components/submenu.css') }}?v={{ time() }}" rel="stylesheet">
-    @endpush
+    </div>
+@endsection
+@push('css')
+    <link href="{{ asset('css/custom.css') }}?v={{ time() }}" rel="stylesheet">
+    <link href="{{ asset('css/components/submenu.css') }}?v={{ time() }}" rel="stylesheet">
+@endpush

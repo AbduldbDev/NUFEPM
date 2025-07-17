@@ -16,16 +16,16 @@ use Illuminate\Support\Facades\DB;
 class InspectionController extends Controller
 {
 
-    public function ShowConfirmation()
+    public function ShowInspectionConfirmation()
     {
-        return view('Maintenance.Inspection.confirmation');
+        return view('Maintenance.confirmation.inspection');
     }
 
     public function ShowScanner()
     {
         return view('Maintenance.Inspection.scanner');
     }
-   
+
 
     public function ShowInspectionDetail($id)
     {
