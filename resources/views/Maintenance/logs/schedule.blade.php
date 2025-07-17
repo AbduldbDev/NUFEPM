@@ -31,9 +31,8 @@
                             {{ optional($item->last_maintenance ? \Carbon\Carbon::parse($item->last_maintenance) : null)->format('F d, Y') ?? 'N/A' }}
                         </p>
                         @php
-
                             $next = $item->next_maintenance ? Carbon\Carbon::parse($item->next_maintenance) : null;
-                            $remainingDays = $next ? now()->diffInDays($next, false) : null;
+                            $remainingDays = $next ? ceil(now()->floatDiffInDays($next, false)) : null;
                         @endphp
 
                         <p class="mb-1">
@@ -48,6 +47,7 @@
                                         ? number_format(abs($remainingDays), 0) . ' day(s) overdue'
                                         : number_format($remainingDays, 0) . ' day(s) remaining' }})
                                 </span>
+                                {{-- <span>{{ $remainingDays }}</span> --}}
                             @endif
                         </p>
 
