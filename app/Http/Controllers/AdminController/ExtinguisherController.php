@@ -109,7 +109,7 @@ class ExtinguisherController extends Controller
                 'serial_number'     => $request->serial_number,
                 'type_id'              => $request->type,
                 'capacity'          => $request->capacity,
-                'location_id'          => $request->loc_id,
+                'location_id'          => $request->loc_id, 
                 'installation_date' => $request->installation_date,
                 'last_maintenance' => $request->installation_date,
                 'next_maintenance' => now()->addDays(30),

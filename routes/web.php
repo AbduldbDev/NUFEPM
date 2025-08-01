@@ -111,7 +111,6 @@ Route::middleware(['auth', 'UserType:maintenance'])->group(function () {
         Route::get('/Nextdue', [LogsController::class, 'ShowNearInspection'])->name('maintenance.ShowNearInspection');
     });
 
-
     Route::prefix('Refill')->group(function () {
         Route::get('/Form/{id}', [RefillController::class, 'ShowRefillForm'])->name('maintenance.ShowRefillForm');
         Route::get('/confirmation', [RefillController::class, 'ShowRefillConfirmation'])->name('maintenance.ShowRefillConfirmation');
