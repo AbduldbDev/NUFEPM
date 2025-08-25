@@ -5,19 +5,30 @@
         @method('PUT')
         @csrf
         <div class="main-container container">
-            <div class="title">
-                <span class="menu-title-icon"><i class="fa-solid fa-users"></i></span> &nbsp;
-                <span class="crumb">
-                    <span class="breadcrumbs"><a href="{{ route('dashboard') }}">Home</a> &gt; </span>
-                </span>
-                <span class="crumb">
-                    <span class="breadcrumbs"><a href="{{ route('admin.ShowAccountsMenu') }}">Accounts</a> &gt; </span>
-                </span>
-                <span class="crumb">
-                    <span class="breadcrumbs"><a href="{{ route('admin.ShowAllAccounts') }}">All Accounts</a> &gt; </span>
-                </span>
-                <span class="breadcrumbs">Edit Account </span>
+
+            <div class="breadcrumb-container">
+                <div class="breadcrumb-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <nav class="breadcrumb-nav">
+                    <div class="breadcrumb-item">
+                        <a href="{{ route('dashboard') }}">Home</a>
+                    </div>
+                    <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <div class="breadcrumb-item active">
+                        <span><a href="{{ route('admin.ShowAccountsMenu') }}">Accounts</a></span>
+                    </div>
+                    <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <div class="breadcrumb-item active">
+                        <span><a href="{{ route('admin.ShowAllAccounts') }}">All Accounts</a></span>
+                    </div>
+                    <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <div class="breadcrumb-item active">
+                        <span>Edit Account</span>
+                    </div>
+                </nav>
             </div>
+
             @php
                 $string = $details->address;
                 $parts = array_map('trim', explode('|', $string));
@@ -29,7 +40,6 @@
                 $part6 = $parts[5] ?? '';
             @endphp
 
-            <hr>
             <div class="animated-container">
 
                 <div class="container mt-4">
@@ -37,8 +47,8 @@
                         <div class="row g-3 align-items-center">
 
                             <div class="col-12 col-md-4 col-lg-3 text-start ">
-                                @if (Auth::user()->image)
-                                    <img src="{{ asset('/storage/' . Auth::user()->image) }}"
+                                @if ($details->image)
+                                    <img src="{{ asset('/storage/' . $details->image) }}"
                                         class="img-fluid rounded-circle profile-img shadow-sm " alt="User Image">
                                 @else
                                     <img src="{{ asset('/Image/profile.webp') }}"
@@ -49,24 +59,24 @@
                             <div class="col-12 col-md-8 col-lg-9 bg-white shadow-sm rounded-3 p-4">
 
                                 <h3 class="fw-bold text-dark mb-3">
-                                    {{ Auth::user()->lname }} {{ Auth::user()->suffix }}, {{ Auth::user()->fname }}
-                                    {{ Auth::user()->mname }}
+                                    {{ $details->lname }} {{ $details->suffix }}, {{ $details->fname }}
+                                    {{ $details->mname }}
                                 </h3>
                                 <table class="table table-borderless small mb-0">
                                     <tbody>
                                         <tr>
                                             <td class="text-success"><i class="fa fa-id-card-alt me-2"></i>ID Number
                                             </td>
-                                            <td>{{ Auth::user()->uid }}</td>
+                                            <td>{{ $details->uid }}</td>
                                         </tr>
                                         <tr>
                                             <td class="text-success"><i class="fa fa-building me-2"></i>Dept. Role</td>
-                                            <td class="text-capitalize">{{ Auth::user()->type }}</td>
+                                            <td class="text-capitalize">{{ $details->type }}</td>
                                         </tr>
                                         <tr>
                                             <td class="text-success"><i class="fa fa-envelope me-2"></i>Email Address
                                             </td>
-                                            <td>{{ Auth::user()->email }}</td>
+                                            <td>{{ $details->email }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -112,8 +122,13 @@
                             <select name="type" class="form-select" required>
                                 <option value="">-- Select --</option>
                                 <option value="admin" {{ $details->type === 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="engineer" {{ $details->type == 'engineer' ? 'selected' : '' }}>
+                                    Engineer</option>
+                                <option value="guard" {{ $details->type == 'guard' ? 'selected' : '' }}>
+                                    Guard</option>
                                 <option value="maintenance" {{ $details->type === 'maintenance' ? 'selected' : '' }}>
                                     Maintenance</option>
+
                             </select>
                         </div>
 

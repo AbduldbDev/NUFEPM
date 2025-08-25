@@ -17,7 +17,7 @@ use App\Http\Controllers\MaintenanceController\RefillController;
 
 Route::get('/', [MenuController::class, 'ShowDashboard'])->middleware(['auth'])->name('dashboard');
 
-Route::middleware(['auth', 'UserType:admin'])->group(function () {
+Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
     Route::get('/Admin/Menu/Accounts', [MenuController::class, 'ShowAdminAccountsMenu'])->name('admin.ShowAccountsMenu');
     Route::get('/Admin/Menu/Extinguisher', [MenuController::class, 'ShowAdminExtinguishersMenu'])->name('admin.ShowExtinguishersMenu');
     Route::get('/Admin/Menu/Inspections', [MenuController::class, 'ShowAdminInspectionMenu'])->name('admin.ShowAdminInspectionMenu');
@@ -90,7 +90,7 @@ Route::middleware(['auth', 'UserType:admin'])->group(function () {
     });
 });
 
-Route::middleware(['auth', 'UserType:maintenance'])->group(function () {
+Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
     Route::get('/Maintenance/Menu/Inspections', [MenuController::class, 'ShowMaintenanceExtinguishersMenu'])->name('maintenance.ShowMaintenanceExtinguishersMenu');
 
     Route::prefix('Scanner')->group(function () {

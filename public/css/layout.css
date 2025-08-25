@@ -3,7 +3,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "TikTok Sans", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 body {
     background-color: var(--bg-white);
@@ -43,13 +43,12 @@ body {
     height: 40px;
     padding-left: 40px;
     font-size: 18px;
-    font-family: "NU Font";
+
     color: var(--white);
     background: url("../Image/NULogo.png") left / contain no-repeat;
 }
 
 .navbar .navbar-nav {
-    font-family: "NU Font";
     color: var(--white);
 }
 
@@ -86,6 +85,63 @@ footer a {
 footer span {
     color: var(--text-black);
     font-size: 13px;
+}
+
+.breadcrumb-container {
+    border-bottom: 1px solid rgb(224, 224, 224);
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    margin-bottom: 20px;
+}
+
+.breadcrumb-icon {
+    background-color: var(--main-blue);
+    color: var(--white);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-size: 1rem;
+}
+
+.breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.breadcrumb-item a {
+    color: var(--text-blue);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--main-blue);
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: var(--black);
+    font-weight: 600;
+}
+
+.breadcrumb-separator {
+    margin: 0 10px;
+    color: var(--gray);
+    font-size: 0.8rem;
 }
 
 @keyframes slideFadeIn {

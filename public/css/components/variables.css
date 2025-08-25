@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 :root {
     --main-blue: #35408e;
     --main-yellow: #ffd41c;
@@ -11,25 +11,19 @@
     --green: #198042;
     --gray: #939393;
     --text-blue: #337ab7;
-    /* --text-red: #a94442; */
-}
 
-@font-face {
-    font-family: "NU Font";
-    src: url("../../Fonts/ClanOT-Book.otf");
-}
-
-@font-face {
-    font-family: "NU Font Bold";
-    src: url("../../Fonts/ClanOT-Bold.otf");
-}
-
-@font-face {
-    font-family: "NU Font BoldItalic";
-    src: url("../../Fonts/ClanOT-BoldItalic.otf");
-}
-
-@font-face {
-    font-family: "NU Font BookItalic";
-    src: url("../../Fonts/ClanOT-BookItalic.otf");
+    --primary: var(--main-blue);
+    --primary-light: #e9ecf7;
+    --secondary: var(--main-yellow);
+    --accent: var(--text-red);
+    --success: var(--green);
+    --light-bg: var(--bg-white);
+    --card-bg: var(--white);
+    --text-dark: var(--black);
+    --text-muted: var(--gray);
+    --border-radius: 20px;
+    --card-border-radius: 16px;
+    --shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }

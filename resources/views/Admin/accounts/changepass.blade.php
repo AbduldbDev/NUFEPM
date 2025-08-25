@@ -3,20 +3,27 @@
     @include('layouts.components.alerts')
 
     <div class="main-container container">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa-solid fa-users"></i></span> &nbsp;
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('dashboard') }}">Home</a> &gt; </span>
-            </span>
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('admin.ShowAccountsMenu') }}">Accounts</a> &gt; </span>
-            </span>
-            <span class="breadcrumbs">Change Password </span>
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <a href="{{ route('dashboard') }}">Home</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    <span><a href="{{ route('admin.ShowAccountsMenu') }}">Accounts</a></span>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    <span>Change Password</span>
+                </div>
+            </nav>
         </div>
-        <hr>
 
         <div class="animated-container">
-            <div class="container d-flex  mt-5">
+            <div class=" d-flex ">
                 <div class="col-md-6">
                     <div class="form-container shadow-sm p-4 bg-white rounded-3">
                         <h4 class="form-title mb-3  text-start">

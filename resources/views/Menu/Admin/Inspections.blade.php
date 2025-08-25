@@ -1,87 +1,90 @@
 @extends('layouts.app')
 @section('content')
     <div class="main-container container">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa fa-list"></i></span> &nbsp;
-            <span class="crumb"><span class="breadcrumbs"><a href="{{ route('dashboard') }}">Home</a> &gt;
-                </span><span class="breadcrumbs">Inspection Records</span></span>
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-icon">
+                <i class="fa fa-list"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <a href="{{ route('dashboard') }}">Home</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    <span>Inspection Records</span>
+                </div>
+            </nav>
         </div>
-        <hr>
-        <div class="menu-container">
-            <div class="menu-box">
-                <a href="{{ route('admin.ShowRecentLogs') }}" class="menu-box-link"></a>
-                <div class="row">
-                    <div class="col-sm-12 col-md-2">
-                        <div class="menu-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                    </div>
-                    <div class="col-sm-12 col-md-10">
-                        <div class="passport-title user-link">
-                            <span class="module-name">Recent Logs</span>
-                        </div>
-                        <div class="module-description small text-muted">
-                            View the most recent fire extinguisher inspections and activity.
 
+        <div class="menu-grid">
+            <div class="menu-card">
+                <span class="card-badge">Admin</span>
+                <a href="{{ route('admin.ShowRecentLogs') }}" class="card-link"></a>
+                <div class="card-body">
+                    <div class="card-icon-container">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
                         </div>
                     </div>
+                    <h3 class="card-title">Recent Logs</h3>
+                    <p class="card-description">
+                        View the most recent fire extinguisher inspections and activity.
+
+                    </p>
                 </div>
             </div>
 
-            <div class="menu-box">
-                <a href="{{ route('admin.ShowInspectionExtinguishers') }}" class="menu-box-link"></a>
-                <div class="row">
-                    <div class="col-sm-12 col-md-2">
-                        <div class="menu-icon"><i class="fa-solid fa-fire-extinguisher"></i></div>
-                    </div>
-                    <div class="col-sm-12 col-md-10">
-                        <div class="passport-title user-link">
-                            <span class="module-name">Extinguisher Inspections </span>
-                        </div>
-                        <div class="module-description small text-muted">
-                            View each fire extinguisher with its inspection logs.
-
+            <div class="menu-card">
+                <span class="card-badge">Admin</span>
+                <a href="{{ route('admin.ShowInspectionExtinguishers') }}" class="card-link"></a>
+                <div class="card-body">
+                    <div class="card-icon-container">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-fire-extinguisher"></i>
                         </div>
                     </div>
+                    <h3 class="card-title">Extinguisher Inspections</h3>
+                    <p class="card-description">
+                        View each fire extinguisher with its inspection logs.
+                    </p>
                 </div>
             </div>
 
-            <div class="menu-box">
-                <a href="{{ route('admin.ShowAllRefills') }}" class="menu-box-link"></a>
-                <div class="row">
-                    <div class="col-sm-12 col-md-2">
-                        <div class="menu-icon"><i class="fa-solid fa-fire-extinguisher"></i></div>
-                    </div>
-                    <div class="col-sm-12 col-md-10">
-                        <div class="passport-title user-link">
-                            <span class="module-name">Refill Logs </span>
-                        </div>
-                        <div class="module-description small text-muted">
-                            Track and review the refill history of each fire extinguisher, including dates, personnel, and
-                            remarks.
+            <div class="menu-card">
+                <span class="card-badge">Admin</span>
+                <a href="{{ route('admin.ShowAllRefills') }}" class="card-link"></a>
+                <div class="card-body">
+                    <div class="card-icon-container">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-fire-extinguisher"></i>
                         </div>
                     </div>
+                    <h3 class="card-title">Refill Logs </h3>
+                    <p class="card-description">
+                        Track and review the refill history of each fire extinguisher, including dates, personnel, and
+                        remarks.
+                    </p>
                 </div>
             </div>
 
-            <div class="menu-box">
-                <a href="{{ route('admin.ShowExportForm') }}" class="menu-box-link"></a>
-                <div class="row">
-                    <div class="col-sm-12 col-md-2">
-                        <div class="menu-icon"><i class="fa-solid fa-file-export"></i></div>
-                    </div>
-                    <div class="col-sm-12 col-md-10">
-                        <div class="passport-title user-link">
-                            <span class="module-name">Export Logs</span>
-                        </div>
-                        <div class="module-description small text-muted">
-                            Download fire extinguisher logs for reporting or backup purposes.
+            <div class="menu-card">
+                <span class="card-badge">Admin</span>
+                <a href="{{ route('admin.ShowExportForm') }}" class="card-link"></a>
+                <div class="card-body">
+                    <div class="card-icon-container">
+                        <div class="card-icon">
+                            <i class="fa-solid fa-file-export"></i>
                         </div>
                     </div>
+                    <h3 class="card-title">Export Logs</h3>
+                    <p class="card-description">
+                        Download fire extinguisher logs for reporting or backup purposes.
+                    </p>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection
 @push('css')
-    <link href="{{ asset('css/components/submenu.css') }}?v={{ time() }}" rel="stylesheet">
+    <link href="{{ asset('css/components/menu.css') }}?v={{ time() }}" rel="stylesheet">
 @endpush

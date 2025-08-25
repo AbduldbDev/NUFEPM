@@ -2,24 +2,26 @@
 @section('content')
     @include('layouts.components.alerts')
     <div class="main-container container">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa-solid fa-users"></i></span> &nbsp;
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('dashboard') }}">Home</a> &gt; </span>
-            </span>
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('admin.ShowAccountsMenu') }}">Accounts</a> &gt; </span>
-            </span>
-            <span class="breadcrumbs">Add New </span>
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <a href="{{ route('dashboard') }}">Home</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    <span><a href="{{ route('admin.ShowAccountsMenu') }}">Accounts</a></span>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    <span>Accounts</span>
+                </div>
+            </nav>
         </div>
-        <hr>
 
-        <div class="container animated-container form-container">
-            <!-- Add User Title -->
-            {{-- <h2 class="fw-bold text-dark mb-4">
-                <i class="fa-solid fa-user-plus me-2 text-primary"></i> Add New User Account
-            </h2> --}}
-
+        <div class=" animated-container ">
             <div class="card border-0 shadow-sm rounded-4 p-4">
                 <form action="{{ route('admin.CreateUser') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -140,8 +142,13 @@
                             <select name="type" id="type" class="form-select" required>
                                 <option value="">-- Select --</option>
                                 <option value="admin" {{ old('type') == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="engineer" {{ old('type') == 'engineer' ? 'selected' : '' }}>
+                                    Engineer</option>
+                                <option value="guard" {{ old('type') == 'guard' ? 'selected' : '' }}>
+                                    Guard</option>
                                 <option value="maintenance" {{ old('type') == 'maintenance' ? 'selected' : '' }}>
                                     Maintenance</option>
+
                             </select>
                         </div>
 
