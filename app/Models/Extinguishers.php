@@ -12,7 +12,7 @@ class Extinguishers extends Model
         'created_by',
         'extinguisher_id',
         'location_id',
-        'type_id',
+        'type',
         'serial_number',
         'capacity',
         'installation_date',
@@ -21,7 +21,7 @@ class Extinguishers extends Model
         'status',
         'qr_code_path',
     ];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
@@ -32,10 +32,6 @@ class Extinguishers extends Model
         return $this->belongsTo(ExtinguisherLocations::class, 'location_id');
     }
 
-    public function type()
-    {
-        return $this->belongsTo(ExtinguishersTypes::class, 'type_id');
-    }
 
     public function refillLogs()
     {

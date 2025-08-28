@@ -2,15 +2,25 @@
 @section('content')
     @include('layouts.components.alerts')
     <div class="main-container container">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa-solid fa-file-export"></i></span> &nbsp;
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('admin.ShowAdminInspectionMenu') }}">Inspections</a> &gt;
-                </span>
-            </span>
-            <span class="breadcrumbs">Export</span>
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="breadcrumb-icon">
+                <i class="fa-solid fa-file-export"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <a href="{{ route('admin.ShowAdminInspectionMenu') }}">Inspections</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    <span>Export</span>
+                </div>
+            </nav>
         </div>
-        <hr>
     </div>
     <div class="container my-4">
         <div class="row ">

@@ -24,7 +24,7 @@ class AccountsController extends Controller
 
     public function ShowAllAccounts()
     {
-        $items = User::paginate(50);
+        $items = User::orderBy('type', 'asc')->paginate(50);
         return view('Admin.accounts.allaccounts', compact('items'));
     }
 

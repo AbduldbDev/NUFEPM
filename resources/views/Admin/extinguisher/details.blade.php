@@ -2,17 +2,29 @@
 @section('content')
     @include('layouts.components.alerts')
     <div class="main-container container ">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa-solid fa-fire-extinguisher"></i></span> &nbsp;
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('dashboard') }}">Home</a> &gt; </span>
-            </span>
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('admin.ShowExtinguishersMenu') }}">Extinguishers</a> &gt; </span>
-            </span>
-            <span class="breadcrumbs">Add New </span>
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="breadcrumb-icon">
+                <i class="fa-solid fa-fire-extinguisher"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <a href="{{ route('dashboard') }}">Home</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item">
+                    <a href="{{ route('admin.ShowExtinguishersMenu') }}">Extinguishers</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    <span>Edit</span>
+                </div>
+            </nav>
         </div>
-        <hr>
 
         {{-- <div class="add-extinguisher-container shadow-sm animated-container">
 
@@ -172,14 +184,49 @@
 
                             <div class="form-floating mt-3">
                                 <select id="type" name="type" class="form-select" required>
-                                    <option value="">-- SELECT TYPE --</option>
-                                    @foreach ($types as $item)
-                                        <option value="{{ $item->id }}" style="color: {{ $item->color }}"
-                                            {{ optional($details->type)->id === $item->id ? 'selected' : '' }}>
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
+                                    <option value="" disabled {{ $details->type ? '' : 'selected' }}>-- SELECT TYPE --
+                                    </option>
+
+                                    <option style="color: red" value="ABC Fire Extinguisher (RED)"
+                                        {{ $details->type == 'ABC Fire Extinguisher (RED)' ? 'selected' : '' }}>
+                                        ABC Fire Extinguisher (RED)
+                                    </option>
+
+                                    <option style="color: green" value="ABC Fire Extinguisher (GREEN)"
+                                        {{ $details->type == 'ABC Fire Extinguisher (GREEN)' ? 'selected' : '' }}>
+                                        ABC Fire Extinguisher (GREEN)
+                                    </option>
+
+                                    <option value="CO2 Fire Extinguisher"
+                                        {{ $details->type == 'CO2 Fire Extinguisher' ? 'selected' : '' }}>
+                                        CO2 Fire Extinguisher
+                                    </option>
+
+                                    <option value="Class K Fire Extinguisher"
+                                        {{ $details->type == 'Class K Fire Extinguisher' ? 'selected' : '' }}>
+                                        Class K Fire Extinguisher
+                                    </option>
+
+                                    <option value="Halotron Fire Extinguisher"
+                                        {{ $details->type == 'Halotron Fire Extinguisher' ? 'selected' : '' }}>
+                                        Halotron Fire Extinguisher
+                                    </option>
+
+                                    <option value="Water-Based Fire Extinguisher"
+                                        {{ $details->type == 'Water-Based Fire Extinguisher' ? 'selected' : '' }}>
+                                        Water-Based Fire Extinguisher
+                                    </option>
+
+                                    <option style="color: purple" value="Purple K Fire Extinguisher"
+                                        {{ $details->type == 'Purple K Fire Extinguisher' ? 'selected' : '' }}>
+                                        Purple K Fire Extinguisher
+                                    </option>
+
+                                    <option value="Other" {{ $details->type == 'Other' ? 'selected' : '' }}>
+                                        Other
+                                    </option>
                                 </select>
+
                                 <label for="type">Type</label>
                             </div>
 

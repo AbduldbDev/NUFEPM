@@ -2,17 +2,25 @@
 @section('content')
     @include('layouts.components.alerts')
     <div class="main-container container ">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa-solid fa-qrcode"></i></span> &nbsp;
-            {{-- <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('admin.ShowAdminInspectionMenu') }}">Inspections</a> &gt; </span>
-            </span> --}}
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="#" onclick="history.back(); return false;">Return</a> &gt; </span>
-            </span>
-            <span class="breadcrumbs">{{ $details->extinguisher->extinguisher_id }}</span>
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="breadcrumb-icon">
+                <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <a href="{{ route('admin.ShowAdminInspectionMenu') }}">Inspections</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    Answer
+                </div>
+            </nav>
         </div>
-        <hr>
         <div class="animated-container">
             <div class="card shadow-sm rounded-3 p-3 mb-3" style="border-left: 4px solid #35408e;">
                 <h5 class="fw-bold mb-3"><i class="fa-solid fa-clipboard-check me-2"></i>Inspection Answers</h5>

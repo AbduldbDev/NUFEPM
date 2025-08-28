@@ -1,7 +1,13 @@
 @extends('layouts.app')
 @section('content')
     <div class="main-container container">
+
         <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
             <div class="breadcrumb-icon">
                 <i class="fa-solid fa-users"></i>
             </div>
@@ -18,7 +24,7 @@
 
         <div class="menu-grid">
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
+
                 <a href="{{ route('admin.ShowAddUserForm') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -33,7 +39,7 @@
                 </div>
             </div>
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
+
                 <a href="{{ route('admin.ShowAllAccounts') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -49,7 +55,7 @@
             </div>
 
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
+
                 <a href="{{ route('admin.ShowProfile') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -65,7 +71,7 @@
             </div>
 
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
+
                 <a href="{{ route('admin.ShowChangePassword') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">

@@ -1,21 +1,32 @@
 @extends('layouts.app')
 @section('content')
     @include('layouts.components.alerts')
-    <div class="main-container container-fluid">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa-solid fa-qrcode"></i></span> &nbsp;
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('dashboard') }}">Home</a> &gt; </span>
-            </span>
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('admin.ShowAdminInspectionMenu') }}">Inspections</a> &gt; </span>
-            </span>
-            <span class="breadcrumbs">Extinguishers</span>
+    <div class="container-fluid px-0 px-lg-5">
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="breadcrumb-icon">
+                <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <a href="{{ route('dashboard') }}">Home</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item">
+                    <a href="{{ route('admin.ShowAdminInspectionMenu') }}">Inspections</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    Extinguishers
+                </div>
+            </nav>
         </div>
-        <hr>
     </div>
-
-    <div class="container-fluid animated-container">
+    <div class="animated-container container-fluid px-0 px-lg-5">
         <div class="row mt-3 mb-3">
             <div class="col-12 col-lg-3">
                 <div class="input-group">
@@ -25,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="table-responsive">
+        <div class="table-container table-responsive">
             <table class="sortable-table table table-responsive table-bordered w-100" id="sortableTable">
                 <thead>
                     <tr>

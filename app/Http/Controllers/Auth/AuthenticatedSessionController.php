@@ -40,17 +40,8 @@ class AuthenticatedSessionController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
             $request->session()->regenerate();
-
-            $user = Auth::user();
-
-            switch ($user->type) {
-                case 'admin':
-                    return redirect()->route('dashboard');
-                case 'maintenance':
-                    return redirect()->route('dashboard');
-                default:
-                    return redirect()->route('dashboard');
-            }
+            
+            redirect()->route('dashboard');
         }
 
         return back()->withErrors([

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('location_id')->nullable()->constrained('extinguisher_locations')->nullOnDelete();
-            $table->foreignId('type_id')->nullable()->constrained('extinguishers_type')->nullOnDelete();
+            $table->string('type');
             $table->string('extinguisher_id')->unique();
             $table->string('serial_number');
             $table->string('capacity');

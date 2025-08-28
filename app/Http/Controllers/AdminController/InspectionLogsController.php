@@ -28,7 +28,7 @@ class InspectionLogsController extends Controller
 
     public function ShowInspectionExtinguishers()
     {
-        $items = Extinguishers::with(['location', 'type'])->where('status', '!=', 'Retired')->paginate(100);
+        $items = Extinguishers::with(['location'])->where('status', '!=', 'Retired')->paginate(100);
         return view('Admin.inspections.extinguishers', compact('items'));
     }
 
@@ -39,6 +39,4 @@ class InspectionLogsController extends Controller
 
         return view('Admin.inspections.logstable', compact('items', 'details'));
     }
-
-
 }

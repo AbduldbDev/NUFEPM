@@ -2,17 +2,25 @@
 @section('content')
     @include('layouts.components.alerts')
     <div class="main-container container ">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa-solid fa-qrcode"></i></span> &nbsp;
-
-            <span class="crumb">
-                <span class="breadcrumbs"><a
-                        href="{{ route('maintenance.ShowMaintenanceExtinguishersMenu') }}">Inspections</a> &gt; </span>
-            </span>
-
-            <span class="breadcrumbs">Upcoming Inspection</span>
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="breadcrumb-icon">
+                <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <a href="{{ route('maintenance.ShowMaintenanceExtinguishersMenu') }}">Extinguisher</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    <span>Upcoming Inspection</span>
+                </div>
+            </nav>
         </div>
-        <hr>
 
         <div>
             @forelse ($items as $index => $item)

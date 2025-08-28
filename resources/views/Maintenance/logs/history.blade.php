@@ -2,17 +2,25 @@
 @section('content')
     @include('layouts.components.alerts')
     <div class="main-container container ">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa-solid fa-qrcode"></i></span> &nbsp;
-            {{-- <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('admin.ShowAdminInspectionMenu') }}">Inspections</a> &gt; </span>
-            </span> --}}
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="#" onclick="history.back(); return false;">Return</a> &gt; </span>
-            </span>
-            <span class="breadcrumbs">{{ $details->extinguisher_id }}</span>
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="breadcrumb-icon">
+                <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <a href="{{ route('maintenance.ShowMaintenanceExtinguishersMenu') }}">Inspections</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    History
+                </div>
+            </nav>
         </div>
-        <hr>
 
         <div class="animated-container">
             <div class="border rounded-3 p-4 mb-2 bg-white position-relative">

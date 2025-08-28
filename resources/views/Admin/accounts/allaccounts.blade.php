@@ -3,6 +3,11 @@
     @include('layouts.components.alerts')
     <div class="main-container container">
         <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
             <div class="breadcrumb-icon">
                 <i class="fa-solid fa-users"></i>
             </div>
@@ -11,8 +16,8 @@
                     <a href="{{ route('dashboard') }}">Home</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
-                <div class="breadcrumb-item active">
-                    <span><a href="{{ route('admin.ShowAccountsMenu') }}">Accounts</a> </span>
+                <div class="breadcrumb-item">
+                    <a href="{{ route('admin.ShowAccountsMenu') }}">Accounts</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
@@ -83,17 +88,19 @@
                                         <a class="mx-2 edit-btn" href="{{ url('Accounts/Details/' . $item->id) }}">
                                             <i class="fa-regular fa-eye"></i>
                                         </a>
-                                        <form action="{{ route('admin.DeleteAccount') }}" method="POST"
-                                            onsubmit="return confirmDelete(this);">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="id" value="{{ $item->id }}">
-                                            <button class="mx-2 delete-btn" type="submit" title="Delete"
-                                                style="border: none; background-color: transparent">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                        @include('layouts.components.deletepopup')
+                                        @if ($item->type !== 'admin')
+                                            <form action="{{ route('admin.DeleteAccount') }}" method="POST"
+                                                onsubmit="return confirmDelete(this);">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="id" value="{{ $item->id }}">
+                                                <button class="mx-2 delete-btn" type="submit" title="Delete"
+                                                    style="border: none; background-color: transparent">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                            @include('layouts.components.deletepopup')
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

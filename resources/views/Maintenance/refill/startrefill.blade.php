@@ -2,18 +2,26 @@
 @section('content')
     @include('layouts.components.alerts')
     <div class="main-container container ">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa-solid fa-fire-extinguisher"></i></span> &nbsp;
-
-            <span class="crumb">
-                <span class="breadcrumbs">
-                    <a href="#" onclick="history.back(); return false;">Return</a>
-                    &gt;
-                </span>
-            </span>
-            <span class="breadcrumbs">Refill Extinguisher</span>
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="breadcrumb-icon">
+                <i class="fa-solid fa-fire-extinguisher"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <a href="{{ route('maintenance.ShowMaintenanceExtinguishersMenu') }}">Inspections</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    Refill Extinguisher
+                </div>
+            </nav>
         </div>
-        <hr>
+
         <div class="card shadow-sm rounded-3 mb-3 border-bottom p-3" style="border-left: 4px solid #35408e">
             <form action="{{ route('maintenance.SubmitRefill') }}" method="POST">
                 @csrf

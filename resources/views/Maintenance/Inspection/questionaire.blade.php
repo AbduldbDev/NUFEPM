@@ -2,14 +2,25 @@
 @section('content')
     @include('layouts.components.alerts')
     <div class="main-container container ">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa-solid fa-qrcode"></i></span> &nbsp;
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('dashboard') }}">Home</a> &gt; </span>
-            </span>
-            <span class="breadcrumbs">{{ $extinguisher->extinguisher_id }}</span>
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="breadcrumb-icon">
+                <i class="fa-solid fa-fire-extinguisher"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <span class="breadcrumbs"><a href="{{ route('dashboard') }}">Home</a> </span>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    {{ $extinguisher->extinguisher_id }}
+                </div>
+            </nav>
         </div>
-        <hr>
         <div class="card shadow-sm rounded-3 mb-3 border-bottom p-3" style="border-left: 4px solid #35408e">
             <h5 class=" text-center fw-bold text-primary">Inspection Questions</h5>
             <div class="text-center text-muted">

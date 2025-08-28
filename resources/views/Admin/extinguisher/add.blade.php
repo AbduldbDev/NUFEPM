@@ -3,6 +3,11 @@
     @include('layouts.components.alerts')
     <div class="main-container container ">
         <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
             <div class="breadcrumb-icon">
                 <i class="fa-solid fa-fire-extinguisher"></i>
             </div>
@@ -16,10 +21,11 @@
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
-                    <span>>Add New</span>
+                    <span>Add New</span>
                 </div>
             </nav>
         </div>
+
         <form action="{{ route('SubmitNewTank') }}" method="POST">
             @csrf
             <div class="row">
@@ -41,10 +47,21 @@
                             <div class="form-floating mb-3">
                                 <select id="type" name="type" class="form-select" required>
                                     <option value="" disabled selected hidden>-- SELECT TYPE --</option>
-                                    @foreach ($types as $item)
-                                        <option value="{{ $item->id }}" style="color: {{ $item->color }}">
-                                            {{ $item->name }}</option>
-                                    @endforeach
+                                    <option style="color:  red" value="ABC Fire Extinguisher (RED)">ABC Fire
+                                        Extinguisher
+                                        (RED)</option>
+                                    <option style="color:  green" value="ABC Fire Extinguisher (GREEN)">ABC Fire
+                                        Extinguisher
+                                        (GREEN)
+                                    </option>
+                                    <option value="CO2 Fire Extinguisher">CO2 Fire Extinguisher</option>
+                                    <option value="Class K Fire Extinguisher">Class K Fire Extinguisher</option>
+                                    <option value="Halotron Fire Extinguisher">Halotron Fire Extinguisher</option>
+                                    <option value="Water-Based Fire Extinguisher">Water-Based Fire Extinguisher
+                                    </option>
+                                    <option style="color:  purple" value="Purple K Fire Extinguisher">Purple K Fire
+                                        Extinguisher</option>
+                                    <option value="Other">Other</option>
                                 </select>
                                 <label for="type">Type <span class="text-danger">*</span></label>
                             </div>

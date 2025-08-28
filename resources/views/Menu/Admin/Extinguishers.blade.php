@@ -2,6 +2,11 @@
 @section('content')
     <div class="main-container container">
         <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
             <div class="breadcrumb-icon">
                 <i class="fa-solid fa-fire-extinguisher"></i>
             </div>
@@ -18,7 +23,7 @@
         <div class="menu-grid">
 
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
+
                 <a href="{{ route('admin.ShowAddTankForm') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -35,7 +40,7 @@
             </div>
 
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
+
                 <a href="{{ route('admin.ShowActiveExtinguishers') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -52,7 +57,7 @@
             </div>
 
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
+
                 <a href="{{ route('admin.ShowRetiredExtinguishers') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -68,7 +73,7 @@
             </div>
 
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
+
                 <a href="{{ route('admin.ShowAllQuestions') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -85,7 +90,7 @@
             </div>
 
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
+
                 <a href="{{ route('admin.ShowLocations') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -100,8 +105,8 @@
                 </div>
             </div>
 
-            <div class="menu-card">
-                <span class="card-badge">Admin</span>
+            {{-- <div class="menu-card">
+
                 <a href="{{ route('admin.ShowTypes') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -114,7 +119,7 @@
                         Access your personal account settings to update your details and change your password.
                     </p>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
     </div>

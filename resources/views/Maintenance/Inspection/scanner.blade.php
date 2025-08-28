@@ -1,14 +1,25 @@
 @extends('layouts.app')
 @section('content')
     <div class="main-container container ">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa-solid fa-qrcode"></i></span> &nbsp;
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('dashboard') }}">Home</a> &gt; </span>
-            </span>
-            <span class="breadcrumbs">Scanner</span>
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="breadcrumb-icon">
+                <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <span class="breadcrumbs"><a href="{{ route('dashboard') }}">Home</a> </span>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    Scanner
+                </div>
+            </nav>
         </div>
-        <hr>
 
         <div id="reader" style="width:100%" class="animated-container">
             <div id="loadingSpinner" class="d-flex justify-content-center align-items-center" style="height: 200px;">

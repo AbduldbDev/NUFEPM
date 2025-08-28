@@ -29,7 +29,11 @@ class InspectionController extends Controller
 
     public function ShowInspectionDetail($id)
     {
-        $extinguisher = Extinguishers::with(['type', 'location'])->where('extinguisher_id', $id)->first();
+        $extinguisher = Extinguishers::with(['location'])->where('extinguisher_id', $id)->first();
+
+        if (!$extinguisher) {
+            return redirect()->back()->with('error', "Can't find details");
+        }
 
         return view('Maintenance.Inspection.details', compact('extinguisher'));
     }
@@ -37,8 +41,12 @@ class InspectionController extends Controller
 
     public function StartInspection($id)
     {
-        $extinguisher = Extinguishers::with(['type', 'location'])->where('extinguisher_id', $id)->first();
+        $extinguisher = Extinguishers::with(['location'])->where('extinguisher_id', $id)->first();
         $assigned = QuestionAssigned::where('extinguisher_id', $extinguisher->id)->get();
+
+        if (!$extinguisher) {
+            return redirect()->back()->with('error', "Can't find Extinguishers");
+        }
 
         $questions = $assigned->map(function ($qa) {
             return $qa->question;

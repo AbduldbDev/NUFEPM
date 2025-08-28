@@ -27,7 +27,7 @@
             @if (Auth::user()->type === 'admin' || Auth::user()->type === 'engineer')
                 <!-- Fire Extinguisher Card -->
                 <div class="menu-card">
-                    <span class="card-badge">Admin</span>
+
                     <a href="{{ route('admin.ShowExtinguishersMenu') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -44,7 +44,7 @@
 
                 <!-- Inspection Records Card -->
                 <div class="menu-card">
-                    <span class="card-badge">Admin</span>
+
                     <a href="{{ route('admin.ShowAdminInspectionMenu') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -61,7 +61,7 @@
 
                 <!-- User Accounts Card -->
                 <div class="menu-card">
-                    <span class="card-badge">Admin</span>
+
                     <a href="{{ route('admin.ShowAccountsMenu') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -78,7 +78,7 @@
 
                 {{-- <!-- Reports Card -->
                 <div class="menu-card">
-                    <span class="card-badge">Admin</span>
+                      
                     <a href="#" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -97,7 +97,7 @@
             @if (Auth::user()->type === 'maintenance' || Auth::user()->type === 'guard')
                 <!-- QR Scanner Card -->
                 <div class="menu-card">
-                    <span class="card-badge">Tech</span>
+
                     <a href="{{ route('maintenance.ShowScanner') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -114,7 +114,7 @@
 
                 <!-- Extinguishers Card -->
                 <div class="menu-card">
-                    <span class="card-badge">Tech</span>
+
                     <a href="{{ route('maintenance.ShowMaintenanceExtinguishersMenu') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -131,7 +131,7 @@
 
                 <!-- Maintenance Card -->
                 <div class="menu-card">
-                    <span class="card-badge">Tech</span>
+
                     <a href="#" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -148,7 +148,7 @@
 
                 <!-- History Card -->
                 <div class="menu-card">
-                    <span class="card-badge">Tech</span>
+
                     <a href="#" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">

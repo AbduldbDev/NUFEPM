@@ -4,6 +4,11 @@
 
     <div class="main-container container">
         <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
             <div class="breadcrumb-icon">
                 <i class="fa-solid fa-users"></i>
             </div>
@@ -12,8 +17,8 @@
                     <a href="{{ route('dashboard') }}">Home</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
-                <div class="breadcrumb-item active">
-                    <span><a href="{{ route('admin.ShowAccountsMenu') }}">Accounts</a></span>
+                <div class="breadcrumb-item">
+                    <a href="{{ route('admin.ShowAccountsMenu') }}">Accounts</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">

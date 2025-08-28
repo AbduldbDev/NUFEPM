@@ -1,24 +1,34 @@
 @extends('layouts.app')
 @section('content')
-    @include('layouts.components.alerts')
-    <div class="main-container container-fluid">
-        <div class="title">
-            <span class="menu-title-icon"><i class="fa-solid fa-fire-extinguisher"></i></span> &nbsp;
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('dashboard') }}">Home</a> &gt; </span>
-            </span>
-            <span class="crumb">
-                <span class="breadcrumbs"><a href="{{ route('admin.ShowExtinguishersMenu') }}">Extinguishers</a> &gt; </span>
-            </span>
-            <span class="breadcrumbs">
-                @if (Route::currentRouteName() == 'admin.ShowActiveExtinguishers')
-                    Active
-                @else
-                    Retired
-                @endif
-            </span>
+    @include('layouts.components.alerts ')
+    <div class=" container-fluid  px-0 px-lg-5">
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="breadcrumb-icon">
+                <i class="fa-solid fa-fire-extinguisher"></i>
+            </div>
+            <nav class="breadcrumb-nav">
+                <div class="breadcrumb-item">
+                    <a href="{{ route('dashboard') }}">Home</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item">
+                    <a href="{{ route('admin.ShowExtinguishersMenu') }}">Extinguishers</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    @if (Route::currentRouteName() == 'admin.ShowActiveExtinguishers')
+                        Active
+                    @else
+                        Retired
+                    @endif
+                </div>
+            </nav>
         </div>
-        <hr>
     </div>
 
     {{-- <div class="container ">
@@ -54,7 +64,7 @@
         </div>
     </div> --}}
 
-    <div class=" animated-container container-fluid">
+    <div class="animated-container container-fluid px-0 px-lg-5">
         <div
             class="row mt-3 mb-3 d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center">
             <div class="col-12 col-lg-3 ">
@@ -72,7 +82,7 @@
 
         </div>
 
-        <div class="table-responsive">
+        <div class="table-container table-responsive">
             <table class="sortable-table table table-responsive table-bordered w-100" id="sortableTable">
                 <thead>
                     <tr>
@@ -128,7 +138,8 @@
                             <td style="vertical-align: middle; text-align: center;">
 
                                 <a href="{{ asset('/storage/' . $item->qr_code_path) }}" target="_blank">
-                                    <img src="{{ asset('/storage/' . $item->qr_code_path) }}" alt="QR Code" width="100px">
+                                    <img src="{{ asset('/storage/' . $item->qr_code_path) }}" alt="QR Code"
+                                        width="100px">
                                 </a><br>
                                 {{ $item->extinguisher_id }} <br>
 
@@ -145,7 +156,7 @@
                             </td>
                             <td
                                 style="vertical-align: middle; text-align: center; color:  {{ $item->type->color ?? '#00000' }}">
-                                {{ $item->type->name ?? 'N/A' }}
+                                {{ $item->type }}
                             </td>
                             <td style="vertical-align: middle; text-align: center; ">
                                 {{ $item->capacity }}

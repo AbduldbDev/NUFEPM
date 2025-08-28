@@ -41,7 +41,7 @@ class LogsController extends Controller
         $thirtyDaysFromNow = Carbon::today()->addDays(30);
         $thirtyDaysAgo = Carbon::today()->subDays(30);
 
-        $items = Extinguishers::with(['type', 'location'])
+        $items = Extinguishers::with(['location'])
             ->whereBetween('next_maintenance', [$today, $thirtyDaysFromNow])
             ->orWhereBetween('next_maintenance', [$thirtyDaysAgo, $today])
             ->orderBy('next_maintenance', 'asc')

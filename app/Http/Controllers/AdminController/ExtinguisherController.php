@@ -23,25 +23,24 @@ class ExtinguisherController extends Controller
 {
     public function ShowActiveExtinguishers()
     {
-        $items = Extinguishers::with(['location', 'type', 'user'])->where('status', '!=', 'Retired')->paginate(50);
+        $items = Extinguishers::with(['location',  'user'])->where('status', '!=', 'Retired')->paginate(50);
         return view('Admin.extinguisher.table', compact('items'));
     }
 
     public function ShowRetiredExtinguishers()
     {
-        $items = Extinguishers::with(['location', 'type', 'user'])->where('status', 'Retired')->paginate(50);
+        $items = Extinguishers::with(['location', 'user'])->where('status', 'Retired')->paginate(50);
         return view('Admin.extinguisher.table', compact('items'));
     }
 
     public function ShowAddTankForm()
     {
         $tanks = Extinguishers::with(['location'])->get();
-        $types = ExtinguishersTypes::get();
 
         $buildings = ExtinguisherLocations::select('building')
             ->groupBy('building')
             ->pluck('building');
-        return view('Admin.extinguisher.add', compact('tanks', 'types', 'buildings'));
+        return view('Admin.extinguisher.add', compact('tanks', 'buildings'));
     }
 
 
@@ -49,7 +48,7 @@ class ExtinguisherController extends Controller
     {
         $request->validate([
             'serial_number' => 'required|string',
-            'type' => 'required|integer',
+            'type' => 'required',
             'capacity' => 'required|string',
             'location_id' => 'required|string',
             'installation_date' => 'nullable|date',
@@ -58,7 +57,7 @@ class ExtinguisherController extends Controller
         try {
             Extinguishers::where('id', $request->id)->update([
                 'serial_number' => $request->serial_number,
-                'type_id'  => $request->type,
+                'type'  => $request->type,
                 'capacity' => $request->capacity,
                 'location_id' => $request->location_id,
                 'installation_date' => $request->installation_date,
@@ -75,7 +74,7 @@ class ExtinguisherController extends Controller
     {
         $request->validate([
             'serial_number' => 'required|string',
-            'type' => 'required|integer',
+            'type' => 'required',
             'capacity' => 'required|string',
             'loc_id'  => 'required|string',
             'installation_date' => 'nullable|date',
@@ -107,9 +106,9 @@ class ExtinguisherController extends Controller
                 'created_by' => Auth::user()->id,
                 'extinguisher_id'   => $extinguisherId,
                 'serial_number'     => $request->serial_number,
-                'type_id'              => $request->type,
+                'type'              => $request->type,
                 'capacity'          => $request->capacity,
-                'location_id'          => $request->loc_id, 
+                'location_id'          => $request->loc_id,
                 'installation_date' => $request->installation_date,
                 'last_maintenance' => $request->installation_date,
                 'next_maintenance' => now()->addDays(30),
@@ -237,12 +236,12 @@ class ExtinguisherController extends Controller
     public function ShowExtinguishersDetails($id)
     {
 
-        $details = Extinguishers::with(['type'])->findOrFail($id);
+        $details = Extinguishers::findOrFail($id);
         $buildings = ExtinguisherLocations::select('building')->groupBy('building')->pluck('building');
-        $types = ExtinguishersTypes::get();
+
         $allQuestions = InspectionQuestions::all();
         $assignedQuestionIds = QuestionAssigned::where('extinguisher_id', $id)->pluck('question_id')->toArray();
 
-        return view('Admin.extinguisher.details', compact('details', 'buildings', 'types', 'allQuestions', 'assignedQuestionIds'));
+        return view('Admin.extinguisher.details', compact('details', 'buildings',  'allQuestions', 'assignedQuestionIds'));
     }
 }

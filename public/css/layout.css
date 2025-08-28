@@ -6,9 +6,11 @@
     font-family: "Poppins", sans-serif;
 }
 body {
-    background-color: var(--bg-white);
+    background: linear-gradient(135deg, #fafafa 0%, #f5f9fc 100%);
     padding-top: 60px;
+    min-height: 100vh;
 }
+
 .container {
     transition: 0.3s ease-in-out;
 }
@@ -86,7 +88,6 @@ footer span {
     color: var(--text-black);
     font-size: 13px;
 }
-
 .breadcrumb-container {
     border-bottom: 1px solid rgb(224, 224, 224);
     margin-top: 50px;
@@ -94,6 +95,31 @@ footer span {
     align-items: center;
     padding: 12px 0;
     margin-bottom: 20px;
+}
+
+.breadcrumb-back {
+    margin-right: 12px;
+}
+
+.back-button {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+    background-color: var(--primary);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
 .breadcrumb-icon {
@@ -118,7 +144,7 @@ footer span {
 .breadcrumb-item {
     display: flex;
     align-items: center;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
 }
 
 .breadcrumb-item a {
@@ -142,6 +168,32 @@ footer span {
     margin: 0 10px;
     color: var(--gray);
     font-size: 0.8rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .breadcrumb-container {
+        margin-top: 30px;
+        padding: 10px 0;
+    }
+
+    .breadcrumb-back {
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .breadcrumb-nav {
+        gap: 5px;
+    }
+
+    .breadcrumb-separator {
+        margin: 0 5px;
+    }
+
+    .breadcrumb-item {
+        font-size: 0.85rem;
+    }
 }
 
 @keyframes slideFadeIn {

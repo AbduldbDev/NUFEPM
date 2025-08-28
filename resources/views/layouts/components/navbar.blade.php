@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg  fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ route('dashboard') }}">PREVENTION MONITORING
+        <a class="navbar-brand" href="{{ route('dashboard') }}">NUFEPM
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"

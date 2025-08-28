@@ -18,7 +18,6 @@
 
         <div class="menu-grid">
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
                 <a href="{{ route('admin.ShowRecentLogs') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -35,7 +34,7 @@
             </div>
 
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
+
                 <a href="{{ route('admin.ShowInspectionExtinguishers') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -51,7 +50,7 @@
             </div>
 
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
+
                 <a href="{{ route('admin.ShowAllRefills') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -68,7 +67,7 @@
             </div>
 
             <div class="menu-card">
-                <span class="card-badge">Admin</span>
+
                 <a href="{{ route('admin.ShowExportForm') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
