@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AdminController\AccountsController;
+use App\Http\Controllers\AdminController\DeviceController;
 use App\Http\Controllers\AdminController\ExtinguisherController;
 use App\Http\Controllers\AdminController\LocationsController;
 use App\Http\Controllers\AdminController\QuestionController;
@@ -21,6 +22,10 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
     Route::get('/Admin/Menu/Accounts', [MenuController::class, 'ShowAdminAccountsMenu'])->name('admin.ShowAccountsMenu');
     Route::get('/Admin/Menu/Extinguisher', [MenuController::class, 'ShowAdminExtinguishersMenu'])->name('admin.ShowExtinguishersMenu');
     Route::get('/Admin/Menu/Inspections', [MenuController::class, 'ShowAdminInspectionMenu'])->name('admin.ShowAdminInspectionMenu');
+    Route::get('/Admin/Menu/Devices', [MenuController::class, 'ShowAdminDeviceMenu'])->name('admin.ShowAdminDeviceMenu');
+
+
+
 
     Route::prefix('Accounts/')->group(function () {
         Route::get('/All', [AccountsController::class, 'ShowAllAccounts'])->name('admin.ShowAllAccounts');
@@ -33,7 +38,7 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::delete('/Delete', [AccountsController::class, 'DeleteAccount'])->name('admin.DeleteAccount');
     });
 
-    Route::prefix('Extinguisher/')->group(function () {
+    Route::prefix('Extinguisher')->group(function () {
         Route::get('/Active', [ExtinguisherController::class, 'ShowActiveExtinguishers'])->name('admin.ShowActiveExtinguishers');
         Route::get('/Retired', [ExtinguisherController::class, 'ShowRetiredExtinguishers'])->name('admin.ShowRetiredExtinguishers');
         Route::get('/Add', [ExtinguisherController::class, 'ShowAddTankForm'])->name('admin.ShowAddTankForm');
@@ -44,14 +49,26 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::post('/Qr/Download/Zip', [ExtinguisherController::class, 'downloadZip'])->name('qr.download.zip');
     });
 
-    Route::prefix('Types/')->group(function () {
+    Route::prefix('Devices')->group(function () {
+        Route::get('/', [DeviceController::class, 'ShowDevices'])->name('admin.ShowDevices');
+        Route::get('/new', [DeviceController::class, 'ShowAddForm'])->name('admin.ShowAddForm');
+        Route::post('/Create', [DeviceController::class, 'CreateDevice'])->name('admin.CreateDevice');
+        Route::put('/Update', [DeviceController::class, 'UpdateDevice'])->name('admin.UpdateDevice');
+        Route::get('/Details/{id}', [DeviceController::class, 'ShowDeviceDetails'])->name('admin.ShowDeviceDetails');
+
+        Route::post('/New/Certificate', [DeviceController::class, 'StoreCertificate'])->name('admin.StoreCertificate');
+    });
+
+
+
+    Route::prefix('Types')->group(function () {
         Route::get('/', [TypesController::class, 'ShowTypes'])->name('admin.ShowTypes');
         Route::put('/Update', [TypesController::class, 'UpdateType'])->name('admin.UpdateType');
         Route::post('/Submit', [TypesController::class, 'SubmitNewType'])->name('admin.SubmitNewType');
         Route::delete('/Delete', [TypesController::class, 'DeleteTypes'])->name('admin.DeleteTypes');
     });
 
-    Route::prefix('Locations/')->group(function () {
+    Route::prefix('Locations')->group(function () {
         Route::get('/', [LocationsController::class, 'ShowLocations'])->name('admin.ShowLocations');
         Route::put('/Update', [LocationsController::class, 'UpdateLocation'])->name('admin.UpdateLocation');
         Route::post('/Submit', [LocationsController::class, 'SubmitNewLocation'])->name('admin.SubmitNewLocation');
@@ -92,6 +109,8 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
 
 Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
     Route::get('/Maintenance/Menu/Inspections', [MenuController::class, 'ShowMaintenanceExtinguishersMenu'])->name('maintenance.ShowMaintenanceExtinguishersMenu');
+    Route::get('/Admin/Menu/Emergencyplans', [MenuController::class, 'ShowEmergencyPlansMenu'])->name('maintenance.ShowEmergencyPlansMenu');
+
 
     Route::prefix('Scanner')->group(function () {
         Route::get('/', [InspectionController::class, 'ShowScanner'])->name('maintenance.ShowScanner');

@@ -2,6 +2,11 @@
 @section('content')
     <div class="main-container container">
         <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
             <div class="breadcrumb-icon">
                 <i class="fa-solid fa-fire-extinguisher"></i>
             </div>
@@ -15,6 +20,7 @@
                 </div>
             </nav>
         </div>
+
         <div class="menu-grid">
 
             <div class="menu-card">

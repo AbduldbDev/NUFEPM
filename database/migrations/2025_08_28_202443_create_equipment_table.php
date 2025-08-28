@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
+            $table->string('type');
+            $table->string('model')->nullable();
+            $table->string('serial_number')->unique();
+            $table->string('loc_id')->nullable();
+            $table->date('installation_date')->nullable();
+            $table->enum('status', ['active', 'inactive', 'under_maintenance'])->default('active');
             $table->timestamps();
         });
     }

@@ -2,6 +2,11 @@
 @section('content')
     <div class="main-container container">
         <div class="breadcrumb-container">
+            <div class="breadcrumb-back">
+                <a href="javascript:history.back()" class="back-button">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
             <div class="breadcrumb-icon">
                 <i class="fa fa-list"></i>
             </div>
@@ -18,6 +23,7 @@
 
         <div class="menu-grid">
             <div class="menu-card">
+
                 <a href="{{ route('admin.ShowRecentLogs') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">

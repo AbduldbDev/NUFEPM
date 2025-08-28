@@ -25,7 +25,23 @@
 
         <div class="menu-grid">
             @if (Auth::user()->type === 'admin' || Auth::user()->type === 'engineer')
-                <!-- Fire Extinguisher Card -->
+                <div class="menu-card">
+                    <a href="{{ route('admin.ShowAdminDeviceMenu') }}" class="card-link"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-radiation"></i>
+
+                            </div>
+                        </div>
+                        <h3 class="card-title">Devices Management</h3>
+                        <p class="card-description">
+                            Manage and monitor all registered devices, including their type, model, serial number, and
+                            installation details.
+                        </p>
+                    </div>
+                </div>
+
                 <div class="menu-card">
 
                     <a href="{{ route('admin.ShowExtinguishersMenu') }}" class="card-link"></a>
@@ -129,36 +145,18 @@
                     </div>
                 </div>
 
-                <!-- Maintenance Card -->
                 <div class="menu-card">
-
-                    <a href="#" class="card-link"></a>
+                    <a href="{{ route('maintenance.ShowEmergencyPlansMenu') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
                             <div class="card-icon">
-                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                                <i class="fa-solid fa-map"></i>
                             </div>
                         </div>
-                        <h3 class="card-title">Maintenance</h3>
+                        <h3 class="card-title">Emergency Plans</h3>
                         <p class="card-description">
-                            Schedule and track maintenance activities for equipment.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- History Card -->
-                <div class="menu-card">
-
-                    <a href="#" class="card-link"></a>
-                    <div class="card-body">
-                        <div class="card-icon-container">
-                            <div class="card-icon">
-                                <i class="fa-solid fa-clock-rotate-left"></i>
-                            </div>
-                        </div>
-                        <h3 class="card-title">History</h3>
-                        <p class="card-description">
-                            View complete maintenance history for all equipment.
+                            Access and update building emergency evacuation plans, ensuring safety guidelines are always
+                            clear and up to date.
                         </p>
                     </div>
                 </div>

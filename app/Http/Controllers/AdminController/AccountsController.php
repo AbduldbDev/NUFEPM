@@ -167,7 +167,6 @@ class AccountsController extends Controller
         }
     }
 
-
     public function DeleteAccount(Request $request)
     {
         $user = User::findOrFail($request->id);

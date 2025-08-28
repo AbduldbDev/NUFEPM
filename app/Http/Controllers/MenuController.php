@@ -22,6 +22,11 @@ class MenuController extends Controller
         return view('Menu.Admin.Extinguishers');
     }
 
+    public function ShowAdminDeviceMenu()
+    {
+        return view('Menu.Admin.Devices');
+    }
+
     public function ShowAdminInspectionMenu()
     {
         return view('Menu.Admin.Inspections');
@@ -30,5 +35,10 @@ class MenuController extends Controller
     public function ShowMaintenanceExtinguishersMenu()
     {
         return view('Menu.Maintenance.Extinguishers');
+    }
+
+    public function ShowEmergencyPlansMenu()
+    {
+        return view('Menu.Maintenance.EmergencyPlan');
     }
 }
