@@ -189,7 +189,7 @@
                                 Issue Date<span class="sort-icons"><span class="asc">▲</span><span
                                         class="desc">▼</span></span>
                             </th>
-                            <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
+                            <th class="text-center sortable align-middle" data-index="3" onclick="sortTable(this)">
                                 Expiry Date <span class="sort-icons"><span class="asc">▲</span><span
                                         class="desc">▼</span></span>
                             </th>
@@ -217,44 +217,36 @@
                                     {{ optional($item->issue_date ? \Carbon\Carbon::parse($item->issue_date) : null)->format('F d, Y') ?? 'N/A' }}
                                 </td>
                                 <td style="vertical-align: middle; text-align: center;">
-                                    {{ optional($item->expiry_date ? \Carbon\Carbon::parse($item->expiry_date) : null)->format('F d, Y') ?? 'N/A' }}
+                                    {{ $item->expiry_date ? \Carbon\Carbon::parse($item->expiry_date)->format('F d, Y') : 'N/A' }}
                                 </td>
 
                                 <td class="text-capitalize" style="vertical-align: middle; text-align: center;">
                                     @php
-                                        $status = $item->status;
-                                        $badgeClass = match ($status) {
-                                            'active' => 'success',
-                                            'expired' => 'danger',
-                                            default => 'secondary',
-                                        };
+                                        $expiryDate = $item->expiry_date
+                                            ? \Carbon\Carbon::parse($item->expiry_date)
+                                            : null;
+                                        $status = $expiryDate && $expiryDate->isPast() ? 'expired' : 'active';
+
+                                        $badgeClass = $status === 'expired' ? 'danger' : 'success';
                                     @endphp
 
-                                    <span
-                                        class="badge px-3 py-2 rounded-pill bg-{{ $badgeClass }}">{{ $status }}</span>
+                                    <span class="badge px-3 py-2 rounded-pill bg-{{ $badgeClass }}">
+                                        {{ $status }}
+                                    </span>
                                 </td>
 
                                 <td class="text-center align-middle">
                                     <div class="d-flex justify-content-center align-items-center">
+                                        <button class="edit-btn" style="border: none; background-color: transparent"
+                                            data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+                                        @include('Admin.Device.modals.editcert')
                                         <button style="background-color: transparent; border: 0;" class="mx-2 edit-btn"
                                             data-bs-toggle="modal" data-bs-target="#ViewCertModal{{ $item->id }}">
                                             <i class="fa-regular fa-eye"></i>
                                         </button>
                                         @include('Admin.Device.modals.view')
-                                        {{-- <a class="mx-2 edit-btn" href="{{ url('Devices/Details/' . $item->id) }}">
-
-                                        </a> --}}
-                                        {{-- <form action="{{ route('admin.DeleteExtinguisher') }}" method="POST"
-                                            onsubmit="return confirmDelete(this);">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="id" value="{{ $item->id }}">
-                                            <button class="mx-2 delete-btn" type="submit" title="Delete"
-                                                style="border: none; background-color: transparent">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                        @include('layouts.components.deletepopup') --}}
                                     </div>
                                 </td>
                             </tr>

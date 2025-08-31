@@ -156,6 +156,22 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="menu-card">
+                    <a href="{{ route('maintenance.ShowInspectionGuide') }}" class="card-link"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-fire-extinguisher"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Extinguisher Inspection Guide</h3>
+                        <p class="card-description">
+                            Review step-by-step guidelines for inspecting fire extinguishers to maintain compliance and
+                            readiness.
+                        </p>
+                    </div>
+                </div>
             @endif
         </div>
     </div>

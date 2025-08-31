@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('file_path');
             $table->date('issue_date')->nullable();
             $table->date('expiry_date')->nullable();
-            $table->string('status')->default('active');
             $table->timestamps();
         });
     }

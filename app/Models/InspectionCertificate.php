@@ -13,7 +13,6 @@ class InspectionCertificate extends Model
         'file_path',
         'issue_date',
         'expiry_date',
-        'status'
     ];
 
     public function equipment()

@@ -72,6 +72,36 @@ class DeviceController extends Controller
         return redirect()->back()->with('success', 'Certificate uploaded successfully!');
     }
 
+    public function UpdateCertificate(Request $request)
+    {
+        $certificate = InspectionCertificate::findOrFail($request->id);
+
+        $validated = $request->validate([
+            'certificate_no' => 'nullable|string|max:255',
+            'file_path'      => 'nullable|file|max:2048',
+            'issue_date'     => 'nullable|date',
+            'expiry_date'    => 'nullable|date|after_or_equal:issue_date',
+        ]);
+
+        if ($request->hasFile('file_path')) {
+            if ($certificate->file_path && Storage::disk('public')->exists($certificate->file_path)) {
+                Storage::disk('public')->delete($certificate->file_path);
+            }
+
+            $filename = ($request->certificate_no ?? uniqid('cert_'));
+            $storedPath = $request->file('file_path')->storeAs(
+                'Certificates',
+                $filename,
+                'public'
+            );
+            $validated['file_path'] = $storedPath;
+        }
+
+        $certificate->update($validated);
+
+        return redirect()->back()->with('success', 'Certificate updated successfully!');
+    }
+
     public function DeleteDevice(Request $request)
     {
         $device = Equipment::findOrFail($request->id);

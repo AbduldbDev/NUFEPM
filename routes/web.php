@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminController\TypesController;
 use App\Http\Controllers\AdminController\ExportController;
 use App\Http\Controllers\AdminController\InspectionLogsController;
 use App\Http\Controllers\AdminController\RefillLogsController;
+use App\Http\Controllers\MaintenanceController\GuideController;
 use App\Http\Controllers\MaintenanceController\InspectionController;
 use App\Http\Controllers\MaintenanceController\LogsController;
 use App\Http\Controllers\MaintenanceController\RefillController;
@@ -59,6 +60,7 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
 
 
         Route::post('/New/Certificate', [DeviceController::class, 'StoreCertificate'])->name('admin.StoreCertificate');
+        Route::put('/Update/Certificate', [DeviceController::class, 'UpdateCertificate'])->name('admin.UpdateCertificate');
     });
 
 
@@ -137,6 +139,10 @@ Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
         Route::get('/confirmation', [RefillController::class, 'ShowRefillConfirmation'])->name('maintenance.ShowRefillConfirmation');
         Route::post('/Submit', [RefillController::class, 'SubmitRefill'])->name('maintenance.SubmitRefill');
     });
+
+    Route::prefix('Guide')->group(function () {
+        Route::get('/', [GuideController::class, 'ShowGuide'])->name('maintenance.ShowInspectionGuide');
+    });
 });
 
 Route::middleware(['auth', 'UserType:admin,maintenance'])->group(function () {
@@ -144,4 +150,5 @@ Route::middleware(['auth', 'UserType:admin,maintenance'])->group(function () {
         Route::get('/Profile', [AccountsController::class, 'ShowProfile'])->name('admin.ShowProfile');
     });
 });
+
 require __DIR__ . '/auth.php';
