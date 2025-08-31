@@ -43,7 +43,6 @@
                 </div>
 
                 <div class="menu-card">
-
                     <a href="{{ route('admin.ShowExtinguishersMenu') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -60,7 +59,6 @@
 
                 <!-- Inspection Records Card -->
                 <div class="menu-card">
-
                     <a href="{{ route('admin.ShowAdminInspectionMenu') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -75,9 +73,24 @@
                     </div>
                 </div>
 
+                <div class="menu-card">
+                    <a href="{{ route('admin.ShowLocations') }}" class="card-link"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-school-flag"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Locations</h3>
+                        <p class="card-description">
+                            Manage and organize all registered locations where devices & Extinguisher are installed.
+
+                        </p>
+                    </div>
+                </div>
+
                 <!-- User Accounts Card -->
                 <div class="menu-card">
-
                     <a href="{{ route('admin.ShowAccountsMenu') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -91,23 +104,6 @@
                         </p>
                     </div>
                 </div>
-
-                {{-- <!-- Reports Card -->
-                <div class="menu-card">
-                      
-                    <a href="#" class="card-link"></a>
-                    <div class="card-body">
-                        <div class="card-icon-container">
-                            <div class="card-icon">
-                                <i class="fa-solid fa-chart-pie"></i>
-                            </div>
-                        </div>
-                        <h3 class="card-title">Reports & Analytics</h3>
-                        <p class="card-description">
-                            Generate comprehensive reports and view system analytics.
-                        </p>
-                    </div>
-                </div> --}}
             @endif
 
             @if (Auth::user()->type === 'maintenance' || Auth::user()->type === 'guard')

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="main-container container ">
+    <div class="main-container container">
         <div class="breadcrumb-container">
             <div class="breadcrumb-back">
                 <a href="javascript:history.back()" class="back-button">
@@ -20,61 +20,70 @@
                 </div>
             </nav>
         </div>
+        <div class="scanner-container">
+            <div class="scanner-box">
+                <div id="reader" class="animated-container">
+                    <div class="scan-animation">
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                        <div class="scan-line"></div>
+                    </div>
 
-        <div id="reader" style="width:100%" class="animated-container">
-            <div id="loadingSpinner" class="d-flex justify-content-center align-items-center" style="height: 200px;">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
+                    <div id="loadingSpinner">
+                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Loading camera...</span>
+                        </div>
+                        <p class="spinner-text">Initializing camera...</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div id="error" style="margin-top: 10px; color: red;"></div>
+
+        <div id="error" class="status-card" style="display: none;">
+            <div class="status-header">
+                <div class="status-icon error">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h3 class="status-title">Scanner Error</h3>
+            </div>
+            <div class="status-content">
+                <p id="errorMessage"></p>
+                <div class="permission-help">
+                    <h5>Need help with camera permissions?</h5>
+                    <ul>
+                        <li>Check if your browser has camera access permissions</li>
+                        <li>Make sure no other application is using your camera</li>
+                        <li>Try refreshing the page and allowing camera access when prompted</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="scannerStatus" class="status-card">
+            <div class="status-header">
+                <div class="status-icon info">
+                    <i class="fa-solid fa-info-circle"></i>
+                </div>
+                <h3 class="status-title">Scanner Ready</h3>
+            </div>
+            <div class="status-content">
+                <p>Scanner will start automatically. Position the QR code within the frame for automatic detection.</p>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h4>How to scan</h4>
+            <p>1. Position the QR code in the center of the frame</p>
+            <p>2. Keep the code steady until it's recognized</p>
+            <p>3. The scanner will automatically redirect you after scanning</p>
+        </div>
     </div>
-    <script>
-        let hasScanned = false;
-        const spinner = document.getElementById('loadingSpinner');
 
-        function onScanSuccess(decodedText, decodedResult) {
-            if (hasScanned) return;
-            hasScanned = true;
-            document.getElementById('error').innerText = '';
-
-            html5QrCode.stop().then(() => {
-                window.location.href = `/Inspection/Details/${encodeURIComponent(decodedText)}`;
-            }).catch(err => {
-                document.getElementById('error').innerText = `Stop scanner error: ${err}`;
-            });
-        }
-
-        const html5QrCode = new Html5Qrcode("reader");
-
-        Html5Qrcode.getCameras().then(devices => {
-            if (devices && devices.length) {
-                const backCamera = devices.find(device => device.label.toLowerCase().includes('back')) ||
-                    devices[devices.length - 1];
-
-                html5QrCode.start(
-                    backCamera.id, {
-                        fps: 10,
-                        qrbox: {
-                            width: 250,
-                            height: 250
-                        }
-                    },
-                    onScanSuccess,
-                ).then(() => {
-                    spinner.style.display = 'none';
-                }).catch(err => {
-                    spinner.style.display = 'none';
-                    document.getElementById('error').innerText = `Start scanner error: ${err}`;
-                });
-            }
-        }).catch(err => {
-            spinner.style.display = 'none';
-            document.getElementById('error').innerText = `Camera error: ${err}`;
-        });
-    </script>
+    <script src="{{ asset('js/Scanner/scanner.js') }}"></script>
 @endsection
 @push('css')
     <link href="{{ asset('css/components/submenu.css') }}?v={{ time() }}" rel="stylesheet">
+    <link href="{{ asset('css/components/scanner.css') }}?v={{ time() }}" rel="stylesheet">
 @endpush

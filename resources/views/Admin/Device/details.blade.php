@@ -283,6 +283,8 @@
         </script>
         <script src="{{ asset('/js/extinguishers/editdropdown.js') }}"></script>
         <script src="{{ asset('/js/extinguishers/typedropdowncolor.js') }}"></script>
+        <script src="{{ asset('/js/table/search.js') }}"></script>
+        <script src="{{ asset('/js/table/sort.js') }}"></script>
     @endsection
     @push('css')
         <link href="{{ asset('css/custom.css') }}?v={{ time() }}" rel="stylesheet">

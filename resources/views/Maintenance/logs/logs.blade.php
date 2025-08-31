@@ -24,6 +24,16 @@
 
         <div>
             @forelse ($items as $index => $item)
+                @php
+                    $locationParts = array_filter([
+                        $item->extinguisher->location->building ?? null,
+                        $item->extinguisher->location->floor ?? null,
+                        $item->extinguisher->location->room ?? null,
+                        $item->extinguisher->location->spot ?? null,
+                    ]);
+
+                    $locationString = !empty($locationParts) ? implode(', ', $locationParts) : 'N/A';
+                @endphp
                 <div class="card mb-3 shadow-sm animated-container" style="border-left: 4px solid #35408e">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -56,7 +66,7 @@
                         <p class="mb-1"><strong>Inspected At:</strong>
                             {{ optional($item->inspected_at ? \Carbon\Carbon::parse($item->inspected_at) : null)->format('F d, Y h:i a') ?? 'N/A' }}
                         </p>
-
+                        <p class="mb-1"><strong>Location: </strong>{{ $locationString }}</p>
                         <div class="mt-3 text-end">
                             <a href="{{ url('/Logs/History/Answer/' . $item->id) }}" class="btn add-new-btn btn-sm">
                                 <i class="fa-regular fa-eye"></i> View Answers

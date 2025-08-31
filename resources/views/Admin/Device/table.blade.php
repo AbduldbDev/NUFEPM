@@ -78,6 +78,16 @@
                 <tbody>
                     @foreach ($items as $index => $item)
                         <tr>
+                            @php
+                                $locationParts = array_filter([
+                                    $item->location->building ?? null,
+                                    $item->location->floor ?? null,
+                                    $item->location->room ?? null,
+                                    $item->location->spot ?? null,
+                                ]);
+
+                                $locationString = !empty($locationParts) ? implode(', ', $locationParts) : 'N/A';
+                            @endphp
 
                             <td style="vertical-align: middle; text-align: center;">
                                 {{ $index + 1 }}
@@ -95,15 +105,7 @@
                             </td>
 
                             <td style="vertical-align: middle; text-align: center;">
-                                {{ implode(
-                                    ', ',
-                                    array_filter([
-                                        $item->location->building ?? null,
-                                        $item->location->floor ?? null,
-                                        $item->location->room ?? null,
-                                        $item->location->spot ?? null,
-                                    ]),
-                                ) }}
+                                {{ $locationString }}
                             </td>
                             <td style="vertical-align: middle; text-align: center;">
                                 {{ optional($item->installation_date ? \Carbon\Carbon::parse($item->installation_date) : null)->format('F d, Y') ?? 'N/A' }}
@@ -130,7 +132,7 @@
                                     <a class="mx-2 edit-btn" href="{{ url('Devices/Details/' . $item->id) }}">
                                         <i class="fa-regular fa-eye"></i>
                                     </a>
-                                    <form action="{{ route('admin.DeleteExtinguisher') }}" method="POST"
+                                    <form action="{{ route('admin.DeleteDevice') }}" method="POST"
                                         onsubmit="return confirmDelete(this);">
                                         @csrf
                                         @method('DELETE')

@@ -9,7 +9,7 @@
                 </a>
             </div>
             <div class="breadcrumb-icon">
-                <i class="fa-solid fa-qrcode"></i>
+                <i class="fa-solid fa-fire-extinguisher"></i>
             </div>
             <nav class="breadcrumb-nav">
                 <div class="breadcrumb-item">

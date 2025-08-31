@@ -1,6 +1,6 @@
 <div class="modal fade" id="ViewCertModal{{ $item->id }}" tabindex="-1"
     aria-labelledby="ViewCertModal{{ $item->id }}" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content border-0 rounded-4 shadow-lg">
             <div class="modal-header  text-white rounded-top-4" style="background-color: #35408e">
                 <h5 class="modal-title fw-bold" id="ViewCertModal{{ $item->id }}">
@@ -13,7 +13,7 @@
             <div class="modal-body text-start">
                 <div class="row g-4">
                     <div class="col-12 text-center">
-                        <img class="border-1 " src="{{ '/storage/' . $item->file_path }}" alt="">
+                        <img class="border-1 object-cover  " src="{{ '/storage/' . $item->file_path }}" alt="">
                     </div>
 
                 </div>

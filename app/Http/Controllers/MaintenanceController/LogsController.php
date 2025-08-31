@@ -16,7 +16,7 @@ class LogsController extends Controller
     public function ShowRecentInspected()
     {
         $latestIds = InspectionLogs::select(DB::raw('MAX(id) as id'))->groupBy('extinguisher_id')->pluck('id');
-        $items = InspectionLogs::with(['user', 'extinguisher'])->where('inspected_by', Auth::id())->latest()->paginate(20);
+        $items = InspectionLogs::with(['user', 'extinguisher', 'extinguisher.location'])->where('inspected_by', Auth::id())->latest()->paginate(20);
         return view('Maintenance.logs.logs', compact('items'));
     }
 

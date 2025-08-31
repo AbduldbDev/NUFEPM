@@ -55,6 +55,8 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::post('/Create', [DeviceController::class, 'CreateDevice'])->name('admin.CreateDevice');
         Route::put('/Update', [DeviceController::class, 'UpdateDevice'])->name('admin.UpdateDevice');
         Route::get('/Details/{id}', [DeviceController::class, 'ShowDeviceDetails'])->name('admin.ShowDeviceDetails');
+        Route::delete('/Delete', [DeviceController::class, 'DeleteDevice'])->name('admin.DeleteDevice');
+
 
         Route::post('/New/Certificate', [DeviceController::class, 'StoreCertificate'])->name('admin.StoreCertificate');
     });

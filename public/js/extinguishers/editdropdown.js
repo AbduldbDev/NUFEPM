@@ -36,7 +36,6 @@ function populateSelect(id, items) {
     select.innerHTML = `<option value=""  style="text-transform: uppercase">Select ${label}</option>`;
     items.forEach((item) => {
         select.innerHTML += `<option value="${item}">${item}</option>`;
-        console.log(`populateSelect("${id}") with:`, items);
     });
     select.required = true;
     if (group) group.style.display = "block";

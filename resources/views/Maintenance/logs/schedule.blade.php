@@ -24,6 +24,16 @@
 
         <div>
             @forelse ($items as $index => $item)
+                @php
+                    $locationParts = array_filter([
+                        $item->location->building ?? null,
+                        $item->location->floor ?? null,
+                        $item->location->room ?? null,
+                        $item->location->spot ?? null,
+                    ]);
+
+                    $locationString = !empty($locationParts) ? implode(', ', $locationParts) : 'N/A';
+                @endphp
                 <div class="card mb-3 shadow-sm animated-container" style="border-left: 4px solid #35408e">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
@@ -35,9 +45,12 @@
 
                         <p class="mb-1"><strong>Extinguisher ID:</strong>
                             {{ $item->extinguisher_id ?? 'N/A' }}</p>
+                        <p class="mb-1"><strong>Location: </strong>{{ $locationString }}</p>
+
                         <p class="mb-1"><strong>Last Maintenance:</strong>
                             {{ optional($item->last_maintenance ? \Carbon\Carbon::parse($item->last_maintenance) : null)->format('F d, Y') ?? 'N/A' }}
                         </p>
+
                         @php
                             $next = $item->next_maintenance ? Carbon\Carbon::parse($item->next_maintenance) : null;
                             $remainingDays = $next ? ceil(now()->floatDiffInDays($next, false)) : null;

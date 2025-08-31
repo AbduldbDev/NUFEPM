@@ -9,15 +9,11 @@
                 </a>
             </div>
             <div class="breadcrumb-icon">
-                <i class="fa-solid fa-fire-extinguisher"></i>
+                <i class="fa-solid fa-school-flag"></i>
             </div>
             <nav class="breadcrumb-nav">
                 <div class="breadcrumb-item">
                     <a href="{{ route('dashboard') }}">Home</a>
-                </div>
-                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
-                <div class="breadcrumb-item">
-                    <a href="{{ route('admin.ShowExtinguishersMenu') }}">Extinguishers</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">

@@ -72,6 +72,13 @@ class DeviceController extends Controller
         return redirect()->back()->with('success', 'Certificate uploaded successfully!');
     }
 
+    public function DeleteDevice(Request $request)
+    {
+        $device = Equipment::findOrFail($request->id);
+        $device->delete();
+        return redirect()->back()->with('success', 'Device deleted successfully.');
+    }
+
     public function ShowDeviceDetails($id)
     {
         $details = Equipment::findOrFail($id);

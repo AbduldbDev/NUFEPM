@@ -22,35 +22,6 @@
         </div>
         <div class="menu-grid">
             <div class="menu-card">
-                <a href="{{ route('admin.ShowAddForm') }}" class="card-link"></a>
-                <div class="card-body">
-                    <div class="card-icon-container">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-microchip"></i>
-                        </div>
-                    </div>
-                    <h3 class="card-title">Add Device</h3>
-                    <p class="card-description">
-                        Register new safety devices such as smoke detectors and sprinklers, assign their details.
-                    </p>
-                </div>
-            </div>
-            <div class="menu-card">
-                <a href="{{ route('admin.ShowDevices') }}" class="card-link"></a>
-                <div class="card-body">
-                    <div class="card-icon-container">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-microchip"></i>
-                        </div>
-                    </div>
-                    <h3 class="card-title">All Devices</h3>
-                    <p class="card-description">
-                        Register new safety devices such as smoke detectors and sprinklers, assign their details.
-                    </p>
-                </div>
-            </div>
-
-            <div class="menu-card">
                 <a href="{{ route('admin.ShowAddTankForm') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -84,7 +55,6 @@
             </div>
 
             <div class="menu-card">
-
                 <a href="{{ route('admin.ShowRetiredExtinguishers') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -112,22 +82,6 @@
                     <p class="card-description">
                         Manage and customize inspection questions used for evaluating extinguisher and safety
                         compliance.
-                    </p>
-                </div>
-            </div>
-
-            <div class="menu-card">
-                <a href="{{ route('admin.ShowLocations') }}" class="card-link"></a>
-                <div class="card-body">
-                    <div class="card-icon-container">
-                        <div class="card-icon">
-                            <i class="fa-solid fa-school-flag"></i>
-                        </div>
-                    </div>
-                    <h3 class="card-title">Locations</h3>
-                    <p class="card-description">
-                        Manage and organize all registered locations where devices & Extinguisher are installed.
-
                     </p>
                 </div>
             </div>
