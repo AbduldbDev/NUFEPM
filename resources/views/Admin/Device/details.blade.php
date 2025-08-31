@@ -116,46 +116,6 @@
             </div>
         </div>
 
-        {{-- <div class="card shadow-sm">
-            <div class="card-header  text-white d-flex align-items-center py-3" style="background-color: #35408e">
-                <i class="fa-solid fa-clipboard-check me-2"></i>
-                <h5 class="mb-0">Assign Inspection Questions to ({{ $details->extinguisher_id }})</h5>
-            </div>
-            <div class="">
-                <form method="POST" action="{{ route('admin.AssignInspectionQuestion') }}">
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="id" value="{{ $details->id }}">
-
-                    <div class="bordered">
-                        @foreach ($allQuestions as $question)
-                            <label class="list-group-item d-flex align-items-center gap-2 px-3 mt-3">
-                                <input class="form-check-input me-2 mt-1" type="checkbox" name="question_ids[]"
-                                    value="{{ $question->id }}"
-                                    {{ in_array($question->id, $assignedQuestionIds) ? 'checked' : '' }}>
-                                <div>
-                                    <strong>{{ $question->question }}</strong><br>
-                                    <small>
-                                        Maintenance Interval:
-                                        <span class="text-primary">{{ $question->maintenance_interval }}</span> |
-                                        Fail Reschedule Days:
-                                        <span class="text-danger">{{ $question->fail_reschedule_days }}</span>
-                                    </small>
-                                </div>
-                            </label>
-                            <hr>
-                        @endforeach
-                    </div>
-                    <div class="row mx-2 my-3">
-                        <div class="col-12 col-lg-3 ms-auto text-end">
-                            <button type="submit" class="btn add-new-btn w-100">
-                                <i class="fa-solid fa-floppy-disk"></i> Save Questions
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div> --}}
         <div class="table-container animated-container">
             <div
                 class="row mt-3 mb-3 d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center">
@@ -172,7 +132,7 @@
                     @include('Admin.Device.modals.add')
                 </div>
             </div>
-            <div class="table-container table-responsive">
+            <div class="table-responsive">
                 <table class="sortable-table table table-responsive table-bordered w-100" id="sortableTable">
                     <thead>
                         <tr>
@@ -193,10 +153,7 @@
                                 Expiry Date <span class="sort-icons"><span class="asc">▲</span><span
                                         class="desc">▼</span></span>
                             </th>
-                            {{-- <th class="text-center sortable align-middle" data-index="4" onclick="sortTable(this)">
-                            Status <span class="sort-icons"><span class="asc">▲</span><span
-                                    class="desc">▼</span></span>
-                        </th> --}}
+
                             <th class="text-center sortable align-middle">Status</th>
                             <th class="text-center sortable align-middle">Action</th>
                         </tr>
