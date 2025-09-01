@@ -30,17 +30,6 @@
                 </nav>
             </div>
 
-            @php
-                $string = $details->address;
-                $parts = array_map('trim', explode('|', $string));
-                $part1 = $parts[0] ?? '';
-                $part2 = $parts[1] ?? '';
-                $part3 = $parts[2] ?? '';
-                $part4 = $parts[3] ?? '';
-                $part5 = $parts[4] ?? '';
-                $part6 = $parts[5] ?? '';
-            @endphp
-
             <div class="animated-container">
 
                 <div class="container mt-4">
@@ -165,39 +154,6 @@
                         <div class="col-md-6">
                             <label class="form-label">Contact No. <span class="text-danger">*</span></label>
                             <input type="text" name="phone" class="form-control" value="{{ $details->phone }}">
-                        </div>
-                    </div>
-
-                    <h4 class="form-title mb-3 form-title mt-4"><i class="fa-solid fa-map-location-dot me-2"></i>
-                        Address Information</h4>
-                    <hr>
-
-                    <div class="row mb-3  g-lg-4 g-2">
-                        <div class="col-md-6">
-                            <label class="form-label">State/Province <span class="text-danger">*</span></label>
-                            <input type="text" name="province" class="form-control" value="{{ $part5 }}">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">City <span class="text-danger">*</span></label>
-                            <input type="text" name="city" class="form-control" value="{{ $part4 }}">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">Barangay <span class="text-danger">*</span></label>
-                            <input type="text" name="barangay" class="form-control" value="{{ $part3 }}">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Street <span class="text-danger">*</span></label>
-                            <input type="text" name="street" class="form-control" value="{{ $part2 }}">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">House No. <span class="text-danger">*</span></label>
-                            <input type="text" name="house" class="form-control" value="{{ $part1 }}">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Postal <span class="text-danger">*</span></label>
-                            <input type="text" name="postal" class="form-control" value="{{ $part6 }}">
                         </div>
                     </div>
 

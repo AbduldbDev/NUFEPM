@@ -28,7 +28,7 @@
                 <input type="hidden" name="id" value="{{ $details->id }}">
                 <div class="row">
                     <div class="col-12 mb-2">
-                        <label for="extinguisher_id" class="form-label">Extinguisher ID: <span
+                        <label for="extinguisher_id" class="form-label">Equipment ID: <span
                                 class="text-danger">*</span></label>
                         <input type="text" id="extinguisher_id" name="extinguisher_id" class="form-control" readonly
                             value="{{ $details->extinguisher_id }}">

@@ -50,9 +50,9 @@
                                 <i class="fa-solid fa-fire-extinguisher"></i>
                             </div>
                         </div>
-                        <h3 class="card-title">Fire Extinguisher Management</h3>
+                        <h3 class="card-title">Fire Equipment Management</h3>
                         <p class="card-description">
-                            Organize extinguisher entries with full control over their information.
+                            Manage all fire equipment with complete control over their details, status, and records.
                         </p>
                     </div>
                 </div>
@@ -126,7 +126,6 @@
 
                 <!-- Extinguishers Card -->
                 <div class="menu-card">
-
                     <a href="{{ route('maintenance.ShowMaintenanceExtinguishersMenu') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -134,9 +133,9 @@
                                 <i class="fa-solid fa-fire-flame-curved"></i>
                             </div>
                         </div>
-                        <h3 class="card-title">Extinguishers</h3>
+                        <h3 class="card-title">Fire Equipment</h3>
                         <p class="card-description">
-                            View extinguishers due for maintenance and access records.
+                            View fire equipment scheduled for maintenance and review their service records.
                         </p>
                     </div>
                 </div>

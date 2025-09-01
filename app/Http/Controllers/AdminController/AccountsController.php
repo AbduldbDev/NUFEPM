@@ -54,27 +54,12 @@ class AccountsController extends Controller
             'suffix' => 'nullable|string|max:10',
             'gender' => 'required|string|in:male,female,other',
             'phone' => 'required|string|max:20',
-            'province' => 'required|string|max:100',
-            'city' => 'required|string|max:100',
-            'barangay' => 'required|string|max:100',
-            'street' => 'required|string|max:100',
-            'house' => 'required|string|max:100',
-            'postal' => 'required|string|max:20',
             'email' => 'required|email|unique:users,email',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'image' => 'nullable|image|max:2048',
         ]);
 
         try {
-            $address = implode(' | ', [
-                $validated['house'],
-                $validated['street'],
-                $validated['barangay'],
-                $validated['city'],
-                $validated['province'],
-                $validated['postal'],
-            ]);
-
             $imagePath = null;
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('profiles', 'public');
@@ -91,7 +76,6 @@ class AccountsController extends Controller
                 'password' => Hash::make($validated['password']),
                 'gender' => $validated['gender'],
                 'phone' => $validated['phone'],
-                'address' => $address,
                 'image' => $imagePath,
             ]);
             return redirect()->route('admin.ShowAllAccounts')->with('success', 'Account successfully added!');
@@ -111,13 +95,6 @@ class AccountsController extends Controller
             'suffix' => 'nullable|string|max:10',
             'gender' => 'required|string|in:male,female,other',
             'phone' => 'required|string|max:20',
-            'province' => 'required|string|max:100',
-            'city' => 'required|string|max:100',
-            'barangay' => 'required|string|max:100',
-            'street' => 'required|string|max:100',
-            'house' => 'required|string|max:100',
-            'email' => 'required|string|',
-            'postal' => 'required|string|max:20',
             'status' => 'required',
             'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
             'image' => 'nullable|image|max:2048',
@@ -125,15 +102,6 @@ class AccountsController extends Controller
 
         try {
             $user = User::findOrFail($request->id);
-
-            $address = implode(' | ', [
-                $validated['house'],
-                $validated['street'],
-                $validated['barangay'],
-                $validated['city'],
-                $validated['province'],
-                $validated['postal'],
-            ]);
 
             if ($request->hasFile('image')) {
                 if ($user->image) {
@@ -149,11 +117,9 @@ class AccountsController extends Controller
             $user->mname = $validated['mname'];
             $user->lname = $validated['lname'];
             $user->suffix = $validated['suffix'];
-            $user->email = $validated['email'];
             $user->gender = $validated['gender'];
             $user->phone = $validated['phone'];
             $user->status = $validated['status'];
-            $user->address = $address;
 
             if (!empty($validated['password'])) {
                 $user->password = Hash::make($validated['password']);

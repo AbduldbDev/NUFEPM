@@ -15,27 +15,11 @@
                     <a href="{{ route('dashboard') }}">Home</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
-                <div class="breadcrumb-item">
-                    <a href="{{ route('admin.ShowAccountsMenu') }}">Accounts</a>
-                </div>
-                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
                     <span>My Profile</span>
                 </div>
             </nav>
         </div>
-
-        @php
-            $string = Auth::user()->address;
-            $parts = array_map('trim', explode('|', $string));
-            $part1 = $parts[0] ?? '';
-            $part2 = $parts[1] ?? '';
-            $part3 = $parts[2] ?? '';
-            $part4 = $parts[3] ?? '';
-            $part5 = $parts[4] ?? '';
-            $part6 = $parts[5] ?? '';
-        @endphp
-
         <div class="animated-container">
             <div class="container mt-4">
                 <div class="info-header">
@@ -108,37 +92,6 @@
                     <div class="col-md-6">
                         <label class="form-label">Contact No.</label>
                         <input type="text" class="form-control" value="{{ Auth::user()->phone }}" readonly>
-                    </div>
-                </div>
-
-                <h4 class="form-title mb-3 form-title mt-4"><i class="fa-solid fa-map-location-dot me-2"></i> Address
-                    Information</h4>
-                <hr>
-
-                <div class="row mb-3  g-lg-4 g-2">
-                    <div class="col-md-6">
-                        <label class="form-label">State/Province</label>
-                        <input type="text" class="form-control" value="{{ $part5 }}" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">City</label>
-                        <input type="text" class="form-control" value="{{ $part4 }}" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Barangay</label>
-                        <input type="text" class="form-control" value="{{ $part3 }}" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Street</label>
-                        <input type="text" class="form-control" value="{{ $part2 }}" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">House No.</label>
-                        <input type="text" class="form-control" value="{{ $part1 }}" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Postal</label>
-                        <input type="text" class="form-control" value="{{ $part6 }}" readonly>
                     </div>
                 </div>
             </div>

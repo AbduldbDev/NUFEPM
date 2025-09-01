@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('gender');
             $table->string('phone');
             // $table->string('civil');
-            $table->string('address');
             $table->string('image')->nullable();;
             $table->string('status')->default('active');
             $table->rememberToken();
@@ -61,7 +60,6 @@ return new class extends Migration
             'password' => Hash::make('password'),
             'gender' => 'male',
             'phone' => '09171234567',
-            'address' => '123 Mabini St., Barangay Uno, Calamba City, Laguna, 4027',
             'image' => null,
             'email_verified_at' => now(),
             'created_at' => now(),

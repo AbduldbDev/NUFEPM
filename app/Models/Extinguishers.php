@@ -12,6 +12,7 @@ class Extinguishers extends Model
         'created_by',
         'extinguisher_id',
         'location_id',
+        'category',
         'type',
         'serial_number',
         'capacity',

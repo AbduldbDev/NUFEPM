@@ -13,7 +13,7 @@
             </div>
             <nav class="breadcrumb-nav">
                 <div class="breadcrumb-item">
-                    <a href="{{ route('maintenance.ShowMaintenanceExtinguishersMenu') }}">Extinguisher</a>
+                    <a href="{{ route('maintenance.ShowMaintenanceExtinguishersMenu') }}">Fire Equipments</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
@@ -54,7 +54,7 @@
                             </span>
                         </div>
 
-                        <p class="mb-1"><strong>Extinguisher ID:</strong>
+                        <p class="mb-1"><strong>Equipment ID:</strong>
                             {{ $item->extinguisher->extinguisher_id ?? 'N/A' }}</p>
                         <p class="mb-1"><strong>Inspected By:</strong>
                             @if ($item->user && $item->user->lname && $item->user->fname)

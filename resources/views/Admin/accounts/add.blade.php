@@ -88,50 +88,6 @@
                         </div>
                     </div>
 
-                    <h4 class="fw-bold form-title mb-3"><i class="fa-solid fa-map-location-dot me-2"></i> Address
-                        Information</h4>
-                    <hr class="mb-4">
-
-                    <div class="row  g-lg-3 g-2 mb-4">
-                        <div class="col-md-6">
-                            <label for="province" class="form-label">State/Province <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" id="province" name="province" class="form-control" required
-                                value="{{ old('province') }}">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="city" class="form-label">City <span class="text-danger">*</span></label>
-                            <input type="text" id="city" name="city" class="form-control" required
-                                value="{{ old('city') }}">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="barangay" class="form-label">Barangay <span class="text-danger">*</span></label>
-                            <input type="text" id="barangay" name="barangay" class="form-control" required
-                                value="{{ old('barangay') }}">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="street" class="form-label">Street <span class="text-danger">*</span></label>
-                            <input type="text" id="street" name="street" class="form-control" required
-                                value="{{ old('street') }}">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="house" class="form-label">House No. <span class="text-danger">*</span></label>
-                            <input type="text" id="house" name="house" class="form-control" required
-                                value="{{ old('house') }}">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="postal" class="form-label">Postal Code <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" id="postal" name="postal" class="form-control" required
-                                value="{{ old('postal') }}">
-                        </div>
-                    </div>
-
                     <h4 class="fw-bold form-title  mb-3"><i class="fa-solid fa-key me-2"></i> Login Credentials</h4>
                     <hr class="mb-4">
 

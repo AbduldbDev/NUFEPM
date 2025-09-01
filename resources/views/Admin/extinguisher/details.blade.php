@@ -17,7 +17,7 @@
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item">
-                    <a href="{{ route('admin.ShowExtinguishersMenu') }}">Extinguishers</a>
+                    <a href="{{ route('admin.ShowExtinguishersMenu') }}">Fire Equipments</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
@@ -180,6 +180,21 @@
                                 <input type="text" id="serial_number" name="serial_number" class="form-control" required
                                     value="{{ $details->serial_number }}">
                                 <label for="serial_number">Serial Number</label>
+                            </div>
+
+                            <div class="form-floating mt-3">
+                                <select id="type" name="category" class="form-select" required>
+                                    <option value="" disabled selected hidden>-- SELECT CATEGORY --</option>
+
+                                    <option value="Extinguisher"
+                                        {{ $details->category == 'Extinguisher' ? 'selected' : '' }}>
+                                        Extinguisher
+                                    </option>
+                                    <option value="Fire_Hose" {{ $details->category == 'Fire_Hose' ? 'selected' : '' }}>
+                                        Fire Hose
+                                    </option>
+                                </select>
+                                <label for="type">Category <span class="text-danger">*</span></label>
                             </div>
 
                             <div class="form-floating mt-3">

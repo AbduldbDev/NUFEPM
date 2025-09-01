@@ -48,6 +48,7 @@ class ExtinguisherController extends Controller
     {
         $request->validate([
             'serial_number' => 'required|string',
+            'category' => 'required|string',
             'type' => 'required',
             'capacity' => 'required|string',
             'location_id' => 'required|string',
@@ -57,6 +58,7 @@ class ExtinguisherController extends Controller
         try {
             Extinguishers::where('id', $request->id)->update([
                 'serial_number' => $request->serial_number,
+                'category'  => $request->category,
                 'type'  => $request->type,
                 'capacity' => $request->capacity,
                 'location_id' => $request->location_id,
@@ -75,6 +77,7 @@ class ExtinguisherController extends Controller
         $request->validate([
             'serial_number' => 'required|string',
             'type' => 'required',
+            'category' => 'required|string',
             'capacity' => 'required|string',
             'loc_id'  => 'required|string',
             'installation_date' => 'nullable|date',
@@ -106,6 +109,7 @@ class ExtinguisherController extends Controller
                 'created_by' => Auth::user()->id,
                 'extinguisher_id'   => $extinguisherId,
                 'serial_number'     => $request->serial_number,
+                'category'  => $request->category,
                 'type'              => $request->type,
                 'capacity'          => $request->capacity,
                 'location_id'          => $request->loc_id,

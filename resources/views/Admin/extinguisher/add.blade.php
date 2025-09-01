@@ -17,7 +17,7 @@
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item">
-                    <a href="{{ route('admin.ShowExtinguishersMenu') }}">Extinguishers</a>
+                    <a href="{{ route('admin.ShowExtinguishersMenu') }}">Fire Equipments</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
@@ -35,13 +35,21 @@
                         <div class="card-header text-white d-flex align-items-center py-3"
                             style="background-color: #35408e;">
                             <i class="fa-solid fa-fire-extinguisher me-2"></i>
-                            <h5 class="mb-0">Extinguisher Details</h5>
+                            <h5 class="mb-0">Equipment Details</h5>
                         </div>
                         <div class="card-body px-4">
                             <div class="form-floating mb-3">
                                 <input id="serial_number" type="text" name="serial_number" class="form-control"
                                     placeholder="Serial Number" required>
                                 <label for="serial_number">Serial Number <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select id="type" name="category" class="form-select" required>
+                                    <option value="" disabled selected hidden>-- SELECT CATEGORY --</option>
+                                    <option value="Extinguisher">Extinguisher</option>
+                                    <option value="Fire_Hose">Fire Hose</option>
+                                </select>
+                                <label for="type">Category <span class="text-danger">*</span></label>
                             </div>
 
                             <div class="form-floating mb-3">
@@ -87,7 +95,7 @@
                         <div class="card-header text-white d-flex align-items-center py-3"
                             style="background-color: #35408e;">
                             <i class="fa-solid fa-building me-2"></i>
-                            <h5 class="mb-0">Extinguisher Location</h5>
+                            <h5 class="mb-0">Equipment Location</h5>
                         </div>
                         <div class="card-body">
                             <input type="hidden" name="loc_id" id="location_id_display" class="form-control" readonly>

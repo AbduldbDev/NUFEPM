@@ -17,7 +17,7 @@
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item">
-                    <a href="{{ route('admin.ShowExtinguishersMenu') }}">Extinguishers</a>
+                    <a href="{{ route('admin.ShowExtinguishersMenu') }}">Fire Equipments</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
@@ -97,7 +97,7 @@
                                     class="desc">▼</span></span>
                         </th>
                         <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
-                            Created By <span class="sort-icons"><span class="asc">▲</span><span
+                            Category <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
                         <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
@@ -144,12 +144,15 @@
                                 {{ $item->extinguisher_id }} <br>
 
                             </td>
-                            <td style="vertical-align: middle; text-align: center;">
+                            {{-- <td style="vertical-align: middle; text-align: center;">
                                 @if ($item->user && $item->user->lname && $item->user->fname)
                                     {{ $item->user->lname }}, {{ $item->user->fname }}
                                 @else
                                     N/A
                                 @endif
+                            </td> --}}
+                            <td style="vertical-align: middle; text-align: center;">
+                                {{ ucwords(str_replace('_', ' ', $item->category)) }}
                             </td>
                             <td style="vertical-align: middle; text-align: center;">
                                 {{ $item->serial_number }}

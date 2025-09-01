@@ -145,7 +145,7 @@ Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
     });
 });
 
-Route::middleware(['auth', 'UserType:admin,maintenance'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::prefix('Accounts/')->group(function () {
         Route::get('/Profile', [AccountsController::class, 'ShowProfile'])->name('admin.ShowProfile');
     });

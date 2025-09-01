@@ -48,7 +48,7 @@
                                                 class="desc">▼</span></span>
                                     </th>
                                     <th class="text-center sortable" data-index="1" onclick="sortTable(this)">
-                                        Extinguisher Id<span class="sort-icons"><span class="asc">▲</span><span
+                                        Equipment Id<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
                                     <th class="sortable" data-index="2" onclick="sortTable(this)">

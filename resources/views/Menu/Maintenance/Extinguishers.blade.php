@@ -16,7 +16,7 @@
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
-                    <span>Extinguishers</span>
+                    <span>Fire Equipments</span>
                 </div>
             </nav>
         </div>
@@ -33,7 +33,7 @@
                     </div>
                     <h3 class="card-title">My Recent Inspections</h3>
                     <p class="card-description">
-                        View the latest fire extinguisher inspection records conducted in the system.
+                        View the latest fire equipment inspection records conducted in the system.
                     </p>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                     </div>
                     <h3 class="card-title">Upcoming Inspections</h3>
                     <p class="card-description">
-                        Check extinguishers that are due for inspection soon or within the next few days.
+                        Check fire equipment scheduled for inspection soon or within the next few days.
                     </p>
                 </div>
             </div>

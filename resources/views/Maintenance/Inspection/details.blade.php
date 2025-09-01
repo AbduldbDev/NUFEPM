@@ -123,11 +123,13 @@
                         Inspection Logs</a>
                 </div>
 
-                <div class="mb-2">
-                    <a href="{{ url('/Refill/Form/' . $extinguisher->id) }}" class="btn red-btn w-100"><i
-                            class="fa-solid fa-fire-extinguisher"></i>
-                        Refill Extinguisher</a>
-                </div>
+                @if ($extinguisher->category === 'Extinguisher')
+                    <div class="mb-2">
+                        <a href="{{ url('/Refill/Form/' . $extinguisher->id) }}" class="btn red-btn w-100"><i
+                                class="fa-solid fa-fire-extinguisher"></i>
+                            Refill Extinguisher</a>
+                    </div>
+                @endif
             </div>
         </div>
     @endsection

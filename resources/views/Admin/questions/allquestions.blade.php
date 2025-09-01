@@ -17,7 +17,7 @@
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item">
-                    <a href="{{ route('admin.ShowExtinguishersMenu') }}">Extinguishers</a>
+                    <a href="{{ route('admin.ShowExtinguishersMenu') }}">Fire Equipments</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">

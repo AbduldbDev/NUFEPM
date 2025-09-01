@@ -16,7 +16,7 @@
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
-                    <span>Extinguishers</span>
+                    <span>Fire Equipments</span>
                 </div>
             </nav>
         </div>
@@ -29,16 +29,14 @@
                             <i class="fa-solid fa-fire-extinguisher"></i>
                         </div>
                     </div>
-                    <h3 class="card-title">Add Extinguishers</h3>
+                    <h3 class="card-title">Add Fire Equipment</h3>
                     <p class="card-description">
-                        Register new fire extinguishers and assign QR codes along with their maintenance details and
-                        location.
+                        Add new fire equipment, assign QR codes, and record maintenance details with location.
                     </p>
                 </div>
             </div>
 
             <div class="menu-card">
-
                 <a href="{{ route('admin.ShowActiveExtinguishers') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -46,10 +44,9 @@
                             <i class="fa-solid fa-chart-line"></i>
                         </div>
                     </div>
-                    <h3 class="card-title">Active Extinguishers</h3>
+                    <h3 class="card-title">Active Fire Equipment</h3>
                     <p class="card-description">
-                        View and manage all currently active fire extinguishers, including their maintenance status and
-                        locations.
+                        View and manage all currently active fire equipment with their status and assigned locations.
                     </p>
                 </div>
             </div>
@@ -62,15 +59,14 @@
                             <i class="fa-solid fa-box-archive"></i>
                         </div>
                     </div>
-                    <h3 class="card-title">Retired Extinguishers</h3>
+                    <h3 class="card-title">Retired Fire Equipment</h3>
                     <p class="card-description">
-                        Review and track extinguishers that have been decommissioned, replaced, or are no longer in use.
+                        Review fire equipment that has been retired, replaced, or decommissioned from service.
                     </p>
                 </div>
             </div>
 
             <div class="menu-card">
-
                 <a href="{{ route('admin.ShowAllQuestions') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
@@ -80,8 +76,7 @@
                     </div>
                     <h3 class="card-title">Inspection Questions</h3>
                     <p class="card-description">
-                        Manage and customize inspection questions used for evaluating extinguisher and safety
-                        compliance.
+                        Manage and customize inspection questions for evaluating equipment and safety compliance.
                     </p>
                 </div>
             </div>

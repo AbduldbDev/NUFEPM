@@ -96,7 +96,7 @@
                             </span>
                         </div>
 
-                        <p class="mb-1"><strong>Extinguisher ID:</strong>
+                        <p class="mb-1"><strong>Equipment ID:</strong>
                             {{ $item->extinguisher->extinguisher_id ?? 'N/A' }}</p>
                         <p class="mb-1"><strong>Inspected By:</strong>
                             @if ($item->user && $item->user->lname && $item->user->fname)
