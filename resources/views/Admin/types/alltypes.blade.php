@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    @include('layouts.components.alerts')
     <div class="main-container container ">
         <div class="title">
             <span class="menu-title-icon"><i class="fa-solid fa-fire-extinguisher"></i></span> &nbsp;

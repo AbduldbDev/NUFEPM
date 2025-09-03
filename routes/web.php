@@ -16,6 +16,7 @@ use App\Http\Controllers\MaintenanceController\GuideController;
 use App\Http\Controllers\MaintenanceController\InspectionController;
 use App\Http\Controllers\MaintenanceController\LogsController;
 use App\Http\Controllers\MaintenanceController\RefillController;
+use App\Http\Controllers\NotificationController;
 
 Route::get('/', [MenuController::class, 'ShowDashboard'])->middleware(['auth'])->name('dashboard');
 
@@ -149,6 +150,17 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('Accounts/')->group(function () {
         Route::get('/Profile', [AccountsController::class, 'ShowProfile'])->name('admin.ShowProfile');
     });
+
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead'])
+        ->name('notifications.markAllRead');
+
+    Route::get('/notifications', [NotificationController::class, 'index'])
+        ->name('notifications.index');
+
+    Route::post('/notifications/{id}/mark-read', [NotificationController::class, 'markRead'])
+        ->name('notifications.markRead');
+
+    Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 });
 
 require __DIR__ . '/auth.php';

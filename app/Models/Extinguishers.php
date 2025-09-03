@@ -38,5 +38,10 @@ class Extinguishers extends Model
     {
         return $this->hasMany(ExtinguisherRefill::class);
     }
+    
+    public function notifications()
+    {
+        return $this->morphMany(Notification::class, 'notifiable');
+    }
     use HasFactory;
 }

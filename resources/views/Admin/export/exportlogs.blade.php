@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    @include('layouts.components.alerts')
     <div class="main-container container">
         <div class="breadcrumb-container">
             <div class="breadcrumb-back">

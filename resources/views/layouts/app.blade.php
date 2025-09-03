@@ -22,7 +22,8 @@
 
 <body>
 
-    @include('layouts.components.navbar')
+    <x-navbar />
+    @include('layouts.components.alerts')
     <main>
         @yield('content')
     </main>

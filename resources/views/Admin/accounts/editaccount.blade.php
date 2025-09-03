@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    @include('layouts.components.alerts')
     <form class="" action="{{ route('admin.UpdateUserAccount') }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
         @csrf

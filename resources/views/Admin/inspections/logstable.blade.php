@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    @include('layouts.components.alerts')
     <div class="main-container container ">
         <div class="breadcrumb-container">
             <div class="breadcrumb-back">
@@ -98,7 +97,7 @@
                                                 class="desc">▼</span></span>
                                     </th>
                                     <th class="text-center sortable align-middle" data-index="1" onclick="sortTable(this)">
-                                        Equipment  Id<span class="sort-icons"><span class="asc">▲</span><span
+                                        Equipment Id<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
                                     <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">

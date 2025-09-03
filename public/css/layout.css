@@ -265,6 +265,43 @@ body {
     margin-left: 8px;
     border: 2px solid rgba(255, 255, 255, 0.3);
 }
+
+.floating-alert {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    z-index: 1055;
+    max-width: 90%;
+    min-width: 260px;
+    padding: 1rem;
+    border-left: 6px solid #198754;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 0.5rem;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-120%);
+    transition: all 0.5s ease-in-out;
+}
+
+.floating-alert.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.floating-alert.hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-120%);
+}
+
+.floating-alert .icon-container {
+    color: #198754;
+    animation: pulse 1.5s infinite;
+}
+
 @media (max-width: 991.98px) {
     .navbar-nav {
         flex-direction: row-reverse;
