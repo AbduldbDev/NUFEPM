@@ -16,7 +16,6 @@ class SosReport extends Model
         'location',
         'description',
         'image',
-        'notified',
     ];
 
     public function user()

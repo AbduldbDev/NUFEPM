@@ -8,7 +8,7 @@
                 </a>
             </div>
             <div class="breadcrumb-icon">
-                <i class="fa-solid fa-circle-question"></i>
+                <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <nav class="breadcrumb-nav">
                 <div class="breadcrumb-item">
@@ -16,7 +16,7 @@
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
-                    <span>Inspection Guide</span>
+                    <span>SOS Reports</span>
                 </div>
             </nav>
         </div>
@@ -31,15 +31,9 @@
                             onkeyup="filterTable()">
                     </div>
                 </div>
-                <div class="col-12 col-lg-3 W mt-3 mt-lg-0 text-end">
-                    <button class="btn w-50 w-lg-auto add-new-btn" data-bs-toggle="modal" data-bs-target="#addGuideModal"><i
-                            class="bi bi-file-earmark-plus"></i> Add New</button>
-                    @include('Admin.Guide.modals.addnew')
-                </div>
             </div>
 
             <div class="table-responsive ">
-
                 <table class="sortable-table table table-responsive table-bordered w-100" id="sortableTable">
                     <thead>
                         <tr>
@@ -47,15 +41,19 @@
                                 # <span class="sort-icons"><span class="asc">▲</span><span class="desc">▼</span></span>
                             </th>
                             <th class="text-center sortable align-middle" data-index="1" onclick="sortTable(this)">
-                                Step <span class="sort-icons"><span class="asc">▲</span><span
+                                Submitted By: <span class="sort-icons"><span class="asc">▲</span><span
                                         class="desc">▼</span></span>
                             </th>
                             <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
-                                Title <span class="sort-icons"><span class="asc">▲</span><span
+                                Location <span class="sort-icons"><span class="asc">▲</span><span
                                         class="desc">▼</span></span>
                             </th>
                             <th class="text-center sortable align-middle" data-index="3" onclick="sortTable(this)">
-                                Content <span class="sort-icons"><span class="asc">▲</span><span
+                                Description <span class="sort-icons"><span class="asc">▲</span><span
+                                        class="desc">▼</span></span>
+                            </th>
+                            <th class="text-center sortable align-middle" data-index="4" onclick="sortTable(this)">
+                                Date/Time <span class="sort-icons"><span class="asc">▲</span><span
                                         class="desc">▼</span></span>
                             </th>
                             <th class="text-center sortable align-middle">Action</th>
@@ -68,24 +66,28 @@
                                     {{ $index + 1 }}
                                 </td>
                                 <td class="text-capitalize text-center">
-                                    Step {{ $item->step_number }}
+                                    {{ $item->user ? $item->user->lname . ', ' . $item->user->fname : 'N/A' }}
                                 </td>
 
                                 <td>
-                                    {{ $item->title }}
+                                    {{ $item->location }}
                                 </td>
                                 <td>
-                                    {{ $item->content }}
+                                    {{ $item->description }}
                                 </td>
+                                <td class="text-center">
+                                    {{ $item->created_at->format('M. d Y g:ia') }}
+                                </td>
+
                                 <td class="text-center align-middle">
                                     <div class="d-flex justify-content-center align-items-center">
                                         <button class="edit-btn" style="border: none; background-color: transparent"
                                             data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                            <i class="fa-solid fa-pen-to-square"></i>
+                                            <i class="fa-regular fa-eye"></i>
                                         </button>
-                                        @include('Admin.Guide.modals.edit')
+                                        @include('Admin.SOS.modals.view')
 
-                                        <form action="{{ route('admin.DeleteGuide') }}" method="POST"
+                                        {{-- <form action="{{ route('admin.DeleteAccount') }}" method="POST"
                                             onsubmit="return confirmDelete(this);">
                                             @csrf
                                             @method('DELETE')
@@ -95,7 +97,7 @@
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
-                                        @include('layouts.components.deletepopup')
+                                        @include('layouts.components.deletepopup') --}}
 
                                     </div>
                                 </td>

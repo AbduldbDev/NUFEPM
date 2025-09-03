@@ -10,7 +10,7 @@ class GuideController extends Controller
 {
     public function ShowGuide()
     {
-        $contents = InspectionGuideContent::orderBy('display_order')->get();
+        $contents = InspectionGuideContent::orderBy('step_number', 'asc')->get();
         return view('Maintenance.Guide.guide', compact('contents'));
     }
 }

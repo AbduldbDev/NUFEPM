@@ -100,23 +100,23 @@
                             Category <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
-                        <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="3" onclick="sortTable(this)">
                             Serial Number <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
-                        <th class="text-center sortable align-middle" data-index="3" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="4" onclick="sortTable(this)">
                             Extinguisher Type <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
-                        <th class="text-center sortable align-middle" data-index="3" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="5" onclick="sortTable(this)">
                             Capacity <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
-                        <th class="text-center sortable align-middle" data-index="4" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="6" onclick="sortTable(this)">
                             Extinguisher Location <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
-                        <th class="text-center sortable align-middle" data-index="5" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="7" onclick="sortTable(this)">
                             Date Installed <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>

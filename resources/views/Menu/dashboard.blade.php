@@ -120,10 +120,42 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="menu-card">
+                    <a class="card-link" href="{{ route('admin.ShowSosReports') }}"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon ">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">SOS Reports</h3>
+                        <p class="card-description">
+                            View and manage emergency SOS reports submitted by users, including location details and
+                            attachments for
+                            immediate action.
+                        </p>
+                    </div>
+                </div>
             @endif
 
             @if (Auth::user()->type === 'maintenance' || Auth::user()->type === 'guard')
-                <!-- QR Scanner Card -->
+                <div class="menu-card">
+                    <a href="{{ route('maintenance.CreateSosReport') }}" class="card-link"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon ">
+                                <i class="fa-solid fa-bullhorn"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Submit SOS Report</h3>
+                        <p class="card-description">
+                            Quickly submit an emergency SOS report with location details, description for immediate
+                            response.
+                        </p>
+                    </div>
+                </div>
+
                 <div class="menu-card">
 
                     <a href="{{ route('maintenance.ShowScanner') }}" class="card-link"></a>

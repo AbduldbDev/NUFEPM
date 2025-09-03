@@ -45,21 +45,22 @@ class AccountsController extends Controller
 
     public function CreateUser(Request $request)
     {
-        $validated = $request->validate([
-            'uid' => 'required|string',
-            'type' => 'required|string',
-            'fname' => 'required|string|max:100',
-            'mname' => 'nullable|string|max:100',
-            'lname' => 'required|string|max:100',
-            'suffix' => 'nullable|string|max:10',
-            'gender' => 'required|string|in:male,female,other',
-            'phone' => 'required|string|max:20',
-            'email' => 'required|email|unique:users,email',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'image' => 'nullable|image|max:2048',
-        ]);
-
         try {
+            $validated = $request->validate([
+                'uid' => 'required|string',
+                'type' => 'required|string',
+                'fname' => 'required|string|max:100',
+                'mname' => 'nullable|string|max:100',
+                'lname' => 'required|string|max:100',
+                'suffix' => 'nullable|string|max:10',
+                'gender' => 'required|string|in:male,female,other',
+                'phone' => 'required|string|max:20',
+                'email' => 'required|email|unique:users,email',
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'image' => 'nullable|image|max:2048',
+            ]);
+
+
             $imagePath = null;
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('profiles', 'public');
@@ -86,21 +87,22 @@ class AccountsController extends Controller
 
     public function UpdateUserAccount(Request $request)
     {
-        $validated = $request->validate([
-            'uid' => 'required|string',
-            'type' => 'required|string',
-            'fname' => 'required|string|max:100',
-            'mname' => 'nullable|string|max:100',
-            'lname' => 'required|string|max:100',
-            'suffix' => 'nullable|string|max:10',
-            'gender' => 'required|string|in:male,female,other',
-            'phone' => 'required|string|max:20',
-            'status' => 'required',
-            'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
-            'image' => 'nullable|image|max:2048',
-        ]);
-
         try {
+            $validated = $request->validate([
+                'uid' => 'required|string',
+                'type' => 'required|string',
+                'fname' => 'required|string|max:100',
+                'mname' => 'nullable|string|max:100',
+                'lname' => 'required|string|max:100',
+                'suffix' => 'nullable|string|max:10',
+                'gender' => 'required|string|in:male,female,other',
+                'phone' => 'required|string|max:20',
+                'status' => 'required',
+                'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
+                'image' => 'nullable|image|max:2048',
+            ]);
+
+
             $user = User::findOrFail($request->id);
 
             if ($request->hasFile('image')) {

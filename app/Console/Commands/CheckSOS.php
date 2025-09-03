@@ -26,8 +26,6 @@ class CheckSOS extends Command
                     'message' => "SOS Report: {$report->description} at {$report->location}",
                 ]);
             }
-
-            $report->update(['notified' => true]);
         }
 
         $this->info('SOS notifications sent.');

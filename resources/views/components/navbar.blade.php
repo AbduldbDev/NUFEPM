@@ -33,18 +33,22 @@
                                 <div class="dropdown-item d-flex">
                                     <div
                                         class="notification-icon-type 
-                @if ($notif->type === 'maintenance') notification-icon-warning 
-                @elseif($notif->type === 'sos') notification-icon-urgent 
-                @else notification-icon-info @endif">
+                                        @if ($notif->type === 'maintenance') notification-icon-warning 
+                                        @elseif($notif->type === 'sos') notification-icon-urgent 
+                                        @else notification-icon-info @endif">
                                         <i
                                             class="fa-solid 
-                    @if ($notif->type === 'maintenance') fa-clock 
-                    @elseif($notif->type === 'sos') fa-exclamation 
-                    @else fa-info @endif"></i>
+                                            @if ($notif->type === 'maintenance') fa-clock 
+                                            @elseif($notif->type === 'sos') fa-exclamation 
+                                            @else fa-info @endif">
+                                        </i>
                                     </div>
 
                                     <div class="text-wrap text-break ms-2">
-                                        <div class="fw-bold">{{ ucfirst($notif->type) }}</div>
+                                        <div class="fw-bold">
+                                            {{ $notif->type === 'sos' ? 'Emergency!' : ucfirst($notif->type) }}
+                                        </div>
+
                                         <div class="small">{{ $notif->message }}</div>
                                         <div class="notification-time">{{ $notif->created_at->diffForHumans() }}</div>
 

@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminController\ExportController;
 use App\Http\Controllers\AdminController\InspectionGuideController;
 use App\Http\Controllers\AdminController\InspectionLogsController;
 use App\Http\Controllers\AdminController\RefillLogsController;
+use App\Http\Controllers\AdminController\SosReportController;
 use App\Http\Controllers\MaintenanceController\GuideController;
 use App\Http\Controllers\MaintenanceController\InspectionController;
 use App\Http\Controllers\MaintenanceController\LogsController;
@@ -112,6 +113,12 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::get('/', [InspectionGuideController::class, 'ShowGuideTable'])->name('admin.ShowGuideTable');
         Route::post('/Create', [InspectionGuideController::class, 'AddNewGuide'])->name('admin.AddNewGuide');
         Route::put('/Update', [InspectionGuideController::class, 'UpdateGuide'])->name('admin.UpdateGuide');
+        Route::delete('/delete', [InspectionGuideController::class, 'DeleteGuide'])->name('admin.DeleteGuide');
+    });
+
+    Route::prefix('SOS/Reports')->group(function () {
+        Route::get('/', [SosReportController::class, 'ShowAll'])->name('admin.ShowSosReports');
+        Route::delete('/{id}', [SosReportController::class, 'DestroyReport'])->name('admin.DeleteSosReport');
     });
 });
 
@@ -145,6 +152,11 @@ Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
 
     Route::prefix('Guide')->group(function () {
         Route::get('/', [GuideController::class, 'ShowGuide'])->name('maintenance.ShowInspectionGuide');
+    });
+
+    Route::prefix('SOS/Reports')->group(function () {
+        Route::get('/create', [SosReportController::class, 'ShowCreateForm'])->name('maintenance.CreateSosReport');
+        Route::post('/submit', [SosReportController::class, 'StoreReport'])->name('maintenance.SubmitSosReport');
     });
 });
 
