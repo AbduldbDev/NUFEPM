@@ -12,20 +12,26 @@
 
             <div class="modal-body text-start">
                 <div class="row g-4">
-                    <div class="col-12 text-center">
-                        <img class="border-1 object-cover  " src="{{ '/storage/' . $item->file_path }}" alt="">
+                    <div class="col-12 d-flex justify-content-center">
+                        <a href="{{ '/storage/' . $item->file_path }}" target="_blank" class="w-100">
+                            <div class="ratio ratio-16x9 w-100">
+                                <iframe src="{{ '/storage/' . $item->file_path }}" class="w-100 h-100" allowfullscreen>
+                                </iframe>
+                            </div>
+                        </a>
                     </div>
 
                 </div>
             </div>
 
             <div class="modal-footer justify-content-end  py-3">
-                {{-- <button type="button" class="btn cancel-btn" data-bs-dismiss="modal">
-                    <i class="fa-solid fa-xmark me-1"></i> Cancel
-                </button> --}}
+                <a href="{{ '/storage/' . $item->file_path }}" target="_blank" class="btn  add-new-btn">
+                    <i class="fa-solid fa-up-right-from-square me-1"></i> Open in New Tab
+                </a>
                 <button type="submit" class="btn save-btn" data-bs-dismiss="modal">
                     <i class="fa-solid fa-floppy-disk me-1"></i>Close
                 </button>
+
             </div>
 
         </div>

@@ -41,13 +41,40 @@ class DeviceController extends Controller
             $equipment = Equipment::findOrFail($request->id);
             $equipment->update($validated);
 
-
-
             return redirect()->back()->with('success', 'Device updated successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to update device. Please try again.');
         }
     }
+    public function CreateDevice(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'type'              => 'required|string|max:100',
+                'model'             => 'nullable|string|max:100',
+                'serial_number'     => 'required|string|max:100|unique:equipment,serial_number',
+                'loc_id'            => 'nullable|integer|exists:extinguisher_locations,id',
+                'installation_date' => 'nullable|date',
+            ]);
+
+            // Create device
+            Equipment::create([
+                'type'              => $request->type,
+                'model'             => $request->model,
+                'serial_number'     => $request->serial_number,
+                'loc_id'            => $request->loc_id,
+                'installation_date' => $request->installation_date,
+                'status'            => 'active', // default value, adjust if needed
+            ]);
+
+            return redirect()->route('admin.ShowDevices')->with('success', 'Device created successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to create device. Please try again. Error: ' . $e->getMessage());
+        }
+    }
+
+
+
 
     public function StoreCertificate(Request $request)
     {
