@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminController\LocationsController;
 use App\Http\Controllers\AdminController\QuestionController;
 use App\Http\Controllers\AdminController\TypesController;
 use App\Http\Controllers\AdminController\ExportController;
+use App\Http\Controllers\AdminController\InspectionGuideController;
 use App\Http\Controllers\AdminController\InspectionLogsController;
 use App\Http\Controllers\AdminController\RefillLogsController;
 use App\Http\Controllers\MaintenanceController\GuideController;
@@ -25,9 +26,6 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
     Route::get('/Admin/Menu/Extinguisher', [MenuController::class, 'ShowAdminExtinguishersMenu'])->name('admin.ShowExtinguishersMenu');
     Route::get('/Admin/Menu/Inspections', [MenuController::class, 'ShowAdminInspectionMenu'])->name('admin.ShowAdminInspectionMenu');
     Route::get('/Admin/Menu/Devices', [MenuController::class, 'ShowAdminDeviceMenu'])->name('admin.ShowAdminDeviceMenu');
-
-
-
 
     Route::prefix('Accounts/')->group(function () {
         Route::get('/All', [AccountsController::class, 'ShowAllAccounts'])->name('admin.ShowAllAccounts');
@@ -64,8 +62,6 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::put('/Update/Certificate', [DeviceController::class, 'UpdateCertificate'])->name('admin.UpdateCertificate');
     });
 
-
-
     Route::prefix('Types')->group(function () {
         Route::get('/', [TypesController::class, 'ShowTypes'])->name('admin.ShowTypes');
         Route::put('/Update', [TypesController::class, 'UpdateType'])->name('admin.UpdateType');
@@ -95,12 +91,13 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::get('/Table/{id}', [InspectionLogsController::class, 'ShowInspectionLogsTable'])->name('admin.ShowInspectionLogsTable');
     });
 
-    Route::get('/Extinguisher/location/get', [ExtinguisherController::class, 'GetLocations']);
-    Route::get('/Extinguisher/location/edit', [ExtinguisherController::class, 'GetEditLocations']);
-    Route::get('/Extinguisher/location-id', [ExtinguisherController::class, 'GetLocationID']);
-    Route::get('/Extinguisher/location/show/{id}', [ExtinguisherController::class, 'showLocationById']);
-    Route::get('/Extinguisher/location/show/{id}', [ExtinguisherController::class, 'ShowLocationID']);
-
+    Route::prefix('/Extinguisher/location')->group(function () {
+        Route::get('/get', [ExtinguisherController::class, 'GetLocations']);
+        Route::get('/edit', [ExtinguisherController::class, 'GetEditLocations']);
+        Route::get('/id', [ExtinguisherController::class, 'GetLocationID']);
+        Route::get('/show/{id}', [ExtinguisherController::class, 'showLocationById']);
+        Route::get('/show/{id}', [ExtinguisherController::class, 'ShowLocationID']);
+    });
 
     Route::prefix('Export')->group(function () {
         Route::get('/Logs', [ExportController::class, 'ShowExportForm'])->name('admin.ShowExportForm');
@@ -110,12 +107,17 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
     Route::prefix('Refill/Logs')->group(function () {
         Route::get('/History', [RefillLogsController::class, 'ShowAllRefills'])->name('admin.ShowAllRefills');
     });
+
+    Route::prefix('Guide/Management')->group(function () {
+        Route::get('/', [InspectionGuideController::class, 'ShowGuideTable'])->name('admin.ShowGuideTable');
+        Route::post('/Create', [InspectionGuideController::class, 'AddNewGuide'])->name('admin.AddNewGuide');
+        Route::put('/Update', [InspectionGuideController::class, 'UpdateGuide'])->name('admin.UpdateGuide');
+    });
 });
 
 Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
     Route::get('/Maintenance/Menu/Inspections', [MenuController::class, 'ShowMaintenanceExtinguishersMenu'])->name('maintenance.ShowMaintenanceExtinguishersMenu');
     Route::get('/Admin/Menu/Emergencyplans', [MenuController::class, 'ShowEmergencyPlansMenu'])->name('maintenance.ShowEmergencyPlansMenu');
-
 
     Route::prefix('Scanner')->group(function () {
         Route::get('/', [InspectionController::class, 'ShowScanner'])->name('maintenance.ShowScanner');
@@ -151,16 +153,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/Profile', [AccountsController::class, 'ShowProfile'])->name('admin.ShowProfile');
     });
 
-    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead'])
-        ->name('notifications.markAllRead');
-
-    Route::get('/notifications', [NotificationController::class, 'index'])
-        ->name('notifications.index');
-
-    Route::post('/notifications/{id}/mark-read', [NotificationController::class, 'markRead'])
-        ->name('notifications.markRead');
-
-    Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+    Route::prefix('notifications/')->group(function () {
+        Route::get('/', [NotificationController::class, 'index'])->name('notifications.index');
+        Route::post('/mark-all-read', [NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
+        Route::post('/{id}/mark-read', [NotificationController::class, 'markRead'])->name('notifications.markRead');
+        Route::delete('/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+    });
 });
 
 require __DIR__ . '/auth.php';

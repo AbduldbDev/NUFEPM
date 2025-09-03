@@ -40,7 +40,7 @@ function tryGetLocationId() {
     const room = document.getElementById("room")?.value || "";
     const spot = document.getElementById("spot")?.value || "";
 
-    const url = `/Extinguisher/location-id?building=${encodeURIComponent(
+    const url = `/Extinguisher/location/id?building=${encodeURIComponent(
         building
     )}&floor=${encodeURIComponent(floor)}&room=${encodeURIComponent(
         room

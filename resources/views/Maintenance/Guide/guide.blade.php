@@ -20,6 +20,7 @@
                 </div>
             </nav>
         </div>
+
         <header class="custom-bg-primary text-white text-center py-4 mb-4 rounded">
             <div class="header-icon mb-2">
                 <i class="bi bi-fire-extinguisher"></i>
@@ -59,199 +60,25 @@
 
                 <!-- Steps -->
                 <div class="row g-4">
-                    <!-- Step 1 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100 custom-card border-0">
-                            <div class="card-header custom-bg-primary-light d-flex align-items-center py-3">
-                                <div class="step-number">1</div>
-                                <h3 class="h6 mb-0 fw-bold custom-text-primary">Verify Location</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="step-image mb-3">
-                                    <img class="step-img" src="{{ asset('Image/Guide/step1.jpg') }}"
-                                        alt="Step 1 - Verify Location">
+                    @foreach ($contents as $step)
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card h-100 custom-card border-0">
+                                <div class="card-header custom-bg-primary-light d-flex align-items-center py-3">
+                                    <div class="step-number">{{ $step->step_number }}</div>
+                                    <h3 class="h6 mb-0 fw-bold custom-text-primary">{{ $step->title }}</h3>
                                 </div>
-                                <p class="card-text">Check that the fire extinguisher is installed in its designated
-                                    location and easily accessible.</p>
+                                <div class="card-body">
+                                    @if ($step->image_path)
+                                        <div class="step-image mb-3">
+                                            <img class="step-img" src="{{ asset($step->image_path) }}"
+                                                alt="{{ $step->title }}">
+                                        </div>
+                                    @endif
+                                    <p class="card-text">{{ $step->content }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Step 2 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100 custom-card border-0">
-                            <div class="card-header custom-bg-primary-light d-flex align-items-center py-3">
-                                <div class="step-number">2</div>
-                                <h3 class="h6 mb-0 fw-bold custom-text-primary">Ensure Accessibility</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="step-image mb-3">
-                                    <img class="step-img" src="{{ asset('Image/Guide/step2.jpg') }}"
-                                        alt="Step 2 - Ensure Accessibility">
-                                </div>
-                                <p class="card-text">Confirm that the fire extinguisher is fully visible and not blocked by
-                                    equipment, furniture, or other obstacles.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100 custom-card border-0">
-                            <div class="card-header custom-bg-primary-light d-flex align-items-center py-3">
-                                <div class="step-number">3</div>
-                                <h3 class="h6 mb-0 fw-bold custom-text-primary">Check Pressure Gauge</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="step-image mb-3">
-                                    <img class="step-img" src="{{ asset('Image/Guide/step3.jpg') }}"
-                                        alt="Step 3 - Check Pressure Gauge">
-                                </div>
-                                <p class="card-text">Ensure the pressure gauge or indicator needle is within the operable
-                                    range, confirming the extinguisher is properly charged.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Step 4 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100 custom-card border-0">
-                            <div class="card-header custom-bg-primary-light d-flex align-items-center py-3">
-                                <div class="step-number">4</div>
-                                <h3 class="h6 mb-0 fw-bold custom-text-primary">Confirm Extinguisher Fullness</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="step-image mb-3">
-                                    <img class="step-img" src="{{ asset('Image/Guide/step4.jpg') }}"
-                                        alt="Step 4 - Confirm Extinguisher Fullness">
-                                </div>
-                                <p class="card-text">Check that the extinguisher feels full by weighing or gently lifting
-                                    (“hefting”) it to ensure it has not been discharged.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Step 5 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100 custom-card border-0">
-                            <div class="card-header custom-bg-primary-light d-flex align-items-center py-3">
-                                <div class="step-number">5</div>
-                                <h3 class="h6 mb-0 fw-bold custom-text-primary">Inspect Physical Condition</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="step-image mb-3">
-                                    <img class="step-img" src="{{ asset('Image/Guide/step5.jpg') }}"
-                                        alt="Step 5 - Inspect Physical Condition">
-                                </div>
-                                <p class="card-text">Examine the extinguisher’s tires, wheels, carriage, hose, and nozzle
-                                    (for wheeled units) to ensure all parts are in good working condition.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Step 6 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100 custom-card border-0">
-                            <div class="card-header custom-bg-primary-light d-flex align-items-center py-3">
-                                <div class="step-number">6</div>
-                                <h3 class="h6 mb-0 fw-bold custom-text-primary">Test Indicator Function</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="step-image mb-3">
-                                    <img class="step-img" src="{{ asset('Image/Guide/step6.jpg') }}"
-                                        alt="Step 6 - Test Indicator Function">
-                                </div>
-                                <p class="card-text">Verify that the push-to-test indicators on non-rechargeable models are
-                                    functioning correctly to confirm readiness.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Step 7 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100 custom-card border-0">
-                            <div class="card-header custom-bg-primary-light d-flex align-items-center py-3">
-                                <div class="step-number">7</div>
-                                <h3 class="h6 mb-0 fw-bold custom-text-primary">Verify Instructions Label</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="step-image mb-3">
-                                    <img class="step-img" src="{{ asset('Image/Guide/step7.jpg') }}"
-                                        alt="Step 7 - Verify Instructions Label">
-                                </div>
-                                <p class="card-text">Ensure the operating instructions on the nameplate are clear, legible,
-                                    and facing outward for easy visibility during emergencies.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100 custom-card border-0">
-                            <div class="card-header custom-bg-primary-light d-flex align-items-center py-3">
-                                <div class="step-number">8</div>
-                                <h3 class="h6 mb-0 fw-bold custom-text-primary">TITLE</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="step-image mb-3">
-                                    <img class="step-img" src="{{ asset('Image/Guide/step8.jpg') }}" alt="">
-                                </div>
-                                <p class="card-text">aa</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Step 9 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100 custom-card border-0">
-                            <div class="card-header custom-bg-primary-light d-flex align-items-center py-3">
-                                <div class="step-number">9</div>
-                                <h3 class="h6 mb-0 fw-bold custom-text-primary">Check for Damage or Leaks</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="step-image mb-3">
-                                    <img class="step-img" src="{{ asset('Image/Guide/step9.jpg') }}"
-                                        alt="Step 9 - Check for Damage or Leaks">
-                                </div>
-                                <p class="card-text">Examine the extinguisher for any visible dents, corrosion, leakage, or
-                                    a clogged nozzle that could affect its performance.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Step 10 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100 custom-card border-0">
-                            <div class="card-header custom-bg-primary-light d-flex align-items-center py-3">
-                                <div class="step-number">10</div>
-                                <h3 class="h6 mb-0 fw-bold custom-text-primary">Agitate Extinguisher Powder</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="step-image mb-3">
-                                    <img class="step-img" src="{{ asset('Image/Guide/step10.jpg') }}"
-                                        alt="Step 10 - Agitate Extinguisher Powder">
-                                </div>
-                                <p class="card-text">Invert and gently shake the extinguisher to loosen compacted powder at
-                                    the bottom of the cylinder, ensuring proper discharge when needed.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Step 11 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100 custom-card border-0">
-                            <div class="card-header custom-bg-primary-light d-flex align-items-center py-3">
-                                <div class="step-number">11</div>
-                                <h3 class="h6 mb-0 fw-bold custom-text-primary">Update Inspection Record</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="step-image mb-3">
-                                    <img class="step-img" src="{{ asset('Image/Guide/step11.jpg') }}"
-                                        alt="Step 11 - Update Inspection Record">
-                                </div>
-                                <p class="card-text">Record the inspection date and the initials of the person who
-                                    performed it on the extinguisher’s inspection tag or log.</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

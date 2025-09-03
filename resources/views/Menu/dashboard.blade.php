@@ -73,6 +73,22 @@
                     </div>
                 </div>
 
+                <!-- User Accounts Card -->
+                <div class="menu-card">
+                    <a href="{{ route('admin.ShowAccountsMenu') }}" class="card-link"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-user-gear"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">User Accounts</h3>
+                        <p class="card-description">
+                            Manage user accounts with full control over access and roles.
+                        </p>
+                    </div>
+                </div>
+
                 <div class="menu-card">
                     <a href="{{ route('admin.ShowLocations') }}" class="card-link"></a>
                     <div class="card-body">
@@ -89,18 +105,18 @@
                     </div>
                 </div>
 
-                <!-- User Accounts Card -->
                 <div class="menu-card">
-                    <a href="{{ route('admin.ShowAccountsMenu') }}" class="card-link"></a>
+                    <a href="{{ route('admin.ShowGuideTable') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
                             <div class="card-icon">
-                                <i class="fa-solid fa-user-gear"></i>
+                                <i class="fa-solid fa-circle-question"></i>
                             </div>
                         </div>
-                        <h3 class="card-title">User Accounts</h3>
+                        <h3 class="card-title">Extinguisher Inspection Guide</h3>
                         <p class="card-description">
-                            Manage user accounts with full control over access and roles.
+                            Manage inspection guide content to ensure updated and accessible safety
+                            procedures.
                         </p>
                     </div>
                 </div>
@@ -161,7 +177,7 @@
                     <div class="card-body">
                         <div class="card-icon-container">
                             <div class="card-icon">
-                                <i class="fa-solid fa-fire-extinguisher"></i>
+                                <i class="fa-solid fa-circle-question"></i>
                             </div>
                         </div>
                         <h3 class="card-title">Extinguisher Inspection Guide</h3>
