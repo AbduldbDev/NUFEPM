@@ -22,7 +22,7 @@
         </div>
         <div class="menu-grid">
             <div class="menu-card">
-                <a href="{{ asset('pdf/EDUC.pdf') }}" target="_blank" class="card-link"></a>
+                <a href="{{ url('EmergencyPlans/Education_Building') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
                         <div class="card-icon">
@@ -38,7 +38,7 @@
             </div>
 
             <div class="menu-card">
-                <a href="{{ asset('pdf/INSPIRE.pdf') }}" target="_blank" class="card-link"></a>
+                <a href="{{ url('EmergencyPlans/Sports_Academy_Building') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
                         <div class="card-icon">
@@ -53,7 +53,7 @@
             </div>
 
             <div class="menu-card">
-                <a href="{{ asset('pdf/DORMITEL.pdf') }}" target="_blank" class="card-link"></a>
+                <a href="{{ url('EmergencyPlans/Dormitel_Building') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
                         <div class="card-icon">
@@ -68,7 +68,7 @@
             </div>
 
             <div class="menu-card">
-                <a href="{{ asset('pdf/AGETAC.pdf') }}" target="_blank" class="card-link"></a>
+                <a href="{{ url('EmergencyPlans/AGETAC_Building') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
                         <div class="card-icon">

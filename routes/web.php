@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminController\InspectionGuideController;
 use App\Http\Controllers\AdminController\InspectionLogsController;
 use App\Http\Controllers\AdminController\RefillLogsController;
 use App\Http\Controllers\AdminController\SosReportController;
+use App\Http\Controllers\AdminController\EmergencyPlanController;
 use App\Http\Controllers\MaintenanceController\GuideController;
 use App\Http\Controllers\MaintenanceController\InspectionController;
 use App\Http\Controllers\MaintenanceController\LogsController;
@@ -120,11 +121,16 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::get('/', [SosReportController::class, 'ShowAll'])->name('admin.ShowSosReports');
         Route::delete('/{id}', [SosReportController::class, 'DestroyReport'])->name('admin.DeleteSosReport');
     });
+
+    Route::get('/EmergencyPlans/manage', [EmergencyPlanController::class, 'ManageEmergencyPlans'])->name('admin.ManageEmergencyPlans');
+    Route::put('/EmergencyPlans/update', [EmergencyPlanController::class, 'UpdateEmergencyPlan'])->name('admin.UpdateEmergencyPlan');
 });
 
 Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
     Route::get('/Maintenance/Menu/Inspections', [MenuController::class, 'ShowMaintenanceExtinguishersMenu'])->name('maintenance.ShowMaintenanceExtinguishersMenu');
-    Route::get('/Admin/Menu/Emergencyplans', [MenuController::class, 'ShowEmergencyPlansMenu'])->name('maintenance.ShowEmergencyPlansMenu');
+
+    Route::get('/EmergencyPlans', [EmergencyPlanController::class, 'ShowEmergencyPlansMenu'])->name('maintenance.ShowEmergencyPlansMenu');
+    Route::get('/EmergencyPlans/{building}', [EmergencyPlanController::class, 'ShowFloorPlans'])->name('maintenance.ShowFloorPlans');
 
     Route::prefix('Scanner')->group(function () {
         Route::get('/', [InspectionController::class, 'ShowScanner'])->name('maintenance.ShowScanner');

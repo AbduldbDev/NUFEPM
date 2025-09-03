@@ -90,6 +90,23 @@
                 </div>
 
                 <div class="menu-card">
+                    <a class="card-link" href="{{ route('admin.ShowSosReports') }}"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon ">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">SOS Reports</h3>
+                        <p class="card-description">
+                            View and manage emergency SOS reports submitted by users, including location details and
+                            attachments for
+                            immediate action.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="menu-card">
                     <a href="{{ route('admin.ShowLocations') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -122,18 +139,17 @@
                 </div>
 
                 <div class="menu-card">
-                    <a class="card-link" href="{{ route('admin.ShowSosReports') }}"></a>
+                    <a href="{{ route('admin.ManageEmergencyPlans') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
                             <div class="card-icon ">
-                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                <i class="fa-solid fa-pen-to-square"></i>
                             </div>
                         </div>
-                        <h3 class="card-title">SOS Reports</h3>
+                        <h3 class="card-title">Manage Emergency Plans</h3>
                         <p class="card-description">
-                            View and manage emergency SOS reports submitted by users, including location details and
-                            attachments for
-                            immediate action.
+                            Manage emergency evacuation plans to keep safety procedures accurate and ready
+                            for anysituation.
                         </p>
                     </div>
                 </div>

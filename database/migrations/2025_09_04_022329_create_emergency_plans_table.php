@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('emergency_plans', function (Blueprint $table) {
             $table->id();
+            $table->string('building');
+            $table->string('floor');
+            $table->string('pdf');
             $table->timestamps();
         });
     }

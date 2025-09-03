@@ -37,8 +37,5 @@ class MenuController extends Controller
         return view('Menu.Maintenance.Extinguishers');
     }
 
-    public function ShowEmergencyPlansMenu()
-    {
-        return view('Menu.Maintenance.EmergencyPlan');
-    }
+
 }
