@@ -53,6 +53,7 @@ class ExtinguisherController extends Controller
             'capacity' => 'required|string',
             'location_id' => 'required|string',
             'installation_date' => 'nullable|date',
+
         ]);
 
         try {
@@ -64,6 +65,8 @@ class ExtinguisherController extends Controller
                 'location_id' => $request->location_id,
                 'installation_date' => $request->installation_date,
                 'status' => $request->status,
+                'next_maintenance'  => now()->addDays(30),
+                'life_span' => $request->life_span,
             ]);
             return redirect()->back()->with('success', 'Extinguisher updated successfully.');
         } catch (\Exception $e) {
@@ -81,6 +84,7 @@ class ExtinguisherController extends Controller
             'capacity' => 'required|string',
             'loc_id'  => 'required|string',
             'installation_date' => 'nullable|date',
+            'life_span' => 'required|numeric',
 
         ]);
 
@@ -109,13 +113,14 @@ class ExtinguisherController extends Controller
                 'created_by' => Auth::user()->id,
                 'extinguisher_id'   => $extinguisherId,
                 'serial_number'     => $request->serial_number,
-                'category'  => $request->category,
+                'category'          => $request->category,
                 'type'              => $request->type,
                 'capacity'          => $request->capacity,
-                'location_id'          => $request->loc_id,
+                'location_id'       => $request->loc_id,
                 'installation_date' => $request->installation_date,
-                'last_maintenance' => $request->installation_date,
-                'next_maintenance' => now()->addDays(30),
+                'last_maintenance'  => $request->installation_date,
+                'next_maintenance'  => now()->addDays(30),
+                'life_span' => now()->addMonths((int) $request->life_span),
                 'qr_code_path'      => 'QRcodes/' . $filename,
             ]);
 

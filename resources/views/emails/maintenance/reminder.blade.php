@@ -58,8 +58,8 @@
                             <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td align="center" style="padding: 20px 0;">
-                                        <a href="{{ url('/') }}"
-                                            style="background-color: #35408e; color: white; text-decoration: none; padding: 12px 24px; border-radius: 4px; display: inline-block; font-weight: bold;">
+                                        <a href="{{ url('http://127.0.0.1:8000/') }}"
+                                            style="background-color: #35408e; color: white; padding: 12px 24px; border-radius: 4px; text-decoration: none; font-weight: bold;">
                                             View Dashboard
                                         </a>
                                     </td>

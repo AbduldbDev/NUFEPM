@@ -78,7 +78,11 @@
                                     placeholder="Capacity" required>
                                 <label for="capacity">Capacity <span class="text-danger">*</span></label>
                             </div>
-
+                            <div class="form-floating mb-3">
+                                <input id="life_span" type="number" name="life_span" class="form-control" placeholder="12"
+                                    required>
+                                <label for="life_span">Life Span (Months) <span class="text-danger">*</span></label>
+                            </div>
                             <div class="form-floating mb-3">
                                 <input id="installation_date" type="date" name="installation_date" class="form-control"
                                     placeholder="Installation Date" required>
@@ -140,7 +144,7 @@
             <div class="row mb-3">
                 <div class="col-12 col-lg-3">
                     <button id="submit-button" type="submit" class="btn add-new-btn mt-2 w-100" disabled>
-                        <i class="fa-solid fa-floppy-disk"></i> Save Extinguisher
+                        <i class="fa-solid fa-floppy-disk"></i> Add Equipment
                     </button>
                 </div>
             </div>

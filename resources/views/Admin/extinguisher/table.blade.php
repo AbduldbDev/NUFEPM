@@ -120,6 +120,10 @@
                             Date Installed <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
+                          <th class="text-center sortable align-middle" data-index="7" onclick="sortTable(this)">
+                            Expiration Date <span class="sort-icons"><span class="asc">▲</span><span
+                                    class="desc">▼</span></span>
+                        </th>
                         <th class="text-center sortable align-middle">Status</th>
                         <th class="text-center sortable align-middle">Action</th>
                     </tr>
@@ -177,6 +181,9 @@
                             </td>
                             <td style="vertical-align: middle; text-align: center;">
                                 {{ optional($item->installation_date ? \Carbon\Carbon::parse($item->installation_date) : null)->format('F d, Y') ?? 'N/A' }}
+                            </td>
+                             <td style="vertical-align: middle; text-align: center;">
+                                {{ optional($item->life_span ? \Carbon\Carbon::parse($item->life_span) : null)->format('F d, Y') ?? 'N/A' }}
                             </td>
                             <td style="vertical-align: middle; text-align: center;">
                                 @php

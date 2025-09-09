@@ -31,22 +31,47 @@
                         @forelse($notifications as $notif)
                             <li class="notification-item {{ $notif->is_read ? '' : 'unread' }}">
                                 <div class="dropdown-item d-flex">
-                                    <div
-                                        class="notification-icon-type 
-                                        @if ($notif->type === 'maintenance') notification-icon-warning 
-                                        @elseif($notif->type === 'sos') notification-icon-urgent 
-                                        @else notification-icon-info @endif">
-                                        <i
-                                            class="fa-solid 
-                                            @if ($notif->type === 'maintenance') fa-clock 
-                                            @elseif($notif->type === 'sos') fa-exclamation 
-                                            @else fa-info @endif">
-                                        </i>
+                                    @php
+                                        // Map notification types to icon classes
+                                        $iconClasses = [
+                                            'maintenance' => [
+                                                'container' => 'notification-icon-info',
+                                                'icon' => 'fa-info',
+                                            ],
+                                            'sos' => [
+                                                'container' => 'notification-icon-urgent',
+                                                'icon' => 'fa-exclamation',
+                                            ],
+                                            'overdue' => [
+                                                'container' => 'notification-icon-urgent',
+                                                'icon' => 'fa-exclamation',
+                                            ],
+                                            'expiration' => [
+                                                'container' => 'notification-icon-warning',
+                                                'icon' => 'fa-clock',
+                                            ],
+                                            'overdue_mainenance' => [
+                                                'container' => 'notification-icon-urgent',
+                                                'icon' => 'fa-exclamation',
+                                            ],
+
+
+                                            
+                                        ];
+
+                                        $type = trim($notif->type);
+                                        $containerClass = $iconClasses[$type]['container'] ?? 'notification-icon-info';
+                                        $iconClass = $iconClasses[$type]['icon'] ?? 'fa-info';
+                                    @endphp
+
+                                    <div class="notification-icon-type {{ $containerClass }}">
+                                        <i class="fa-solid {{ $iconClass }}"></i>
                                     </div>
 
                                     <div class="text-wrap text-break ms-2">
                                         <div class="fw-bold">
-                                            {{ $notif->type === 'sos' ? 'Emergency!' : ucfirst($notif->type) }}
+                                            {{ ucwords(str_replace('_', ' ', $notif->notifiable_type)) }}
+
                                         </div>
 
                                         <div class="small">{{ $notif->message }}</div>

@@ -25,143 +25,6 @@
             </nav>
         </div>
 
-        {{-- <div class="add-extinguisher-container shadow-sm animated-container">
-
-            <form action="{{ route('admin.UpdateExtinguishers') }}" method="POST">
-                @method('PUT')
-                @csrf
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <h1 class="text-lg addnew-title"><i class="fa-solid fa-file-circle-plus"></i> Extinguisher:
-                            ({{ $details->extinguisher_id }})
-                        </h1>
-                        <input type="hidden" name="id" value="{{ $details->id }}">
-
-                        <div class="mb-3">
-                            <label for="serial_number" class="form-label">Serial Number: <span
-                                    class="text-danger">*</span></label>
-                            <input id="serial_number" type="text" name="serial_number" class="form-control" required
-                                value="{{ $details->serial_number }}">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="type" class="form-label">Type: <span class="text-danger">*</span></label>
-                            <select id="type" name="type" class="form-control" required>
-                                <option value="">-- SELECT TYPE --</option>
-                                @foreach ($types as $item)
-                                    <option value="{{ $item->id }}" style="color: {{ $item->color }}"
-                                        {{ optional($details->type)->id === $item->id ? 'selected' : '' }}>
-                                        {{ $item->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="capacity" class="form-label">Capacity: <span class="text-danger">*</span></label>
-                            <input id="capacity" type="text" name="capacity" class="form-control" required
-                                value="{{ $details->capacity }}">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="installation_date" class="form-label">Installation Date: <span
-                                    class="text-danger">*</span></label>
-                            <input id="installation_date" type="date" name="installation_date" class="form-control"
-                                required value="{{ $details->installation_date }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status: <span class="text-danger">*</span></label>
-                            <select class="form-control" name="status" id="status">
-                                <option value="Good" {{ $details->status == 'Good' ? 'selected' : '' }}>Good</option>
-                                <option value="Overcharged" {{ $details->status == 'Overcharged' ? 'selected' : '' }}>
-                                    Overcharged</option>
-                                <option value="Undercharged" {{ $details->status == 'Undercharged' ? 'selected' : '' }}>
-                                    Undercharged</option>
-                                <option value="Retired" {{ $details->status == 'Retired' ? 'selected' : '' }}>Retired
-                                </option>
-                            </select>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <h1 class="text-lg addnew-title"><i class="fa-solid fa-building"></i> Extinguisher Location
-                        </h1>
-
-                        <input type="hidden" name="location_id" id="location_id" value="{{ $details->location_id }}">
-
-                        <div class="mb-3" id="building-group">
-                            <label class="form-label" for="building">Building</label>
-                            <select id="building" class="form-control" name="building" required>
-                                <option value="">Select Building</option>
-                                @foreach ($buildings as $building)
-                                    <option value="{{ $building }}">{{ $building }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="mb-3" id="floor-group" style="display: none;">
-                            <label class="form-label" for="floor">Floor</label>
-                            <select id="floor" class="form-control"></select>
-                        </div>
-
-                        <div class="mb-3" id="room-group" style="display: none;">
-                            <label class="form-label" for="room">Room</label>
-                            <select id="room" class="form-control"></select>
-                        </div>
-
-                        <div class="mb-3" id="spot-group" style="display: none;">
-                            <label class="form-label" for="spot">Spot</label>
-                            <select id="spot" class="form-control"></select>
-                        </div>
-
-                        <h1 id="location-status" style="display: none;" class="validation-title"></h1>
-                    </div>
-                </div>
-                <button id="submit-button" type="submit" class="btn save-btn mt-3">
-                    <i class="fa-solid fa-floppy-disk"></i> Update Extinguisher
-                </button>
-            </form>
-
-            <h3 class="mt-5">Assign Questions to (#{{ $details->extinguisher_id }})</h3>
-
-            <form method="POST" action="{{ route('admin.AssignInspectionQuestion') }}">
-                @csrf
-                @method('PUT')
-
-                <input type="hidden" name="id" value="{{ $details->id }}">
-
-                <div class="mb-4">
-                    <label for="question_ids" class="form-label fw-bold">Assign Inspection Questions</label>
-                    <div class="list-group  rounded">
-                        @forelse ($allQuestions as $question)
-                            <label class="list-group-item d-flex  align-items-center gap-4 ">
-                                <input type="checkbox" name="question_ids[]" value="{{ $question->id }}"
-                                    class="form-check-input mt-1"
-                                    {{ in_array($question->id, $assignedQuestionIds) ? 'checked' : '' }}>
-                                <div>
-                                    <div class="fw-semibold">{{ $question->question }}</div>
-                                    <small class="d-block">
-                                        <span class="text-muted">Interval:</span>
-                                        <span class="text-primary">{{ $question->maintenance_interval }}</span> |
-                                        <span class="text-muted">Fail Resched:</span>
-                                        <span class="text-danger">{{ $question->fail_reschedule_days }} day(s)</span>
-                                    </small>
-                                </div>
-                            </label>
-                        @empty
-                            <div class="p-3 text-muted">No inspection questions available.</div>
-                        @endforelse
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fa-solid fa-floppy-disk me-1"></i> Save Assignments
-                    </button>
-                </div>
-            </form>
-
-        </div> --}}
         <div class="card shadow-sm mb-4">
             <div class="card-header  text-white d-flex align-items-center py-3" style="background-color: #35408e">
                 <i class="fa-solid fa-fire-extinguisher me-2"></i>
@@ -248,6 +111,12 @@
                                 <input type="text" id="capacity" name="capacity" class="form-control" required
                                     value="{{ $details->capacity }}">
                                 <label for="capacity">Capacity</label>
+                            </div>
+
+                            <div class="form-floating mt-3">
+                                <input id="life_span" type="date" name="life_span" class="form-control" placeholder="12"
+                                    required value="{{$details->life_span}}">
+                                <label for="life_span">Life Span (Months) <span class="text-danger">*</span></label>
                             </div>
 
                             <div class="form-floating mt-3">

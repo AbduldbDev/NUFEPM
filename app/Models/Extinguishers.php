@@ -21,6 +21,8 @@ class Extinguishers extends Model
         'next_maintenance',
         'status',
         'qr_code_path',
+        'life_span'
+        
     ];
 
     public function user()
