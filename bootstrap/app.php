@@ -16,7 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'UserType' => \App\Http\Middleware\UserType::class,
         ]);
     })
-    ->withExceptions(function (Exceptions $exceptions): void {})->withSchedule(function (Schedule $schedule) {
+    ->withExceptions(function (Exceptions $exceptions): void {})
+    ->withSchedule(function (Schedule $schedule) {
         $schedule->command('lifespan:check')->everyMinute();
         $schedule->command('lifespan:overdue')->everyMinute();
         $schedule->command('maintenance:overdue')->everyMinute();
