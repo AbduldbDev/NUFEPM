@@ -25,6 +25,7 @@ class SOSReportController extends Controller
 
     public function StoreReport(Request $request)
     {
+
         try {
             $request->validate([
                 'location' => 'required|string|max:255',
