@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('last_maintenance')->nullable();
             $table->date('next_maintenance')->nullable();
             $table->string('status')->default('Good');
+            $table->date('life_span')->nullable();
             $table->string('qr_code_path')->nullable();
             $table->timestamps();
         });
