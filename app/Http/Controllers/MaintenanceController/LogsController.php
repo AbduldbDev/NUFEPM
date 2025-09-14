@@ -47,6 +47,6 @@ class LogsController extends Controller
             ->orderBy('next_maintenance', 'asc')
             ->paginate(20);
 
-        return view('Maintenance.Logs.schedule', compact('items'));
+        return view('Maintenance.logs.schedule', compact('items'));
     }
 }
