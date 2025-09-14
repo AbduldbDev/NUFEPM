@@ -13,7 +13,7 @@ use App\Http\Controllers\AdminController\ExportController;
 use App\Http\Controllers\AdminController\InspectionGuideController;
 use App\Http\Controllers\AdminController\InspectionLogsController;
 use App\Http\Controllers\AdminController\RefillLogsController;
-use App\Http\Controllers\AdminController\SosReportController;
+use App\Http\Controllers\AdminController\SOSReportController;
 use App\Http\Controllers\AdminController\EmergencyPlanController;
 use App\Http\Controllers\MaintenanceController\GuideController;
 use App\Http\Controllers\MaintenanceController\InspectionController;
@@ -118,8 +118,8 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
     });
 
     Route::prefix('SOS/Reports')->group(function () {
-        Route::get('/', [SosReportController::class, 'ShowAll'])->name('admin.ShowSosReports');
-        Route::delete('/{id}', [SosReportController::class, 'DestroyReport'])->name('admin.DeleteSosReport');
+        Route::get('/', [SOSReportController::class, 'ShowAll'])->name('admin.ShowSOSReports');
+        Route::delete('/{id}', [SOSReportController::class, 'DestroyReport'])->name('admin.DeleteSOSReport');
     });
 
     Route::get('/EmergencyPlans/manage', [EmergencyPlanController::class, 'ManageEmergencyPlans'])->name('admin.ManageEmergencyPlans');
@@ -161,8 +161,8 @@ Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
     });
 
     Route::prefix('SOS/Reports')->group(function () {
-        Route::get('/create', [SosReportController::class, 'ShowCreateForm'])->name('maintenance.CreateSosReport');
-        Route::post('/submit', [SosReportController::class, 'StoreReport'])->name('maintenance.SubmitSosReport');
+        Route::get('/create', [SOSReportController::class, 'ShowCreateForm'])->name('maintenance.CreateSOSReport');
+        Route::post('/submit', [SOSReportController::class, 'StoreReport'])->name('maintenance.SubmitSOSReport');
     });
 });
 

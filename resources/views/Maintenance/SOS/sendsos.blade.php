@@ -22,7 +22,7 @@
             </nav>
         </div>
 
-        <form action="{{ route('maintenance.SubmitSosReport') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('maintenance.SubmitSOSReport') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-lg-6 col-md-12 mb-4">

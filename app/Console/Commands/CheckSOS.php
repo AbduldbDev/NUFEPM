@@ -13,9 +13,9 @@ class CheckSOS extends Command
 
     public function handle()
     {
-        $sosReports = SOSReport::where('notified', false)->get();
+        $SOSReports = SOSReport::where('notified', false)->get();
 
-        foreach ($sosReports as $report) {
+        foreach ($SOSReports as $report) {
             // Notify admins (example)
             $admins = \App\Models\User::whereIn('role', ['admin', 'engineer'])->get();
             foreach ($admins as $admin) {

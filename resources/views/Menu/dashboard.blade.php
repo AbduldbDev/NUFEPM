@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="menu-card">
-                    <a class="card-link" href="{{ route('admin.ShowSosReports') }}"></a>
+                    <a class="card-link" href="{{ route('admin.ShowSOSReports') }}"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
                             <div class="card-icon ">
@@ -157,7 +157,7 @@
 
             @if (Auth::user()->type === 'maintenance' || Auth::user()->type === 'guard')
                 <div class="menu-card">
-                    <a href="{{ route('maintenance.CreateSosReport') }}" class="card-link"></a>
+                    <a href="{{ route('maintenance.CreateSOSReport') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
                             <div class="card-icon ">
