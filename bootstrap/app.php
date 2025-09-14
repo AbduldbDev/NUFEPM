@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Console\Scheduling\Schedule;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,6 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'UserType' => \App\Http\Middleware\UserType::class,
         ]);
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
-        //
-    })->create();
+    ->withExceptions(function (Exceptions $exceptions): void {})->withSchedule(function (Schedule $schedule) {
+        $schedule->command('lifespan:check')->everyMinute();
+        $schedule->command('lifespan:overdue')->everyMinute();
+        $schedule->command('maintenance:overdue')->everyMinute();
+        $schedule->command('maintenance:check')->everyMinute();
+    })
+    ->create();
