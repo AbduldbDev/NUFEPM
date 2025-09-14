@@ -88,7 +88,7 @@
                     $today = Carbon::today();
                     $daysDiff = $today->diffInDays($nextMaintenance, false);
 
-                    $showButton = $today->greaterThanOrEqualTo($nextMaintenance->copy()->subDays(7));
+                    $showButton = $today->greaterThanOrEqualTo($nextMaintenance->copy()->subDays(31));
 
                     $dateClass = '';
                     if ($daysDiff <= 3 && $daysDiff >= 0) {
