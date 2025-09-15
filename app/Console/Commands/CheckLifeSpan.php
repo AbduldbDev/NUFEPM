@@ -21,8 +21,9 @@ class CheckLifeSpan extends Command
         $today = now();
         $limit = now()->addDays(30);
 
-        // Get extinguishers expiring within next 30 days
-        $extinguishers = Extinguishers::whereBetween('life_span', [$today, $limit])->get();
+        $extinguishers = Extinguishers::where('life_span', '>=', $today)
+            ->where('life_span', '<=', $limit)
+            ->get();
 
         if ($extinguishers->count() > 0) {
             $extIds = $extinguishers->pluck('extinguisher_id')->implode(', ');

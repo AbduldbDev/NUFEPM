@@ -20,7 +20,6 @@ class CheckOverdueLifeSpan extends Command
         $users = User::all();
         $today = Carbon::today();
 
-        // Get extinguishers expired before today
         $overdueExtinguishers = Extinguishers::whereDate('life_span', '<', $today)->get();
 
         if ($overdueExtinguishers->count() === 0) {
