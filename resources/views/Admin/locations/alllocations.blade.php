@@ -55,15 +55,15 @@
                                         Building<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
+                                    <th class="text-center sortable align-middle" data-index="3" onclick="sortTable(this)">
                                         Floor<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
+                                    <th class="text-center sortable align-middle" data-index="4" onclick="sortTable(this)">
                                         Room<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
+                                    <th class="text-center sortable align-middle" data-index="5" onclick="sortTable(this)">
                                         Spot<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>

@@ -59,7 +59,7 @@
                         <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
                             Model<span class="sort-icons"><span class="asc">▲</span><span class="desc">▼</span></span>
                         </th>
-                        <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="3" onclick="sortTable(this)">
                             Serial Number <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>

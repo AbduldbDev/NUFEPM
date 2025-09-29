@@ -54,19 +54,19 @@
                                         Inspected By<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="sortable" data-index="2" onclick="sortTable(this)">
+                                    <th class="sortable" data-index="3" onclick="sortTable(this)">
                                         Inspected At<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="sortable" data-index="2" onclick="sortTable(this)">
+                                    <th class="sortable" data-index="4" onclick="sortTable(this)">
                                         Next Due<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
+                                    <th class="text-center sortable align-middle" data-index="5" onclick="sortTable(this)">
                                         Completion Time<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="sortable" data-index="2" onclick="sortTable(this)">
+                                    <th class="sortable" data-index="6" onclick="sortTable(this)">
                                         Status<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>

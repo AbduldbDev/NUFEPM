@@ -120,7 +120,7 @@
                             Date Installed <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
-                          <th class="text-center sortable align-middle" data-index="7" onclick="sortTable(this)">
+                          <th class="text-center sortable align-middle" data-index="8" onclick="sortTable(this)">
                             Expiration Date <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>

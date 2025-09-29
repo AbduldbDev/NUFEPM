@@ -60,11 +60,11 @@
                                         Question<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
+                                    <th class="text-center sortable align-middle" data-index="3" onclick="sortTable(this)">
                                         Maintenance Interval<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
+                                    <th class="text-center sortable align-middle" data-index="4" onclick="sortTable(this)">
                                         Fail Schedule<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>

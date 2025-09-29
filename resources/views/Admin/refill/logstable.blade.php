@@ -54,11 +54,11 @@
                                         Refilled By<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
+                                    <th class="text-center sortable align-middle" data-index="3" onclick="sortTable(this)">
                                         Refilled At<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)"
+                                    <th class="text-center sortable align-middle" data-index="4" onclick="sortTable(this)"
                                         style="width: 40%">
                                         Remarks<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>

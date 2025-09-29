@@ -51,11 +51,11 @@
                                     class="desc">▼</span></span>
                         </th>
 
-                        <th class="sortable" data-index="4" onclick="sortTable(this)">
+                        <th class="sortable" data-index="3" onclick="sortTable(this)">
                             Extinguisher Location <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
-                        <th class="text-center sortable" data-index="5" onclick="sortTable(this)">
+                        <th class="text-center sortable" data-index="4" onclick="sortTable(this)">
                             Last Maintenance <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
