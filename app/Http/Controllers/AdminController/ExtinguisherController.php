@@ -141,8 +141,8 @@ class ExtinguisherController extends Controller
     public function GetLocations(Request $request)
     {
         $building = $request->get('building');
-        $floor = $request->get('floor');
-        $room = $request->get('room');
+        $floor    = $request->get('floor');
+        $room     = $request->get('room');
 
         $query = ExtinguisherLocations::query();
 
@@ -150,22 +150,34 @@ class ExtinguisherController extends Controller
             $query->where('building', $building);
         }
 
-        if ($floor !== null) {
+        if ($floor) {
             $query->where('floor', $floor);
         }
 
-        if ($room !== null) {
+        if ($room) {
             $query->where('room', $room);
         }
 
         $locations = $query->get();
 
-        $allInBuilding = ExtinguisherLocations::where('building', $building)->get();
-
         return response()->json([
-            'floors' => $floor === null ? $allInBuilding->pluck('floor')->filter()->unique()->values() : [],
-            'rooms' => $room === null ? $allInBuilding->pluck('room')->filter()->unique()->values() : [],
-            'spots' => $allInBuilding->pluck('spot')->filter()->unique()->values(),
+            'floors' => $building && !$floor
+                ? ExtinguisherLocations::where('building', $building)
+                ->pluck('floor')->filter()->unique()->values()
+                : [],
+
+            'rooms' => $building && $floor && !$room
+                ? ExtinguisherLocations::where('building', $building)
+                ->where('floor', $floor)
+                ->pluck('room')->filter()->unique()->values()
+                : [],
+
+            'spots' => $building && $floor && $room
+                ? ExtinguisherLocations::where('building', $building)
+                ->where('floor', $floor)
+                ->where('room', $room)
+                ->pluck('spot')->filter()->unique()->values()
+                : [],
         ]);
     }
 

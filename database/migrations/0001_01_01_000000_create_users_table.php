@@ -65,6 +65,23 @@ return new class extends Migration
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        DB::table('users')->insert([
+            'uid' => '2022-123456',
+            'type' => 'maintenance',
+            'fname' => 'Tanggol',
+            'mname' => 'A.',
+            'lname' => 'Dimagiba',
+            'suffix' => 'Jr',
+            'email' => 'user@example.com',
+            'password' => Hash::make('password'),
+            'gender' => 'male',
+            'phone' => '09171234567',
+            'image' => null,
+            'email_verified_at' => now(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**

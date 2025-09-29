@@ -16,7 +16,7 @@ class LocationsController extends Controller
             ->orderBy('floor', 'asc')
             ->orderBy('room', 'asc')
             ->orderBy('spot', 'asc')
-            ->paginate(50);
+            ->paginate(100);
         return view('Admin.locations.alllocations', compact('items'));
     }
 
