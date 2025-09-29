@@ -50,6 +50,7 @@ class SOSReportController extends Controller
                 Notification::create([
                     'user_id' => $admin->id,
                     'notifiable_type' => 'sos',
+                    'notifiable_id' => $report->id,
                     'type' => 'sos',
                     'message' => "SOS Report: {$request->description} at {$request->location}",
                 ]);

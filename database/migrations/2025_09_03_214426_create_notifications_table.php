@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('notifiable_type');
+            $table->unsignedBigInteger('notifiable_id');
             $table->string('type');
             $table->text('message');
             $table->boolean('is_read')->default(false);

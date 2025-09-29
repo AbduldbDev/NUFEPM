@@ -17,7 +17,6 @@ class CheckMaintenance extends Command
 
     public function handle()
     {
-
         $users = User::all();
 
         $today = now();
@@ -26,28 +25,32 @@ class CheckMaintenance extends Command
         $extinguishers = Extinguishers::whereBetween('next_maintenance', [$today, $limit])->get();
 
         if ($extinguishers->count() > 0) {
-            $extIds = $extinguishers->pluck('extinguisher_id')->implode(', ');
             $dueDate = \Carbon\Carbon::parse($extinguishers->min('next_maintenance'))->format('M d, Y');
 
             foreach ($users as $user) {
-                $alreadyNotified = Notification::where('user_id', $user->id)
-                    ->where('type', 'maintenance')
-                    ->whereDate('created_at', $today)
-                    ->exists();
+                foreach ($extinguishers as $extinguisher) {
+                    $alreadyNotified = Notification::where('user_id', $user->id)
+                        ->where('type', 'maintenance')
+                        ->where('notifiable_id', $extinguisher->id)
+                        ->whereDate('created_at', $today)
+                        ->exists();
 
-                if (!$alreadyNotified) {
-                    Notification::create([
-                        'user_id' => $user->id,
-                        'notifiable_type' => "Maintenance",
-                        'type' => 'maintenance',
-                        'message' => "The following extinguishers require maintenance by " .
-                            \Carbon\Carbon::parse($extinguishers->min('next_maintenance'))->format('M. d, Y') .
-                            ": {$extIds}.",
-                    ]);
-                    Mail::to($user->email)->send(new MaintenanceReminderMail($extinguishers, $dueDate));
+                    if (!$alreadyNotified) {
+                        Notification::create([
+                            'user_id' => $user->id,
+                            'notifiable_type' => "Maintenance",
+                            'notifiable_id' => $extinguisher->id,
+                            'type' => 'maintenance',
+                            'message' => "Extinguisher {$extinguisher->extinguisher_id} requires maintenance by " .
+                                \Carbon\Carbon::parse($extinguisher->next_maintenance)->format('M d, Y') . ".",
+                        ]);
+                    }
                 }
+
+                Mail::to($user->email)->send(new MaintenanceReminderMail($extinguishers, $dueDate));
             }
         }
+
         $this->info('Maintenance notifications checked.');
     }
 }

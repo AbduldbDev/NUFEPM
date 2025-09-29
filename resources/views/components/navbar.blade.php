@@ -9,7 +9,6 @@
 
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
-                <!-- Notification Item -->
                 <li class="nav-item dropdown">
                     <a class="nav-link text-white dropdown-toggle notification-icon" href="#"
                         id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -29,41 +28,55 @@
                         </li>
 
                         @forelse($notifications as $notif)
+                            @php
+                                $iconClasses = [
+                                    'maintenance' => [
+                                        'container' => 'notification-icon-info',
+                                        'icon' => 'fa-info',
+                                    ],
+
+                                    'sos' => [
+                                        'container' => 'notification-icon-urgent',
+                                        'icon' => 'fa-exclamation',
+                                    ],
+
+                                    'overdue' => [
+                                        'container' => 'notification-icon-urgent',
+                                        'icon' => 'fa-exclamation',
+                                    ],
+
+                                    'expiration' => [
+                                        'container' => 'notification-icon-warning',
+                                        'icon' => 'fa-clock',
+                                    ],
+
+                                    'overdue_maintenance' => [
+                                        'container' => 'notification-icon-urgent',
+                                        'icon' => 'fa-exclamation',
+                                    ],
+                                ];
+
+                                $type = trim($notif->type);
+                                $containerClass = $iconClasses[$type]['container'] ?? 'notification-icon-info';
+                                $iconClass = $iconClasses[$type]['icon'] ?? 'fa-info';
+
+                                if (Auth::user()->type === 'admin' || Auth::user()->type === 'engineer') {
+                                    $url =
+                                        $type === 'sos'
+                                            ? url('SOS/Reports/')
+                                            : url('Extinguisher/Details/' . $notif->notifiable_id);
+                                } else {
+                                    if ($type === 'sos') {
+                                        $url = null;
+                                    } else {
+                                        $url = url('Inspection/Details/' . $notif->notifiable_id);
+                                    }
+                                }
+
+                            @endphp
+
                             <li class="notification-item {{ $notif->is_read ? '' : 'unread' }}">
-                                <div class="dropdown-item d-flex">
-                                    @php
-                                        // Map notification types to icon classes
-                                        $iconClasses = [
-                                            'maintenance' => [
-                                                'container' => 'notification-icon-info',
-                                                'icon' => 'fa-info',
-                                            ],
-                                            'sos' => [
-                                                'container' => 'notification-icon-urgent',
-                                                'icon' => 'fa-exclamation',
-                                            ],
-                                            'overdue' => [
-                                                'container' => 'notification-icon-urgent',
-                                                'icon' => 'fa-exclamation',
-                                            ],
-                                            'expiration' => [
-                                                'container' => 'notification-icon-warning',
-                                                'icon' => 'fa-clock',
-                                            ],
-                                            'overdue_mainenance' => [
-                                                'container' => 'notification-icon-urgent',
-                                                'icon' => 'fa-exclamation',
-                                            ],
-
-
-                                            
-                                        ];
-
-                                        $type = trim($notif->type);
-                                        $containerClass = $iconClasses[$type]['container'] ?? 'notification-icon-info';
-                                        $iconClass = $iconClasses[$type]['icon'] ?? 'fa-info';
-                                    @endphp
-
+                                <a href="{{ $url }}" class="dropdown-item d-flex">
                                     <div class="notification-icon-type {{ $containerClass }}">
                                         <i class="fa-solid {{ $iconClass }}"></i>
                                     </div>
@@ -71,7 +84,6 @@
                                     <div class="text-wrap text-break ms-2">
                                         <div class="fw-bold">
                                             {{ ucwords(str_replace('_', ' ', $notif->notifiable_type)) }}
-
                                         </div>
 
                                         <div class="small">{{ $notif->message }}</div>
@@ -100,7 +112,7 @@
                                             </form>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -119,7 +131,6 @@
                     </ul>
                 </li>
 
-                <!-- User Profile Item -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
