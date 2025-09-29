@@ -107,7 +107,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary mt-2 w-100"> <i class="fa-solid fa-check"></i>
+                    <button type="submit" class="btn add-new-btn     mt-2 w-100"> <i class="fa-solid fa-check"></i>
                         Complete Inspection</button>
                 </div>
             </form>

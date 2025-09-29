@@ -38,14 +38,32 @@
                             value="{{ Auth::user()->lname }}, {{ Auth::user()->fname }}">
                     </div>
 
-                    <div class="col-12 mb-2">
-                        <label for="refill_date" class="form-label">Refill Date: <span class="text-danger">*</span></label>
-                        <input type="date" id="refill_date" name="refill_date" class="form-control">
-                    </div>
-
-                    <div class="col-12 mb-2">
+                    <div class="col-12  mb-2">
                         <label for="remarks" class="form-label">Remarks: <span class="text-danger">*</span></label>
-                        <textarea class="form-control" name="remarks" id="remarks" cols="30" rows="5"></textarea>
+                        <div class="px-2">
+                            <div class="form-check  mt-1">
+                                <input class="form-check-input" name="remarks" type="radio" value="good" required
+                                    id="good">
+                                <label class="form-check-label question-green fw-semibold " for="good">
+                                    GOOD
+                                </label>
+                            </div>
+
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" name="remarks" type="radio" value="undercharged"
+                                    id="undercharged">
+                                <label class="form-check-label question-red fw-semibold" for="undercharged">
+                                    UNDERCHARGED
+                                </label>
+                            </div>
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" name="remarks" type="radio" value="overcharged"
+                                    id="overcharged">
+                                <label class="form-check-label  question-blue fw-semibold" for="overcharged">
+                                    OVERCHARGED
+                                </label>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-12 mb-2">
                         <button class="btn save-btn w-100 mt-2"><i class="fa-solid fa-floppy-disk"></i> Submit

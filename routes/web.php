@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AdminController\AccountsController;
 use App\Http\Controllers\AdminController\DeviceController;
+use App\Http\Controllers\AdminController\EmergencyHotlinesController;
 use App\Http\Controllers\AdminController\ExtinguisherController;
 use App\Http\Controllers\AdminController\LocationsController;
 use App\Http\Controllers\AdminController\QuestionController;
@@ -124,6 +125,13 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
 
     Route::get('/EmergencyPlans/manage', [EmergencyPlanController::class, 'ManageEmergencyPlans'])->name('admin.ManageEmergencyPlans');
     Route::put('/EmergencyPlans/update', [EmergencyPlanController::class, 'UpdateEmergencyPlan'])->name('admin.UpdateEmergencyPlan');
+
+    Route::prefix('/EmergencyHotlines')->group(function () {
+        Route::get('/', [EmergencyHotlinesController::class, 'ManageEmergencyHotlines'])->name('admin.ManageEmergencyHotlines');
+        Route::post('/Create', [EmergencyHotlinesController::class, 'CreateHotline'])->name('admin.SubmitNewHotline');
+        Route::put('/Update', [EmergencyHotlinesController::class, 'UpdateHotline'])->name('admin.UpdateHotline');
+        Route::delete('/delete', [EmergencyHotlinesController::class, 'DeleteEmergencyHotline'])->name('admin.DeleteEmergencyHotline');
+    });
 });
 
 Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
@@ -158,6 +166,10 @@ Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
 
     Route::prefix('Guide')->group(function () {
         Route::get('/', [GuideController::class, 'ShowGuide'])->name('maintenance.ShowInspectionGuide');
+    });
+
+    Route::prefix('Hotlines')->group(function () {
+        Route::get('/', [GuideController::class, 'ShowHotlines'])->name('maintenance.ShowHotlinesGuide');
     });
 
     Route::prefix('SOS/Reports')->group(function () {

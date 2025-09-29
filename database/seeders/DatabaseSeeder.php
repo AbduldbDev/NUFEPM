@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             InspectionGuideContentSeeder::class,
             EmergencyPlanSeeder::class,
+            EmergencyHotlineSeeder::class,
         ]);
     }
 }

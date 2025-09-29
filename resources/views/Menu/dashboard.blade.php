@@ -153,6 +153,22 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="menu-card">
+                    <a href="{{ route('admin.ManageEmergencyHotlines') }}" class="card-link"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Manage Emergency Hotlines</h3>
+                        <p class="card-description">
+                            Add, update, or organize emergency contact numbers by location to ensure quick access during
+                            urgent situations.
+                        </p>
+                    </div>
+                </div>
             @endif
 
             @if (Auth::user()->type === 'maintenance' || Auth::user()->type === 'guard')
@@ -232,6 +248,22 @@
                         <p class="card-description">
                             Review step-by-step guidelines for inspecting fire extinguishers to maintain compliance and
                             readiness.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <a href="{{ route('maintenance.ShowHotlinesGuide') }}" class="card-link"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-phone-volume"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Emergency Hotlines Guide</h3>
+                        <p class="card-description">
+                            Access a list of important emergency contact numbers by location for quick response during
+                            urgent situations.
                         </p>
                     </div>
                 </div>
