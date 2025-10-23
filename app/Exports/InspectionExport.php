@@ -27,7 +27,7 @@ class InspectionExport implements FromCollection, WithHeadings, WithStyles, Shou
         return collect($this->logs)->map(function ($log) {
             return [
                 'Extinguisher ID' => $log->extinguisher->extinguisher_id,
-                'Type' => $log->extinguisher->type->name ?? '',
+                'Type' => $log->extinguisher->type ?? '',
                 'Location' => $log->extinguisher->location
                     ? implode(', ', array_filter([
                         $log->extinguisher->location->building,
