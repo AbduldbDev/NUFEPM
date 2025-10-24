@@ -99,9 +99,12 @@ function sortTable(thElement) {
         if (isEmpty(aText)) return 1 * direction;
         if (isEmpty(bText)) return -1 * direction;
 
+        const aHasLetters = /[a-zA-Z]/.test(aText);
+        const bHasLetters = /[a-zA-Z]/.test(bText);
         const aNum = parseNumber(aText);
         const bNum = parseNumber(bText);
-        if (aNum !== null && bNum !== null) {
+
+        if (!aHasLetters && !bHasLetters && aNum !== null && bNum !== null) {
             if (aNum === bNum) return 0;
             return (aNum < bNum ? -1 : 1) * direction;
         }
@@ -142,6 +145,7 @@ function confirmDelete(form) {
     deleteModal.show();
     return false;
 }
+
 function proceedDelete() {
     if (formToSubmit) {
         formToSubmit.submit();
