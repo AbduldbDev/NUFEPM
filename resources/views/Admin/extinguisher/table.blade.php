@@ -245,8 +245,7 @@
             const checkboxes = document.querySelectorAll('.qr-checkbox');
             checkboxes.forEach(cb => cb.checked = this.checked);
         });
-
-        // Download Selected Files 
+        
         document.getElementById('download-selected').addEventListener('click', function() {
             const selected = document.querySelectorAll('.qr-checkbox:checked');
             if (selected.length === 0) {

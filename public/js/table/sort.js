@@ -1,88 +1,139 @@
-let sortDirection = {};
-let lastSortedTh = null;
+const tableState = new WeakMap();
+
+function getTableState(table) {
+    if (!tableState.has(table)) {
+        tableState.set(table, { sortDirection: {}, lastSortedTh: null });
+    }
+    return tableState.get(table);
+}
 
 function sortTable(thElement) {
+    const table = thElement.closest("table");
+    if (!table) return;
+
+    const state = getTableState(table);
+
+    const headerRow =
+        thElement.closest("thead")?.querySelector("tr") ||
+        thElement.parentElement;
+    const headers = Array.from(headerRow.querySelectorAll("th"));
+    const headerIndex = headers.indexOf(thElement);
+    if (headerIndex === -1) return;
+
     const dataIndex = thElement.getAttribute("data-index");
-    const table = document.querySelector(".sortable-table");
+    const key = dataIndex != null ? String(dataIndex) : String(headerIndex);
+
     const tbody = table.querySelector("tbody");
+    if (!tbody) return;
     const rows = Array.from(tbody.querySelectorAll("tr"));
 
-    // Use the data-index but add 1 to account for the checkbox column
-    const columnIndex = parseInt(dataIndex) + 1;
+    state.sortDirection[key] = !state.sortDirection[key];
+    const direction = state.sortDirection[key] ? 1 : -1;
 
-    sortDirection[dataIndex] = !sortDirection[dataIndex];
-    const direction = sortDirection[dataIndex] ? 1 : -1;
-
-    if (lastSortedTh && lastSortedTh !== thElement) {
-        lastSortedTh.classList.remove("sorted");
-        lastSortedTh.querySelector(".asc").classList.remove("active");
-        lastSortedTh.querySelector(".desc").classList.remove("active");
+    if (state.lastSortedTh && state.lastSortedTh !== thElement) {
+        state.lastSortedTh.classList.remove("sorted");
+        const prevAsc = state.lastSortedTh.querySelector(".asc");
+        const prevDesc = state.lastSortedTh.querySelector(".desc");
+        if (prevAsc) prevAsc.classList.remove("active");
+        if (prevDesc) prevDesc.classList.remove("active");
     }
 
     thElement.classList.add("sorted");
-    thElement.querySelector(".asc").classList.toggle("active", direction === 1);
-    thElement
-        .querySelector(".desc")
-        .classList.toggle("active", direction === -1);
-    lastSortedTh = thElement;
+    const ascEl = thElement.querySelector(".asc");
+    const descEl = thElement.querySelector(".desc");
+    if (ascEl) ascEl.classList.toggle("active", direction === 1);
+    if (descEl) descEl.classList.toggle("active", direction === -1);
+    state.lastSortedTh = thElement;
 
-    rows.sort((a, b) => {
-        const aText = a.children[columnIndex].innerText.trim();
-        const bText = b.children[columnIndex].innerText.trim();
+    function isEmpty(x) {
+        return x === null || x === undefined || String(x).trim() === "";
+    }
 
-        console.log(`Sorting column ${dataIndex}:`, aText, "vs", bText); // Debug log
+    function cleanText(cell) {
+        return (cell?.textContent || "").replace(/\u00A0/g, " ").trim();
+    }
 
-        // Try to parse as numbers first
-        const aNum = parseFloat(aText.replace(/[^\d.-]/g, ""));
-        const bNum = parseFloat(bText.replace(/[^\d.-]/g, ""));
+    function parseNumber(str) {
+        const cleaned = str.replace(/[^\d\-.]/g, "");
+        const num = parseFloat(cleaned);
+        return isNaN(num) ? null : num;
+    }
 
-        // If both are valid numbers, compare numerically
-        if (!isNaN(aNum) && !isNaN(bNum)) {
-            return (aNum - bNum) * direction;
+    function tryParseDate(str) {
+        if (!str) return NaN;
+        const s = str.trim();
+
+        let t = Date.parse(s);
+        if (!isNaN(t)) return t;
+
+        const dmy = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})(.*)$/);
+        if (dmy) {
+            const day = dmy[1].padStart(2, "0");
+            const mon = dmy[2].padStart(2, "0");
+            const year = dmy[3].length === 2 ? "20" + dmy[3] : dmy[3];
+
+            t = Date.parse(`${mon}/${day}/${year}`);
+            if (!isNaN(t)) return t;
+
+            t = Date.parse(`${day}/${mon}/${year}`);
+            if (!isNaN(t)) return t;
         }
 
-        // For date columns (index 7 and 8), use date comparison
-        if (dataIndex === "7" || dataIndex === "8") {
-            const aDate = new Date(aText);
-            const bDate = new Date(bText);
-            if (!isNaN(aDate) && !isNaN(bDate)) {
-                return (aDate - bDate) * direction;
-            }
+        const noOrd = s.replace(/(\d+)(st|nd|rd|th)/gi, "$1");
+        t = Date.parse(noOrd);
+        return isNaN(t) ? NaN : t;
+    }
+
+    const collator = new Intl.Collator(undefined, {
+        numeric: true,
+        sensitivity: "base",
+    });
+
+    rows.sort((rowA, rowB) => {
+        const aCell = rowA.children[headerIndex];
+        const bCell = rowB.children[headerIndex];
+        const aText = cleanText(aCell);
+        const bText = cleanText(bCell);
+
+        if (isEmpty(aText) && isEmpty(bText)) return 0;
+        if (isEmpty(aText)) return 1 * direction;
+        if (isEmpty(bText)) return -1 * direction;
+
+        const aNum = parseNumber(aText);
+        const bNum = parseNumber(bText);
+        if (aNum !== null && bNum !== null) {
+            if (aNum === bNum) return 0;
+            return (aNum < bNum ? -1 : 1) * direction;
         }
 
-        // Otherwise, use natural sorting for alphanumeric strings
+        const forceDate = dataIndex === "7" || dataIndex === "8";
+        const aDate = tryParseDate(aText);
+        const bDate = tryParseDate(bText);
+        if (
+            (forceDate && !isNaN(aDate) && !isNaN(bDate)) ||
+            (!isNaN(aDate) && !isNaN(bDate))
+        ) {
+            if (aDate === bDate) return 0;
+            return (aDate < bDate ? -1 : 1) * direction;
+        }
+
         return (
-            naturalCompare(aText.toLowerCase(), bText.toLowerCase()) * direction
+            collator.compare(aText.toLowerCase(), bText.toLowerCase()) *
+            direction
         );
     });
 
-    rows.forEach((row) => tbody.appendChild(row));
+    rows.forEach((r) => tbody.appendChild(r));
 }
 
-// Natural sorting function for alphanumeric strings
 function naturalCompare(a, b) {
-    const ax = [],
-        bx = [];
-
-    a.replace(/(\d+)|(\D+)/g, function (_, $1, $2) {
-        ax.push([$1 || Infinity, $2 || ""]);
+    return a.localeCompare(b, undefined, {
+        numeric: true,
+        sensitivity: "base",
     });
-    b.replace(/(\d+)|(\D+)/g, function (_, $1, $2) {
-        bx.push([$1 || Infinity, $2 || ""]);
-    });
-
-    while (ax.length && bx.length) {
-        const an = ax.shift();
-        const bn = bx.shift();
-        const nn = an[0] - bn[0] || an[1].localeCompare(bn[1]);
-        if (nn) return nn;
-    }
-
-    return ax.length - bx.length;
 }
 
 let formToSubmit = null;
-
 function confirmDelete(form) {
     formToSubmit = form;
     const deleteModal = new bootstrap.Modal(
@@ -91,7 +142,6 @@ function confirmDelete(form) {
     deleteModal.show();
     return false;
 }
-
 function proceedDelete() {
     if (formToSubmit) {
         formToSubmit.submit();
