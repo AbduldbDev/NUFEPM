@@ -120,7 +120,7 @@
                             Date Installed <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
-                          <th class="text-center sortable align-middle" data-index="8" onclick="sortTable(this)">
+                        <th class="text-center sortable align-middle" data-index="8" onclick="sortTable(this)">
                             Expiration Date <span class="sort-icons"><span class="asc">▲</span><span
                                     class="desc">▼</span></span>
                         </th>
@@ -161,8 +161,7 @@
                             <td style="vertical-align: middle; text-align: center;">
                                 {{ $item->serial_number }}
                             </td>
-                            <td
-                                style="vertical-align: middle; text-align: center; color:  {{ $item->type->color ?? '#00000' }}">
+                            <td style="vertical-align: middle; text-align: center">
                                 {{ $item->type }}
                             </td>
                             <td style="vertical-align: middle; text-align: center; ">
@@ -182,7 +181,7 @@
                             <td style="vertical-align: middle; text-align: center;">
                                 {{ optional($item->installation_date ? \Carbon\Carbon::parse($item->installation_date) : null)->format('F d, Y') ?? 'N/A' }}
                             </td>
-                             <td style="vertical-align: middle; text-align: center;">
+                            <td style="vertical-align: middle; text-align: center;">
                                 {{ optional($item->life_span ? \Carbon\Carbon::parse($item->life_span) : null)->format('F d, Y') ?? 'N/A' }}
                             </td>
                             <td style="vertical-align: middle; text-align: center;">
