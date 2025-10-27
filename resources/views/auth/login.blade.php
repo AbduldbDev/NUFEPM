@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid p-0 vh-100">
         <div class="row g-0 h-100">
-            <!-- Left Side - Login Form (Visible by default on mobile) -->
+
             <div class="col-lg-6 col-12 d-flex align-items-center justify-content-center py-4 px-3 bg-login"
                 id="loginSection">
                 <div class="w-100" style="max-width: 400px;">
@@ -72,7 +72,7 @@
                             </button>
                         </div>
                     </form>
-                    <!-- Emergency Hotlines Toggle Button - Mobile Only -->
+
                     <div class="d-lg-none text-center mt-4">
                         <button type="button" class="btn btn-outline-primary btn-sm fw-bold" id="toggleHotlinesBtn">
                             <i class="fas fa-phone-alt me-1"></i>View Emergency Hotlines
@@ -81,36 +81,31 @@
                 </div>
             </div>
 
-            <!-- Right Side - Emergency Hotlines (Hidden on mobile by default) -->
             <div class="col-lg-6 col-12 d-none d-lg-flex position-relative" id="hotlinesSection">
-                <!-- Background Image -->
+
                 <div class="position-absolute w-100 h-100">
                     <img src="{{ asset('/Image/bg.webp') }}" class="w-100 h-100 object-fit-cover" alt="Emergency Background"
                         onerror="this.style.display='none'">
                 </div>
 
-                <!-- Dark Overlay -->
                 <div class="position-absolute w-100 h-100"
                     style="background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(50,62,143,0.8) 100%);"></div>
 
-                <!-- Content Overlay -->
                 <div class="position-relative w-100 h-100 d-flex align-items-center justify-content-center p-4">
                     <div class="w-100 h-100 d-flex flex-column" style="max-width: 500px;">
-                        <!-- Back to Login Button - Mobile Only -->
+
                         <div class="d-lg-none text-end mb-3">
                             <button type="button" class="btn btn-outline-light btn-sm" id="backToLoginBtn">
                                 <i class="fas fa-arrow-left me-1"></i>Back to Login
                             </button>
                         </div>
 
-                        <!-- Logo -->
                         <div class="text-center mb-4">
                             <img src="{{ asset('/Image/NULogo.png') }}" class="img-fluid mb-2" style="max-width: 80px;">
                             <h5 class="text-white fw-bold mb-1">Emergency Response Portal</h5>
                             <p class="text-white text-opacity-75 small">Always Ready, Always Available</p>
                         </div>
 
-                        <!-- Emergency Hotlines Section -->
                         <div class="mb-4 flex-grow-1">
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <h6 class="text-white fw-bold mb-0">Emergency Hotlines</h6>
@@ -127,7 +122,7 @@
                                     @if (!in_array($hotline['location'], $displayedLocations))
                                         @if ($locationCount > 0)
                             </div>
-                        </div> <!-- Close previous location -->
+                        </div>
                         @endif
                         @php
                             $displayedLocations[] = $hotline['location'];
@@ -157,62 +152,79 @@
                                         </a>
                                     </div>
                                     @endforeach
-                                </div> <!-- Close last location row -->
+                                </div>
                             </div>
-                        </div> <!-- Close last location section -->
+                        </div>
 
                     </div>
                 </div>
 
-                <!-- Emergency Plans Section -->
                 <div class="mt-3">
                     <h6 class="text-white fw-bold mb-3 small">Building Emergency Plans</h6>
                     <div class="row g-2">
                         @php
                             $buildings = [
-                                ['name' => 'Educ Building', 'image' => 'Logo.png'],
-                                ['name' => 'AGETAC Building', 'image' => 'Logo.png'],
-                                ['name' => 'Dormitel Building', 'image' => 'Logo.png'],
-                                ['name' => 'Sports Academy', 'image' => 'Logo.png'],
+                                [
+                                    'name' => 'Educ Building',
+                                    'url' => asset('pdf/EDUC.pdf'),
+                                    'icon' => 'fa-graduation-cap',
+                                ],
+                                [
+                                    'name' => 'AGETAC Building',
+                                    'url' => asset('pdf/AGETAC.pdf'),
+                                    'icon' => 'fa-flask',
+                                ],
+                                [
+                                    'name' => 'Dormitel Building',
+                                    'url' => asset('pdf/DORMITEL.pdf'),
+                                    'icon' => 'fa-bed',
+                                ],
+                                [
+                                    'name' => 'Sports Academy',
+                                    'url' => asset('pdf/INSPIRE.pdf'),
+                                    'icon' => 'fa-trophy',
+                                ],
                             ];
                         @endphp
 
                         @foreach ($buildings as $building)
-                            <div class="col-3">
-                                <div class="emergency-plan-card text-center p-2 rounded-2 bg-white bg-opacity-10 text-white cursor-pointer border-0"
-                                    style="transition: all 0.3s ease; backdrop-filter: blur(5px); height: 90px; display: flex; flex-direction: column; justify-content: center;"
-                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.background='rgba(255,255,255,0.15)'"
-                                    onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255,255,255,0.1)'">
+                            <div class="col-6 col-sm-3">
+                                <a href="{{ $building['url'] }}" target="_blank" class="text-decoration-none">
+                                    <div class="emergency-plan-card text-center p-2 rounded-2 bg-white bg-opacity-10 text-white border-0"
+                                        style="transition: all 0.3s ease; backdrop-filter: blur(5px); height: 90px; display: flex; flex-direction: column; justify-content: center;"
+                                        onmouseover="this.style.transform='translateY(-3px)'; this.style.background='rgba(255,255,255,0.15)'"
+                                        onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255,255,255,0.1)'">
 
-                                    <div class="building-image mb-1 d-flex justify-content-center">
-                                        <div class="image-wrapper bg-white bg-opacity-20 rounded-circle d-flex align-items-center justify-content-center"
-                                            style="width: 50px; height: 50px; overflow: hidden;">
-                                            <img src="{{ asset('Image/' . $building['image']) }}"
-                                                alt="{{ $building['name'] }}" class="img-fluid"
-                                                style="width: 28px; height: 28px; object-fit: cover;">
+                                        <div class="building-icon mb-2 d-flex justify-content-center">
+                                            <div class="icon-wrapper bg-white bg-opacity-20 rounded-circle d-flex align-items-center justify-content-center"
+                                                style="width: 50px; height: 50px;">
+                                                <i class="fas {{ $building['icon'] }} text-warning"
+                                                    style="font-size: 22px;"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="fw-semibold micro text-truncate px-1" style="font-size: 11px;">
+                                            {{ $building['name'] }}
                                         </div>
                                     </div>
-
-                                    <div class="fw-semibold micro text-truncate px-1" style="font-size: 11px;">
-                                        {{ $building['name'] }}
-                                    </div>
-                                </div>
+                                </a>
                             </div>
                         @endforeach
                     </div>
                 </div>
 
-                <!-- Emergency Alert Footer -->
-                <div class="mt-3 pt-2 border-top border-white border-opacity-25">
-                    <div class="text-center">
-                        <p class="text-white text-opacity-75 micro mb-0">
-                            <i class="fas fa-exclamation-triangle text-warning me-1"></i>
-                            In case of emergency, call hotlines immediately
-                        </p>
-                    </div>
+            </div>
+
+            <div class="mt-3 pt-2 border-top border-white border-opacity-25">
+                <div class="text-center">
+                    <p class="text-white text-opacity-75 micro mb-0">
+                        <i class="fas fa-exclamation-triangle text-warning me-1"></i>
+                        In case of emergency, call hotlines immediately
+                    </p>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <script src="{{ asset('/js/Auth/togglepass.js') }}"></script>
@@ -223,7 +235,6 @@
             const loginSection = document.getElementById('loginSection');
             const hotlinesSection = document.getElementById('hotlinesSection');
 
-            // Show emergency hotlines on mobile
             toggleBtn.addEventListener('click', function() {
                 loginSection.classList.add('d-none');
                 hotlinesSection.classList.remove('d-none');
@@ -231,7 +242,6 @@
                 document.body.style.overflow = 'hidden';
             });
 
-            // Back to login form
             backToLoginBtn.addEventListener('click', function() {
                 hotlinesSection.classList.add('d-none');
                 hotlinesSection.classList.remove('d-flex');
@@ -239,7 +249,6 @@
                 document.body.style.overflow = 'auto';
             });
 
-            // Handle browser back button
             window.addEventListener('popstate', function() {
                 hotlinesSection.classList.add('d-none');
                 hotlinesSection.classList.remove('d-flex');
@@ -253,14 +262,12 @@
 @push('css')
     <link href="{{ asset('css/auth.css') }}?v={{ time() }}" rel="stylesheet">
     <style>
-        /* Gradient + Subtle Dotted Texture */
         .bg-login {
             background: linear-gradient(135deg, #f8f9ff 0%, #e8ebfa 100%);
             position: relative;
             overflow: hidden;
         }
 
-        /* Transparent dots overlay texture */
         .bg-login::before {
             content: "";
             position: absolute;
@@ -270,7 +277,6 @@
             z-index: 0;
         }
 
-        /* Keep form above the overlay */
         .bg-login>div {
             position: relative;
             z-index: 1;
@@ -306,7 +312,6 @@
             object-fit: cover;
         }
 
-        /* Mobile Styles */
         @media (max-width: 991.98px) {
             #hotlinesSection {
                 background: linear-gradient(135deg, #323e8f 0%, #1e2a78 100%);
@@ -331,13 +336,11 @@
                 font-size: 0.65rem !important;
             }
 
-            /* Hotline items styling for mobile */
             .hotline-card {
                 backdrop-filter: none;
             }
         }
 
-        /* Prevent scrolling on PC */
         @media (min-width: 992px) {
             .vh-100 {
                 height: 100vh !important;
@@ -354,12 +357,10 @@
             }
         }
 
-        /* Ensure consistent building plan sizes */
         .emergency-plan-card {
             height: 100px !important;
         }
 
-        /* Right side content sizing */
         .position-relative .small {
             font-size: 0.75rem;
         }
@@ -368,7 +369,6 @@
             font-size: 0.7rem;
         }
 
-        /* Smooth transitions */
         #loginSection,
         #hotlinesSection {
             transition: all 0.3s ease-in-out;
