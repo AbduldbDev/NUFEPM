@@ -4,7 +4,7 @@
         <div class="modal-content border-0 rounded-4 shadow-lg">
             <div class="modal-header  text-white rounded-top-4" style="background-color: #35408e">
                 <h5 class="modal-title fw-bold" id="editModalLabel{{ $item->id }}">
-                    <i class="fa-solid fa-pen-to-square"></i> View SOS
+                    <i class="fa-solid fa-pen-to-square"></i> View Accident
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                     aria-label="Close"></button>
@@ -33,7 +33,7 @@
 
                     <div class="col-12">
                         <a href="{{ $item->image }}" target="_blank">
-                            <img src="{{ $item->image }}" alt="SOS Image" class="img-fluid rounded border"
+                            <img src="{{ $item->image }}" alt="Accident Image" class="img-fluid rounded border"
                                 style="height: 200px; object-fit: cover;">
                         </a>
                     </div>

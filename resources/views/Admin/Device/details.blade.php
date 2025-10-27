@@ -47,6 +47,12 @@
                                     <option value="sprinkler" {{ $details->type == 'sprinkler' ? 'selected' : '' }}>
                                         Sprinkler</option>
 
+                                    <option value="emergency_lights"
+                                        {{ $details->type == 'emergency_lights' ? 'selected' : '' }}>
+                                        Emergency lights </option>
+                                    <option value="fire_alarm" {{ $details->type == 'fire_alarm' ? 'selected' : '' }}>Fire
+                                        Alarm </option>
+
                                 </select>
                                 <label for="type">Type <span class="text-danger">*</span></label>
                             </div>

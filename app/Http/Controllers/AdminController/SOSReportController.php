@@ -52,12 +52,12 @@ class SOSReportController extends Controller
                     'notifiable_type' => 'sos',
                     'notifiable_id' => $report->id,
                     'type' => 'sos',
-                    'message' => "SOS Report: {$request->description} at {$request->location}",
+                    'message' => "Accident Report: {$request->description} at {$request->location}",
                 ]);
             }
 
 
-            return redirect()->back()->with('success', 'SOS Report submitted successfully.');
+            return redirect()->back()->with('success', 'Accident Report submitted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error', $e->getMessage()]);
         }

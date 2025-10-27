@@ -140,10 +140,6 @@ Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
     Route::get('/EmergencyPlans', [EmergencyPlanController::class, 'ShowEmergencyPlansMenu'])->name('maintenance.ShowEmergencyPlansMenu');
     Route::get('/EmergencyPlans/{building}', [EmergencyPlanController::class, 'ShowFloorPlans'])->name('maintenance.ShowFloorPlans');
 
-    Route::prefix('Scanner')->group(function () {
-        Route::get('/', [InspectionController::class, 'ShowScanner'])->name('maintenance.ShowScanner');
-    });
-
     Route::prefix('Inspection')->group(function () {
         Route::get('/Details/{id}', [InspectionController::class, 'ShowInspectionDetail'])->name('maintenance.ShowInspectionDetail');
         Route::get('/Start/{id}', [InspectionController::class, 'StartInspection'])->name('maintenance.StartInspection');
@@ -181,6 +177,10 @@ Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::prefix('Accounts/')->group(function () {
         Route::get('/Profile', [AccountsController::class, 'ShowProfile'])->name('admin.ShowProfile');
+    });
+
+    Route::prefix('Scanner')->group(function () {
+        Route::get('/', [InspectionController::class, 'ShowScanner'])->name('maintenance.ShowScanner');
     });
 
     Route::prefix('notifications/')->group(function () {

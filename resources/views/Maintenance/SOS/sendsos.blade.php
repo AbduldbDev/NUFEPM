@@ -17,7 +17,7 @@
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
 
                 <div class="breadcrumb-item active">
-                    <span>SOS Reports</span>
+                    <span>Accident Reports</span>
                 </div>
             </nav>
         </div>
@@ -30,7 +30,7 @@
                         <div class="card-header text-white d-flex align-items-center py-3"
                             style="background-color: #a91d1d;">
                             <i class="fa-solid fa-circle-exclamation me-2"></i>
-                            <h5 class="mb-0">SOS Details</h5>
+                            <h5 class="mb-0">Accident Details</h5>
                         </div>
                         <div class="card-body px-4">
                             <div class="form-floating mb-3">
@@ -57,7 +57,7 @@
             <div class="row mb-3">
                 <div class="col-12 col-lg-6">
                     <button type="submit" class="btn red-btn mt-2 w-100">
-                        <i class="fa-solid fa-paper-plane"></i> Submit SOS Report
+                        <i class="fa-solid fa-paper-plane"></i> Submit Accident Report
                     </button>
                 </div>
             </div>

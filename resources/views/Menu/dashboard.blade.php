@@ -26,6 +26,21 @@
         <div class="menu-grid">
             @if (Auth::user()->type === 'admin' || Auth::user()->type === 'engineer')
                 <div class="menu-card">
+
+                    <a href="{{ route('maintenance.ShowScanner') }}" class="card-link"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-qrcode"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">QR Scanner</h3>
+                        <p class="card-description">
+                            Scan extinguisher QR codes to view inspection history.
+                        </p>
+                    </div>
+                </div>
+                <div class="menu-card">
                     <a href="{{ route('admin.ShowAdminDeviceMenu') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -97,9 +112,9 @@
                                 <i class="fa-solid fa-triangle-exclamation"></i>
                             </div>
                         </div>
-                        <h3 class="card-title">SOS Reports</h3>
+                        <h3 class="card-title">Accident Reports</h3>
                         <p class="card-description">
-                            View and manage emergency SOS reports submitted by users, including location details and
+                            View and manage Accident reports submitted by users, including location details and
                             attachments for
                             immediate action.
                         </p>
@@ -180,9 +195,9 @@
                                 <i class="fa-solid fa-bullhorn"></i>
                             </div>
                         </div>
-                        <h3 class="card-title">Submit SOS Report</h3>
+                        <h3 class="card-title">Submit Accident Report</h3>
                         <p class="card-description">
-                            Quickly submit an emergency SOS report with location details, description for immediate
+                            Quickly submit an Accident report with location details, description for immediate
                             response.
                         </p>
                     </div>

@@ -41,6 +41,8 @@
                                     <option value="" disabled selected hidden>-- SELECT TYPE --</option>
                                     <option value="smoke_detector">Smoke Detector</option>
                                     <option value="sprinkler">Sprinkler</option>
+                                    <option value="emergency_lights">Emergency lights </option>
+                                    <option value="fire_alarm">Fire Alarm </option>
                                 </select>
                                 <label for="type">Type <span class="text-danger">*</span></label>
                             </div>
