@@ -11,13 +11,20 @@ class LocationsController extends Controller
 {
     public function ShowLocations()
     {
-        $items = ExtinguisherLocations::with(['user'])
+
+        return view('Admin.SubMenu.Buildings');
+    }
+
+    public function ShowAddLocationBuilding($building)
+    {
+        $items = ExtinguisherLocations::where('building', $building)->with(['user'])
             ->orderBy('building', 'asc')
             ->orderBy('floor', 'asc')
             ->orderBy('room', 'asc')
             ->orderBy('spot', 'asc')
             ->paginate(100);
-        return view('Admin.locations.alllocations', compact('items'));
+
+        return view('Admin.locations.alllocations', compact('items', 'building'));
     }
 
     public function SubmitNewLocation(Request $request)

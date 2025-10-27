@@ -9,6 +9,7 @@ class InspectionGuideContent extends Model
     protected $table = 'inspection_guide_content';
 
     protected $fillable = [
+        'type',
         'title',
         'content',
         'image_path',

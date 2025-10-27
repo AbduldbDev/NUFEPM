@@ -15,8 +15,12 @@
                     <a href="{{ route('dashboard') }}">Home</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item ">
+                    <a href="{{ url('/Guide/Management') }}">Inspection Guide</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
-                    <span>Inspection Guide</span>
+                    <span>{{ str_replace('_', ' ', $type) }}</span>
                 </div>
             </nav>
         </div>
@@ -46,15 +50,19 @@
                             <th class="text-center sortable align-middle" data-index="0" onclick="sortTable(this)">
                                 # <span class="sort-icons"><span class="asc">▲</span><span class="desc">▼</span></span>
                             </th>
-                            <th class="text-center sortable align-middle" data-index="1" onclick="sortTable(this)">
-                                Step <span class="sort-icons"><span class="asc">▲</span><span
-                                        class="desc">▼</span></span>
-                            </th>
                             <th class="text-center sortable align-middle" data-index="2" onclick="sortTable(this)">
-                                Title <span class="sort-icons"><span class="asc">▲</span><span
+                                Guide Type <span class="sort-icons"><span class="asc">▲</span><span
                                         class="desc">▼</span></span>
                             </th>
                             <th class="text-center sortable align-middle" data-index="3" onclick="sortTable(this)">
+                                Step <span class="sort-icons"><span class="asc">▲</span><span
+                                        class="desc">▼</span></span>
+                            </th>
+                            <th class="text-center sortable align-middle" data-index="4" onclick="sortTable(this)">
+                                Title <span class="sort-icons"><span class="asc">▲</span><span
+                                        class="desc">▼</span></span>
+                            </th>
+                            <th class="text-center sortable align-middle" data-index="5" onclick="sortTable(this)">
                                 Content <span class="sort-icons"><span class="asc">▲</span><span
                                         class="desc">▼</span></span>
                             </th>
@@ -66,6 +74,9 @@
                             <tr>
                                 <td class="text-center">
                                     {{ $index + 1 }}
+                                </td>
+                                <td>
+                                    <span>{{ str_replace('_', ' ', $item->type) }}</span>
                                 </td>
                                 <td class="text-capitalize text-center">
                                     Step {{ $item->step_number }}

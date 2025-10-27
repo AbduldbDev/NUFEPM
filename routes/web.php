@@ -74,6 +74,7 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
 
     Route::prefix('Locations')->group(function () {
         Route::get('/', [LocationsController::class, 'ShowLocations'])->name('admin.ShowLocations');
+        Route::get('/building/{building}', [LocationsController::class, 'ShowAddLocationBuilding'])->name('admin.ShowAddLocationBuilding');
         Route::put('/Update', [LocationsController::class, 'UpdateLocation'])->name('admin.UpdateLocation');
         Route::post('/Submit', [LocationsController::class, 'SubmitNewLocation'])->name('admin.SubmitNewLocation');
         Route::delete('/Delete', [LocationsController::class, 'DeleteLocation'])->name('admin.DeleteLocation');
@@ -105,6 +106,8 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
     Route::prefix('Export')->group(function () {
         Route::get('/Logs', [ExportController::class, 'ShowExportForm'])->name('admin.ShowExportForm');
         Route::get('/Export', [ExportController::class, 'export'])->name('inspections.export');
+        Route::get('/Expiration', [ExportController::class, 'expiration'])->name('export.expiration');
+        Route::get('/Notinspect', [ExportController::class, 'notinspect'])->name('export.notinspect');
     });
 
     Route::prefix('Refill/Logs')->group(function () {
@@ -113,10 +116,12 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
 
     Route::prefix('Guide/Management')->group(function () {
         Route::get('/', [InspectionGuideController::class, 'ShowGuideTable'])->name('admin.ShowGuideTable');
+        Route::get('/type/{type}', [InspectionGuideController::class, 'ShowInspectionType'])->name('admin.ShowInspectionType');
         Route::post('/Create', [InspectionGuideController::class, 'AddNewGuide'])->name('admin.AddNewGuide');
         Route::put('/Update', [InspectionGuideController::class, 'UpdateGuide'])->name('admin.UpdateGuide');
         Route::delete('/delete', [InspectionGuideController::class, 'DeleteGuide'])->name('admin.DeleteGuide');
     });
+
 
     Route::prefix('SOS/Reports')->group(function () {
         Route::get('/', [SOSReportController::class, 'ShowAll'])->name('admin.ShowSOSReports');
@@ -134,7 +139,8 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
     });
 });
 
-Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
+
+Route::middleware(['auth'])->group(function () {
     Route::get('/Maintenance/Menu/Inspections', [MenuController::class, 'ShowMaintenanceExtinguishersMenu'])->name('maintenance.ShowMaintenanceExtinguishersMenu');
 
     Route::get('/EmergencyPlans', [EmergencyPlanController::class, 'ShowEmergencyPlansMenu'])->name('maintenance.ShowEmergencyPlansMenu');
@@ -162,6 +168,7 @@ Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
 
     Route::prefix('Guide')->group(function () {
         Route::get('/', [GuideController::class, 'ShowGuide'])->name('maintenance.ShowInspectionGuide');
+        Route::get('/type/{type}', [GuideController::class, 'ShowInspectionType'])->name('maintenance.ShowInspectionType');
     });
 
     Route::prefix('Hotlines')->group(function () {
@@ -172,9 +179,7 @@ Route::middleware(['auth', 'UserType:maintenance,guard'])->group(function () {
         Route::get('/create', [SOSReportController::class, 'ShowCreateForm'])->name('maintenance.CreateSOSReport');
         Route::post('/submit', [SOSReportController::class, 'StoreReport'])->name('maintenance.SubmitSOSReport');
     });
-});
 
-Route::middleware(['auth'])->group(function () {
     Route::prefix('Accounts/')->group(function () {
         Route::get('/Profile', [AccountsController::class, 'ShowProfile'])->name('admin.ShowProfile');
     });

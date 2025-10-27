@@ -19,7 +19,7 @@
                             <input type="hidden" class="form-label" name="id" value="{{ $item->id }}">
                             <label for="building{{ $item->id }}" class="form-label">Building: </label>
                             <input type="text" name="building" id="building{{ $item->id }}" class="form-control"
-                                value="{{ $item->building }}">
+                                value="{{ $item->building }}" readonly>
                         </div>
                         <div class="col-12">
                             <input type="hidden" class="form-label" name="id" value="{{ $item->id }}">

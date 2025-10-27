@@ -76,7 +76,7 @@
                             @endphp
 
                             <li class="notification-item {{ $notif->is_read ? '' : 'unread' }}">
-                                <a href="{{ $url }}" class="dropdown-item d-flex">
+                                <a href="{{ url('Extinguisher/Active') }}" class="dropdown-item d-flex">
                                     <div class="notification-icon-type {{ $containerClass }}">
                                         <i class="fa-solid {{ $iconClass }}"></i>
                                     </div>

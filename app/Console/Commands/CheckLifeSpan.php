@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\LifeSpanReminder;
 use Illuminate\Console\Command;
 use App\Models\Extinguishers;
 use App\Models\Notification;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Mail\LifeSpanReminder;
 use Illuminate\Support\Facades\Mail;
 
 class CheckLifeSpan extends Command
@@ -21,34 +21,42 @@ class CheckLifeSpan extends Command
         $today = now();
         $limit = now()->addDays(30);
 
-        $extinguishers = Extinguishers::whereBetween('life_span', [$today, $limit])->get();
+        $totalExtinguishers = Extinguishers::count();
+        $expiringSoon = Extinguishers::whereBetween('life_span', [$today, $limit])->get();
 
-        if ($extinguishers->count() > 0) {
-            foreach ($users as $user) {
-                foreach ($extinguishers as $extinguisher) {
-                    $alreadyNotified = Notification::where('user_id', $user->id)
-                        ->where('type', 'expiration')
-                        ->where('notifiable_id', $extinguisher->id)
-                        ->whereDate('created_at', $today)
-                        ->exists();
-
-                    if (!$alreadyNotified) {
-                        Notification::create([
-                            'user_id' => $user->id,
-                            'notifiable_type' => "Near Expiration",
-                            'notifiable_id' => $extinguisher->id,
-                            'type' => 'expiration',
-                            'message' => "Extinguisher {$extinguisher->extinguisher_id} is expiring on " .
-                                Carbon::parse($extinguisher->life_span)->format('M d, Y') . ".",
-                        ]);
-                    }
-                }
-
-                $earliestExpiration = Carbon::parse($extinguishers->min('life_span'))->format('M d, Y');
-                Mail::to($user->email)->send(new LifeSpanReminder($extinguishers, $earliestExpiration));
-            }
+        if ($totalExtinguishers === 0) {
+            $this->info('No extinguishers found.');
+            return;
         }
 
-        $this->info('Near Expiration notifications checked.');
+        $expiringCount = $expiringSoon->count();
+        $percentage = round(($expiringCount / $totalExtinguishers) * 100, 2);
+
+        if ($expiringCount > 0) {
+            $earliestExpiration = Carbon::parse($expiringSoon->min('life_span'))->format('M d, Y');
+
+            foreach ($users as $user) {
+                $alreadyNotified = Notification::where('user_id', $user->id)
+                    ->where('type', 'expiration')
+                    ->whereDate('created_at', $today)
+                    ->exists();
+
+                if (!$alreadyNotified) {
+                    Notification::create([
+                        'user_id' => $user->id,
+                        'notifiable_type' => 'Near Expiration',
+                        'notifiable_id' => $user->id,
+                        'type' => 'expiration',
+                        'message' => "{$expiringCount}/{$totalExtinguishers} extinguishers ({$percentage}%) are nearing expiration (before {$earliestExpiration}).",
+                    ]);
+
+                    Mail::to($user->email)->send(new LifeSpanReminder($expiringSoon, $earliestExpiration));
+                }
+            }
+
+            $this->info('Life span summary notifications sent successfully.');
+        } else {
+            $this->info('No extinguishers nearing expiration within the next 30 days.');
+        }
     }
 }

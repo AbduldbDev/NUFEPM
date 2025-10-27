@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="main-container container">
+    <div class="container main-container">
         <div class="breadcrumb-container">
             <div class="breadcrumb-back">
                 <a href="javascript:history.back()" class="back-button">
@@ -8,7 +8,7 @@
                 </a>
             </div>
             <div class="breadcrumb-icon">
-                <i class="fa-solid fa-fire-extinguisher"></i>
+                <i class="fa-solid  fa-school-flag"></i>
             </div>
             <nav class="breadcrumb-nav">
                 <div class="breadcrumb-item">
@@ -16,72 +16,71 @@
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
-                    <span>Fire Equipments</span>
+                    <span>Locations</span>
                 </div>
             </nav>
         </div>
         <div class="menu-grid">
             <div class="menu-card">
-                <a href="{{ route('admin.ShowAddTankForm') }}" class="card-link"></a>
+                <a href="{{ url('Locations/building/Education Building') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
                         <div class="card-icon">
-                            <i class="fa-solid fa-fire-extinguisher"></i>
+                            <i class="fa-solid fa-school"></i>
                         </div>
                     </div>
-                    <h3 class="card-title">Add Fire Equipment</h3>
+                    <h3 class="card-title">Education Building</h3>
                     <p class="card-description">
-                        Add new fire equipment, assign QR codes, and record maintenance details with location.
+                        Access the evacuation plan for the Education Building, including emergency exits and assembly
+                        points.
                     </p>
                 </div>
             </div>
 
             <div class="menu-card">
-                <a href="{{ route('admin.ShowActiveExtinguishers') }}" class="card-link"></a>
+                <a href="{{ url('Locations/building/Sports Academy Building') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
                         <div class="card-icon">
-                            <i class="fa-solid fa-chart-line"></i>
+                            <i class="fa-solid fa-dumbbell"></i>
                         </div>
                     </div>
-                    <h3 class="card-title">Active Fire Equipment</h3>
+                    <h3 class="card-title">Sports Academy Building</h3>
                     <p class="card-description">
-                        View and manage all currently active fire equipment with their status and assigned locations.
+                        View the evacuation plan for the INSPIRE Sports Academy Building with safety guidelines.
                     </p>
                 </div>
             </div>
 
             <div class="menu-card">
-                <a href="{{ route('admin.ShowRetiredExtinguishers') }}" class="card-link"></a>
+                <a href="{{ url('Locations/building/Dormitel Building') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
                         <div class="card-icon">
-                            <i class="fa-solid fa-box-archive"></i>
+                            <i class="fa-solid fa-bed"></i>
                         </div>
                     </div>
-                    <h3 class="card-title">Retired Fire Equipment</h3>
+                    <h3 class="card-title">Dormitel Building</h3>
                     <p class="card-description">
-                        Review fire equipment that has been retired, replaced, or decommissioned from service.
+                        Access the evacuation plan for the Dormitel Building, including emergency procedures.
                     </p>
                 </div>
             </div>
 
-            {{-- <div class="menu-card">
-
-                <a href="{{ route('admin.ShowTypes') }}" class="card-link"></a>
+            <div class="menu-card">
+                <a href="{{ url('Locations/building/AGETAC Building') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
                         <div class="card-icon">
-                            <i class="fa-solid fa-fire-extinguisher"></i>
+                            <i class="fa-solid fa-flask"></i>
                         </div>
                     </div>
-                    <h3 class="card-title">Extinguisher Types</h3>
+                    <h3 class="card-title">AGETAC Building</h3>
                     <p class="card-description">
-                        Access your personal account settings to update your details and change your password.
+                        View the evacuation plan for the AGETAC Building with specialized safety instructions.
                     </p>
                 </div>
-            </div> --}}
-
+            </div>
         </div>
     </div>
 @endsection

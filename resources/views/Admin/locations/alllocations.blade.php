@@ -15,9 +15,14 @@
                     <a href="{{ route('dashboard') }}">Home</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
-                <div class="breadcrumb-item active">
-                    <span>Locations</span>
+                <div class="breadcrumb-item ">
+                    <a href="{{ url('Locations') }}">Locations</a>
                 </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    <span>{{ $building }}</span>
+                </div>
+
             </nav>
         </div>
 

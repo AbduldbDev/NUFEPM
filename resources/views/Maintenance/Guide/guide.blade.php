@@ -15,9 +15,14 @@
                     <a href="{{ route('dashboard') }}">Home</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
-                <div class="breadcrumb-item active">
-                    <span>Inspection Guide</span>
+                <div class="breadcrumb-item ">
+                    <a href="{{ url('/Guide') }}">Inspection Guide</a>
                 </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active">
+                    <span>{{ str_replace('_', ' ', $type) }}</span>
+                </div>
+
             </nav>
         </div>
 
@@ -25,9 +30,10 @@
             <div class="header-icon mb-2">
                 <i class="bi bi-fire-extinguisher"></i>
             </div>
-            <h1 class="fw-bold">Fire Extinguisher Inspection</h1>
+            <h1 class="fw-bold">{{ str_replace('_', ' ', $type) }} Inspection</h1>
             <p class="lead mb-2">Complete Step-by-Step Guide</p>
-            <p class="mb-0">Follow these steps ensure your fire extinguisher is in proper working condition</p>
+            <p class="mb-0">Follow these steps ensure your {{ str_replace('_', ' ', $type) }} is in proper working
+                condition</p>
         </header>
 
         <!-- Main Content -->
@@ -42,19 +48,25 @@
                         <i class="bi bi-clipboard-check"></i> Quick Checklist
                     </h3>
                     <div class="checklist-item">
-                        <i class="bi bi-check-circle-fill"></i> Pressure gauge in green zone
+                        <i class="bi bi-check-circle-fill"></i> Equipment is clean, visible, and free from obstruction
                     </div>
                     <div class="checklist-item">
-                        <i class="bi bi-check-circle-fill"></i> Seal and tamper indicator intact
+                        <i class="bi bi-check-circle-fill"></i> No signs of physical damage, rust, or corrosion
                     </div>
                     <div class="checklist-item">
-                        <i class="bi bi-check-circle-fill"></i> No physical damage or corrosion
+                        <i class="bi bi-check-circle-fill"></i> Proper labeling and identification are intact
                     </div>
                     <div class="checklist-item">
-                        <i class="bi bi-check-circle-fill"></i> Easily accessible and visible
+                        <i class="bi bi-check-circle-fill"></i> Operating instructions are legible and accessible
                     </div>
                     <div class="checklist-item">
-                        <i class="bi bi-check-circle-fill"></i> Inspection tag present and updated
+                        <i class="bi bi-check-circle-fill"></i> All seals, indicators, or tags are intact and up to date
+                    </div>
+                    <div class="checklist-item">
+                        <i class="bi bi-check-circle-fill"></i> Device is easily reachable in an emergency
+                    </div>
+                    <div class="checklist-item">
+                        <i class="bi bi-check-circle-fill"></i> Regular inspection and maintenance records are logged
                     </div>
                 </div>
 

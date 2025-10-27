@@ -138,6 +138,21 @@
                 </div>
 
                 <div class="menu-card">
+                    <a href="{{ route('admin.ShowAllQuestions') }}" class="card-link"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-circle-question"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Inspection Questions</h3>
+                        <p class="card-description">
+                            Manage and customize inspection questions for evaluating equipment and safety compliance.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="menu-card">
                     <a href="{{ route('admin.ShowGuideTable') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -188,6 +203,21 @@
 
             @if (Auth::user()->type === 'maintenance' || Auth::user()->type === 'guard')
                 <div class="menu-card">
+                    <a href="{{ route('maintenance.ShowScanner') }}" class="card-link"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-qrcode"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">QR Scanner</h3>
+                        <p class="card-description">
+                            Scan extinguisher QR codes to view inspection history.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="menu-card">
                     <a href="{{ route('maintenance.CreateSOSReport') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
@@ -199,22 +229,6 @@
                         <p class="card-description">
                             Quickly submit an Accident report with location details, description for immediate
                             response.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="menu-card">
-
-                    <a href="{{ route('maintenance.ShowScanner') }}" class="card-link"></a>
-                    <div class="card-body">
-                        <div class="card-icon-container">
-                            <div class="card-icon">
-                                <i class="fa-solid fa-qrcode"></i>
-                            </div>
-                        </div>
-                        <h3 class="card-title">QR Scanner</h3>
-                        <p class="card-description">
-                            Scan extinguisher QR codes to view inspection history.
                         </p>
                     </div>
                 </div>

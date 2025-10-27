@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('inspection_guide_content', function (Blueprint $table) {
             $table->id();
+            $table->string('type');
             $table->string('title');
             $table->text('content');
             $table->string('image_path')->nullable();

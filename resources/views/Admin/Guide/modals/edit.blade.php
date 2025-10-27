@@ -15,6 +15,7 @@
 
                 <div class="modal-body text-start">
                     <div class="row g-2">
+
                         <div class="col-12">
                             <input type="hidden" name="id" value="{{ $item->id }}">
                             <label for="title{{ $item->id }}" class="form-label">Title: <span

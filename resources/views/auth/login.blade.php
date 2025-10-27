@@ -1,68 +1,377 @@
 @extends('auth.app')
 
 @section('content')
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="login-form row border rounded-5 p-3 bg-white shadow box-area">
-            <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
-                style="background: #323e8f;">
-                <div class="featured-image mb-3">
-                    <img src="{{ asset('/Image/NULogo.png') }}" class="img-fluid login-img" style="width: 250px;">
+    <div class="container-fluid p-0 vh-100">
+        <div class="row g-0 h-100">
+            <!-- Left Side - Login Form (Visible by default on mobile) -->
+            <div class="col-lg-6 col-12 d-flex align-items-center justify-content-center py-4 px-3 bg-login"
+                id="loginSection">
+                <div class="w-100" style="max-width: 400px;">
+                    <div class="header-text mb-4 text-center text-lg-start">
+                        <div class="featured-image mb-3 d-lg-none">
+                            <img src="{{ asset('/Image/NULogo.png') }}" class="img-fluid" style="max-width: 120px;">
+                        </div>
+                        <h2 class="fw-bold  mb-2 fs-4" style="color: #35408e">Welcome Back</h2>
+                        <p class="text-muted fs-6">Fire Extinguisher Preventive Maintenance System</p>
+                    </div>
+
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold small">Email Address</label>
+                            <div class="input-group @error('email') has-validation @enderror">
+                                <span
+                                    class="input-group-text bg-light border-end-0 py-2 
+                                    @error('email') border-danger text-danger bg-light @enderror">
+                                    <i class="fas fa-envelope small"></i>
+                                </span>
+                                <input type="email" name="email" id="email"
+                                    class="form-control py-2 border-start-0 @error('email') is-invalid @enderror"
+                                    value="{{ old('email') }}" required autofocus placeholder="Enter your email">
+                            </div>
+                            <div class="min-height-20 text-danger small mt-1 ps-3">
+                                @error('email')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label fw-semibold small">Password</label>
+                            <div class="input-group @error('password') has-validation @enderror position-relative">
+                                <span
+                                    class="input-group-text bg-light border-end-0 py-2 
+                                        @error('password') border-danger text-danger bg-light @enderror">
+                                    <i class="fas fa-lock small"></i>
+                                </span>
+                                <input type="password" name="password" id="password"
+                                    class="form-control py-2 border-start-0 pe-5 @error('password') is-invalid @enderror"
+                                    required placeholder="Enter your password">
+                                <span class="position-absolute end-0 top-50 translate-middle-y me-2"
+                                    onclick="togglePassword()" style="cursor: pointer; z-index: 5;">
+                                    <i class="fas fa-eye text-muted small" id="togglePasswordIcon"></i>
+                                </span>
+                            </div>
+                            <div class="min-height-20 text-danger small mt-1 ps-3">
+                                @error('password')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-3 d-flex justify-content-between align-items-center">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="formCheck" name="remember">
+                                <label for="formCheck" class="form-check-label text-muted small">Remember Me</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <button style="background-color: #35408e" class="btn text-white w-100 fw-bold py-2 small">
+                                <i class="fas fa-sign-in-alt me-1"></i>Login to System
+                            </button>
+                        </div>
+                    </form>
+                    <!-- Emergency Hotlines Toggle Button - Mobile Only -->
+                    <div class="d-lg-none text-center mt-4">
+                        <button type="button" class="btn btn-outline-primary btn-sm fw-bold" id="toggleHotlinesBtn">
+                            <i class="fas fa-phone-alt me-1"></i>View Emergency Hotlines
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-md-6 right-box">
-                <div class="row align-items-center">
-                    <div class="header-text mb-2 mg-lg-4">
-                        <h2>Hello, Again</h2>
-                        <p>Fire Extinguisher Preventive Maintenance</p>
-                    </div>
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <div class="input-group mb-1 mg-lg-3">
-                            <input type="email" name="email" id="email"
-                                class="form-control form-control-lg bg-light fs-6 @error('email') is-invalid @enderror"
-                                value="{{ old('email') }}" required autofocus>
-                        </div>
-                        <div style="min-height: 20px; overflow-wrap: break-word;" class="text-danger small">
-                            @error('email')
-                                {{ $message }}
-                            @enderror
+            <!-- Right Side - Emergency Hotlines (Hidden on mobile by default) -->
+            <div class="col-lg-6 col-12 d-none d-lg-flex position-relative" id="hotlinesSection">
+                <!-- Background Image -->
+                <div class="position-absolute w-100 h-100">
+                    <img src="{{ asset('/Image/bg.webp') }}" class="w-100 h-100 object-fit-cover" alt="Emergency Background"
+                        onerror="this.style.display='none'">
+                </div>
+
+                <!-- Dark Overlay -->
+                <div class="position-absolute w-100 h-100"
+                    style="background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(50,62,143,0.8) 100%);"></div>
+
+                <!-- Content Overlay -->
+                <div class="position-relative w-100 h-100 d-flex align-items-center justify-content-center p-4">
+                    <div class="w-100 h-100 d-flex flex-column" style="max-width: 500px;">
+                        <!-- Back to Login Button - Mobile Only -->
+                        <div class="d-lg-none text-end mb-3">
+                            <button type="button" class="btn btn-outline-light btn-sm" id="backToLoginBtn">
+                                <i class="fas fa-arrow-left me-1"></i>Back to Login
+                            </button>
                         </div>
 
-                        <div class="input-group mb-1 mg-lg-1">
-                            <input type="password" name="password" id="password"
-                                class="form-control form-control-lg bg-light fs-6 @error('password') is-invalid @enderror"
-                                required>
-                            <span class="input-group-text bg-light" onclick="togglePassword()" style="cursor: pointer;">
-                                <i class="fa-solid fa-eye" id="togglePasswordIcon"></i>
-                            </span>
-                        </div>
-                        <div style="min-height: 20px;" class="text-danger small">
-                            @error('password')
-                                {{ $message }}
-                            @enderror
+                        <!-- Logo -->
+                        <div class="text-center mb-4">
+                            <img src="{{ asset('/Image/NULogo.png') }}" class="img-fluid mb-2" style="max-width: 80px;">
+                            <h5 class="text-white fw-bold mb-1">Emergency Response Portal</h5>
+                            <p class="text-white text-opacity-75 small">Always Ready, Always Available</p>
                         </div>
 
-                        <div class="input-group mb-3 mg-lg-5 d-flex justify-content-between">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="formCheck">
-                                <label for="formCheck" class="form-check-label text-secondary"><small>Remember
-                                        Me</small></label>
+                        <!-- Emergency Hotlines Section -->
+                        <div class="mb-4 flex-grow-1">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h6 class="text-white fw-bold mb-0">Emergency Hotlines</h6>
+                                <span class="badge bg-warning text-dark small">24/7 Available</span>
                             </div>
-                            {{-- <div class="forgot">
-                                <small><a href="#">Forgot Password?</a></small>
-                            </div> --}}
-                        </div>
-                        <div class="input-group mb-3">
-                            <button class="btn btn-lg login-btn  w-100 fs-6">Login</button>
-                        </div>
-                    </form>
+
+                            <div class="row g-2">
+                                @php
+                                    $displayedLocations = [];
+                                    $locationCount = 0;
+                                @endphp
+
+                                @foreach ($hotlines as $hotline)
+                                    @if (!in_array($hotline['location'], $displayedLocations))
+                                        @if ($locationCount > 0)
+                            </div>
+                        </div> <!-- Close previous location -->
+                        @endif
+                        @php
+                            $displayedLocations[] = $hotline['location'];
+                            $locationCount++;
+                        @endphp
+                        <div class="col-12 mb-2">
+                            <div class="location-section ">
+                                <h6 class="text-warning fw-bold mb-2 small border-bottom pb-1">{{ $hotline['location'] }}
+                                </h6>
+                                <div class="row g-2">
+                                    @endif
+                                    <div class="col-6">
+                                        <a href="tel:{{ $hotline['number'] }}" class="text-decoration-none">
+                                            <div
+                                                class="hotline-card bg-white bg-opacity-10 text-white rounded-2 p-2 border-0 h-100">
+                                                <div class="d-flex align-items-start">
+                                                    <div class="hotline-icon me-2">
+                                                        <i class="fas fa-phone-alt text-warning small"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <div class="fw-bold micro mb-1">{{ $hotline['label'] }}</div>
+                                                        <div class="small fw-bold text-warning">{{ $hotline['number'] }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    @endforeach
+                                </div> <!-- Close last location row -->
+                            </div>
+                        </div> <!-- Close last location section -->
+
+                    </div>
+                </div>
+
+                <!-- Emergency Plans Section -->
+                <div class="mt-3">
+                    <h6 class="text-white fw-bold mb-3 small">Building Emergency Plans</h6>
+                    <div class="row g-2">
+                        @php
+                            $buildings = [
+                                ['name' => 'Educ Building', 'image' => 'Logo.png'],
+                                ['name' => 'AGETAC Building', 'image' => 'Logo.png'],
+                                ['name' => 'Dormitel Building', 'image' => 'Logo.png'],
+                                ['name' => 'Sports Academy', 'image' => 'Logo.png'],
+                            ];
+                        @endphp
+
+                        @foreach ($buildings as $building)
+                            <div class="col-3">
+                                <div class="emergency-plan-card text-center p-2 rounded-2 bg-white bg-opacity-10 text-white cursor-pointer border-0"
+                                    style="transition: all 0.3s ease; backdrop-filter: blur(5px); height: 90px; display: flex; flex-direction: column; justify-content: center;"
+                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.background='rgba(255,255,255,0.15)'"
+                                    onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255,255,255,0.1)'">
+
+                                    <div class="building-image mb-1 d-flex justify-content-center">
+                                        <div class="image-wrapper bg-white bg-opacity-20 rounded-circle d-flex align-items-center justify-content-center"
+                                            style="width: 50px; height: 50px; overflow: hidden;">
+                                            <img src="{{ asset('Image/' . $building['image']) }}"
+                                                alt="{{ $building['name'] }}" class="img-fluid"
+                                                style="width: 28px; height: 28px; object-fit: cover;">
+                                        </div>
+                                    </div>
+
+                                    <div class="fw-semibold micro text-truncate px-1" style="font-size: 11px;">
+                                        {{ $building['name'] }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- Emergency Alert Footer -->
+                <div class="mt-3 pt-2 border-top border-white border-opacity-25">
+                    <div class="text-center">
+                        <p class="text-white text-opacity-75 micro mb-0">
+                            <i class="fas fa-exclamation-triangle text-warning me-1"></i>
+                            In case of emergency, call hotlines immediately
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="{{ asset('/js/Auth/togglepass.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.getElementById('toggleHotlinesBtn');
+            const backToLoginBtn = document.getElementById('backToLoginBtn');
+            const loginSection = document.getElementById('loginSection');
+            const hotlinesSection = document.getElementById('hotlinesSection');
+
+            // Show emergency hotlines on mobile
+            toggleBtn.addEventListener('click', function() {
+                loginSection.classList.add('d-none');
+                hotlinesSection.classList.remove('d-none');
+                hotlinesSection.classList.add('d-flex');
+                document.body.style.overflow = 'hidden';
+            });
+
+            // Back to login form
+            backToLoginBtn.addEventListener('click', function() {
+                hotlinesSection.classList.add('d-none');
+                hotlinesSection.classList.remove('d-flex');
+                loginSection.classList.remove('d-none');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Handle browser back button
+            window.addEventListener('popstate', function() {
+                hotlinesSection.classList.add('d-none');
+                hotlinesSection.classList.remove('d-flex');
+                loginSection.classList.remove('d-none');
+                document.body.style.overflow = 'auto';
+            });
+        });
+    </script>
 @endsection
+
 @push('css')
     <link href="{{ asset('css/auth.css') }}?v={{ time() }}" rel="stylesheet">
+    <style>
+        /* Gradient + Subtle Dotted Texture */
+        .bg-login {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8ebfa 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Transparent dots overlay texture */
+        .bg-login::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(53, 64, 142, 0.08) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 0;
+        }
+
+        /* Keep form above the overlay */
+        .bg-login>div {
+            position: relative;
+            z-index: 1;
+        }
+
+        .min-height-20 {
+            min-height: 20px;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .micro {
+            font-size: 0.7rem;
+        }
+
+        .hotline-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .hotline-card:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.15) !important;
+        }
+
+        .emergency-plan-card {
+            min-height: 80px;
+        }
+
+        .object-fit-cover {
+            object-fit: cover;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 991.98px) {
+            #hotlinesSection {
+                background: linear-gradient(135deg, #323e8f 0%, #1e2a78 100%);
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                z-index: 1000;
+                overflow-y: auto;
+            }
+
+            .container-fluid {
+                overflow-y: auto;
+            }
+
+            .small {
+                font-size: 0.8rem !important;
+            }
+
+            .micro {
+                font-size: 0.65rem !important;
+            }
+
+            /* Hotline items styling for mobile */
+            .hotline-card {
+                backdrop-filter: none;
+            }
+        }
+
+        /* Prevent scrolling on PC */
+        @media (min-width: 992px) {
+            .vh-100 {
+                height: 100vh !important;
+                overflow: hidden;
+            }
+
+            #toggleHotlinesBtn,
+            #backToLoginBtn {
+                display: none !important;
+            }
+
+            #hotlinesSection {
+                display: flex !important;
+            }
+        }
+
+        /* Ensure consistent building plan sizes */
+        .emergency-plan-card {
+            height: 100px !important;
+        }
+
+        /* Right side content sizing */
+        .position-relative .small {
+            font-size: 0.75rem;
+        }
+
+        .position-relative .micro {
+            font-size: 0.7rem;
+        }
+
+        /* Smooth transitions */
+        #loginSection,
+        #hotlinesSection {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
 @endpush

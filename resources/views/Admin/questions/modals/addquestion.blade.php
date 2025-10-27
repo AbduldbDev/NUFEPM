@@ -20,6 +20,15 @@
                         </div>
 
                         <div class="col-12">
+                            <label for="type" class="form-label">Question Type: <span
+                                    class="text-danger">*</span></label>
+                            <select name="type" id="type" class="form-control" required>
+                                <option value="Extinguisher">Fire Extinguisher</option>
+                                <option value="Fire_hose">Fire Hose </option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
                             <label for="interval" class="form-label">Maintence Interval: <span
                                     class="text-danger">*</span></label>
                             <input id="interval" type="number" name="interval" class="form-control" required>

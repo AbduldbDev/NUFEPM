@@ -20,38 +20,43 @@ class CheckOverdueLifeSpan extends Command
         $users = User::all();
         $today = Carbon::today();
 
+        // Get all extinguishers and overdue ones
+        $totalExtinguishers = Extinguishers::count();
         $overdueExtinguishers = Extinguishers::whereDate('life_span', '<', $today)->get();
 
-        if ($overdueExtinguishers->isEmpty()) {
-            $this->info('No overdue extinguishers found.');
+        if ($totalExtinguishers === 0) {
+            $this->info('No extinguishers found.');
             return;
         }
 
-        foreach ($users as $user) {
-            foreach ($overdueExtinguishers as $extinguisher) {
+        $overdueCount = $overdueExtinguishers->count();
+        $percentage = round(($overdueCount / $totalExtinguishers) * 100, 2);
+
+        if ($overdueCount > 0) {
+            $earliestExpiration = Carbon::parse($overdueExtinguishers->min('life_span'))->format('M d, Y');
+
+            foreach ($users as $user) {
                 $alreadyNotified = Notification::where('user_id', $user->id)
                     ->where('type', 'overdue')
-                    ->where('notifiable_id', $extinguisher->id)
                     ->whereDate('created_at', $today)
                     ->exists();
 
                 if (!$alreadyNotified) {
                     Notification::create([
                         'user_id' => $user->id,
-                        'notifiable_type' => "Expired",
-                        'notifiable_id' => $extinguisher->id,
+                        'notifiable_type' => 'Expired',
+                        'notifiable_id' => $user->id,
                         'type' => 'overdue',
-                        'message' => "Extinguisher {$extinguisher->extinguisher_id} expired on " .
-                            Carbon::parse($extinguisher->life_span)->format('M d, Y') . ".",
+                        'message' => "{$overdueCount}/{$totalExtinguishers} extinguishers ({$percentage}%) have expired since {$earliestExpiration}.",
                     ]);
+
+                    Mail::to($user->email)->send(new OverDueLifeSpan($overdueExtinguishers, $earliestExpiration));
                 }
             }
 
-    
-            $earliestExpiration = Carbon::parse($overdueExtinguishers->min('life_span'))->format('M d, Y');
-            Mail::to($user->email)->send(new OverDueLifeSpan($overdueExtinguishers, $earliestExpiration));
+            $this->info('Overdue lifespan summary notifications sent successfully.');
+        } else {
+            $this->info('No overdue extinguishers found.');
         }
-
-        $this->info('Overdue expiration notifications checked.');
     }
 }

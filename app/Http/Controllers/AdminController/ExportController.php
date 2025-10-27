@@ -5,6 +5,9 @@ namespace App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Exports\InspectionExport;
+use App\Exports\NearExpiration;
+use App\Exports\NotInspected;
+use App\Models\Extinguishers;
 use App\Models\InspectionLogs;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -27,5 +30,21 @@ class ExportController extends Controller
             ->get();
 
         return Excel::download(new InspectionExport($data), 'inspection.xlsx');
+    }
+
+    public function expiration(Request $request)
+    {
+        $today = now();
+        $limit = now()->addDays(30);
+        $data = Extinguishers::whereBetween('life_span', [$today, $limit])->get();
+
+        return Excel::download(new NearExpiration($data), 'near_expiration.xlsx');
+    }
+
+    public function notinspect(Request $request)
+    {
+        $data = Extinguishers::where('next_maintenance', '<', now())->get();
+
+        return Excel::download(new NotInspected($data), 'no_inspections.xlsx');
     }
 }

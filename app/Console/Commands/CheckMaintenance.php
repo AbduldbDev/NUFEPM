@@ -22,35 +22,44 @@ class CheckMaintenance extends Command
         $today = now();
         $limit = now()->addDays(30);
 
-        $extinguishers = Extinguishers::whereBetween('next_maintenance', [$today, $limit])->get();
+        $totalExtinguishers = Extinguishers::count();
+        $dueExtinguishers = Extinguishers::whereBetween('next_maintenance', [$today, $limit])->get();
 
-        if ($extinguishers->count() > 0) {
-            $dueDate = \Carbon\Carbon::parse($extinguishers->min('next_maintenance'))->format('M d, Y');
-
-            foreach ($users as $user) {
-                foreach ($extinguishers as $extinguisher) {
-                    $alreadyNotified = Notification::where('user_id', $user->id)
-                        ->where('type', 'maintenance')
-                        ->where('notifiable_id', $extinguisher->id)
-                        ->whereDate('created_at', $today)
-                        ->exists();
-
-                    if (!$alreadyNotified) {
-                        Notification::create([
-                            'user_id' => $user->id,
-                            'notifiable_type' => "Maintenance",
-                            'notifiable_id' => $extinguisher->id,
-                            'type' => 'maintenance',
-                            'message' => "Extinguisher {$extinguisher->extinguisher_id} requires maintenance by " .
-                                \Carbon\Carbon::parse($extinguisher->next_maintenance)->format('M d, Y') . ".",
-                        ]);
-                    }
-                }
-
-                Mail::to($user->email)->send(new MaintenanceReminderMail($extinguishers, $dueDate));
-            }
+        if ($totalExtinguishers === 0) {
+            $this->info('No extinguishers found.');
+            return;
         }
 
-        $this->info('Maintenance notifications checked.');
+        $dueCount = $dueExtinguishers->count();
+        $percentage = round(($dueCount / $totalExtinguishers) * 100, 2);
+
+        if ($dueCount > 0) {
+            $dueDate = Carbon::parse($dueExtinguishers->min('next_maintenance'))->format('M d, Y');
+
+            foreach ($users as $user) {
+                $alreadyNotified = Notification::where('user_id', $user->id)
+                    ->where('type', 'maintenance')
+                    ->whereDate('created_at', $today)
+                    ->exists();
+
+                if (!$alreadyNotified) {
+                    Notification::create([
+                        'user_id' => $user->id,
+                        'notifiable_type' => 'Maintenance',
+                        'notifiable_id' => $user->id,
+                        'type' => 'maintenance',
+                        'message' => "{$dueCount}/{$totalExtinguishers} extinguishers ({$percentage}%) are due for maintenance this month (before {$dueDate}).",
+                    ]);
+
+                    Mail::to($user->email)->send(
+                        new MaintenanceReminderMail($dueExtinguishers, $dueDate)
+                    );
+                }
+            }
+
+            $this->info("Maintenance summary notifications sent successfully.");
+        } else {
+            $this->info('No extinguishers due for maintenance within the next 30 days.');
+        }
     }
 }

@@ -8,15 +8,11 @@
                 </a>
             </div>
             <div class="breadcrumb-icon">
-                <i class="fa-solid fa-fire-extinguisher"></i>
+                <i class="fa-solid fa-circle-question"></i>
             </div>
             <nav class="breadcrumb-nav">
                 <div class="breadcrumb-item">
                     <a href="{{ route('dashboard') }}">Home</a>
-                </div>
-                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
-                <div class="breadcrumb-item">
-                    <a href="{{ route('admin.ShowExtinguishersMenu') }}">Fire Equipments</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
@@ -56,15 +52,19 @@
                                         Created By <span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="text-center sortable align-middle " data-index="2" onclick="sortTable(this)">
+                                    <th class="text-center align-middle sortable" data-index="2" onclick="sortTable(this)">
+                                        Question Type <span class="sort-icons"><span class="asc">▲</span><span
+                                                class="desc">▼</span></span>
+                                    </th>
+                                    <th class="text-center sortable align-middle " data-index="3" onclick="sortTable(this)">
                                         Question<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="text-center sortable align-middle" data-index="3" onclick="sortTable(this)">
+                                    <th class="text-center sortable align-middle" data-index="4" onclick="sortTable(this)">
                                         Maintenance Interval<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
-                                    <th class="text-center sortable align-middle" data-index="4" onclick="sortTable(this)">
+                                    <th class="text-center sortable align-middle" data-index="5" onclick="sortTable(this)">
                                         Fail Schedule<span class="sort-icons"><span class="asc">▲</span><span
                                                 class="desc">▼</span></span>
                                     </th>
@@ -86,6 +86,7 @@
                                         N/A
                                     @endif
                                 </td>
+                                <td class="text-capitalize">{{ str_replace('_', ' ', $item->type) }}</td>
                                 <td>{{ $item->question }} Days</td>
                                 <td class="text-center">{{ $item->maintenance_interval }} Days</td>
                                 <td class="text-center">{{ $item->fail_reschedule_days }} Days</td>

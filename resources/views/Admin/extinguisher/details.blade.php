@@ -115,7 +115,7 @@
 
                             <div class="form-floating mt-3">
                                 <input id="life_span" type="date" name="life_span" class="form-control" placeholder="12"
-                                    required value="{{$details->life_span}}">
+                                    required value="{{ $details->life_span }}">
                                 <label for="life_span">Life Span (Months) <span class="text-danger">*</span></label>
                             </div>
 
@@ -193,18 +193,16 @@
                     <input type="hidden" name="id" value="{{ $details->id }}">
 
                     <div class="bordered">
-                        @foreach ($allQuestions as $question)
+                        @foreach ($assignedQuestion as $question)
                             <label class="list-group-item d-flex align-items-center gap-2 px-3 mt-3">
-                                <input class="form-check-input me-2 mt-1" type="checkbox" name="question_ids[]"
-                                    value="{{ $question->id }}"
-                                    {{ in_array($question->id, $assignedQuestionIds) ? 'checked' : '' }}>
                                 <div>
-                                    <strong>{{ $question->question }}</strong><br>
+                                    <strong>{{ $question->question->question }}</strong><br>
                                     <small>
                                         Maintenance Interval:
-                                        <span class="text-primary">{{ $question->maintenance_interval }}</span> |
+                                        <span class="text-primary">{{ $question->question->maintenance_interval }}</span>
+                                        |
                                         Fail Reschedule Days:
-                                        <span class="text-danger">{{ $question->fail_reschedule_days }}</span>
+                                        <span class="text-danger">{{ $question->question->fail_reschedule_days }}</span>
                                     </small>
                                 </div>
                             </label>
@@ -214,7 +212,7 @@
                     <div class="row mx-2 my-3">
                         <div class="col-12 col-lg-3 ms-auto text-end">
                             <button type="submit" class="btn add-new-btn w-100">
-                                <i class="fa-solid fa-floppy-disk"></i> Save Questions
+                                <i class="fa-solid fa-floppy-disk"></i> Fetch Latest Question
                             </button>
                         </div>
                     </div>

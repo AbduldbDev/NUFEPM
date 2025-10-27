@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\InspectionQuestions;
 use App\Models\QuestionAssigned;
-
+use App\Models\Extinguishers;
 
 class QuestionController extends Controller
 {
@@ -17,16 +17,19 @@ class QuestionController extends Controller
         return view('Admin.questions.allquestions', compact('items'));
     }
 
+
     public function SubmitNewQuestion(Request $request)
     {
         $request->validate([
             'interval' => 'required|string',
+            'type' => 'required|string',
             'fail' => 'required',
             'question' => 'required',
         ]);
         try {
             InspectionQuestions::create([
                 'created_by' => Auth::user()->id,
+                'type' => $request->type,
                 'maintenance_interval'  => $request->interval,
                 'fail_reschedule_days' => $request->fail,
                 'question' => $request->question,
@@ -41,9 +44,17 @@ class QuestionController extends Controller
 
     public function UpdateQuestion(Request $request)
     {
+        $request->validate([
+            'interval' => 'required|string',
+            'type' => 'required|string',
+            'fail' => 'required',
+            'question' => 'required',
+        ]);
+
         try {
             InspectionQuestions::where('id', $request->id)->update([
                 'maintenance_interval'  => $request->interval,
+                'type' => $request->type,
                 'fail_reschedule_days' => $request->fail,
                 'question' => $request->question,
 
@@ -58,26 +69,17 @@ class QuestionController extends Controller
 
     public function AssignInspectionQuestion(Request $request)
     {
-        $request->validate([
-            'question_ids' => 'array'
-        ]);
+        $extingusiher = Extinguishers::findOrFail($request->id);
+        $questions = InspectionQuestions::where('type', $extingusiher->category)->get();
 
-        $existingAssignments = QuestionAssigned::where('extinguisher_id', $request->id)->get();
-        $assignedByMap = $existingAssignments->pluck('assigned_by', 'question_id')->toArray();
-
-        QuestionAssigned::where('extinguisher_id', $request->id)->delete();
-
-        if ($request->has('question_ids')) {
-            foreach ($request->question_ids as $question_id) {
-                $assignedBy = $assignedByMap[$question_id] ?? Auth::user()->id;
-
-                QuestionAssigned::create([
-                    'extinguisher_id' => $request->id,
-                    'question_id' => $question_id,
-                    'assigned_by' => $assignedBy,
-                ]);
-            }
+        foreach ($questions as $question) {
+            QuestionAssigned::create([
+                'extinguisher_id' => $extingusiher->id,
+                'question_id'     => $question->id,
+                'assigned_by'  => Auth::user()->id,
+            ]);
         }
+
 
         return back()->with('success', 'Questions updated successfully!');
     }

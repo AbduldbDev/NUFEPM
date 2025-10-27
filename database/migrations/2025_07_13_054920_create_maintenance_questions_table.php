@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('inspection_questions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('type');
             $table->text('question');
             $table->integer('maintenance_interval');
             $table->integer('fail_reschedule_days');

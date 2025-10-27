@@ -13,6 +13,8 @@
                 @csrf
                 <div class="modal-body px-4 py-3 text-start">
                     <div class="row g-2">
+
+                        <input type="hidden" name="type" value="{{ $type }}">
                         <div class="col-12">
                             <label for="title" class="form-label">Title: <span class="text-danger">*</span></label>
                             <input type="text" id="title" name="title" class="form-control" required>

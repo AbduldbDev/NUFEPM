@@ -83,8 +83,17 @@
                                 <td class="text-center">
                                     {{ optional($item->refill_date ? \Carbon\Carbon::parse($item->refill_date) : null)->format('F d, Y h:i a') ?? 'N/A' }}
                                 </td>
-                                <td class="text-center align-middle">
-                                    {{ $item->remarks }}
+                                <td style="vertical-align: middle; text-align: center;">
+                                    @if ($item->remarks === 'good')
+                                        <span class="badge text-bg-success">Good</span>
+                                    @elseif ($item->remarks === 'undercharged')
+                                        <span class="badge text-bg-danger">Under Charged</span>
+                                    @elseif ($item->remarks === 'overcharged')
+                                        <span class="badge text-bg-primary">Over Charged</span>
+                                    @elseif ($item->remarks === 'retired')
+                                        <span class="badge text-bg-secondary">Retired</span>
+                                    @endif
+
                                 </td>
                             </tr>
                         @endforeach

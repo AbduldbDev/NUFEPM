@@ -10,21 +10,27 @@ class InspectionGuideController extends Controller
 {
     public function ShowGuideTable()
     {
+        
+        return view('Admin.SubMenu.Inspections');
+    }
 
-        $items = InspectionGuideContent::orderBy('step_number', 'asc')->paginate(100);
-        return view('Admin.Guide.table', compact('items'));
+    public function ShowInspectionType($type)
+    {
+        $items = InspectionGuideContent::where('type', $type)->orderBy('step_number', 'asc')->paginate(100);
+        return view('Admin.Guide.table', compact('items', 'type'));
     }
 
     public function AddNewGuide(Request $request)
     {
         try {
             $request->validate([
+                'type' => 'required|string',
                 'title'   => 'required|string|max:255',
                 'content' => 'required|string',
                 'image'   => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
-            $lastStep = InspectionGuideContent::max('step_number');
+            $lastStep = InspectionGuideContent::where('type', $request->type)->max('step_number');
             $nextStep = $lastStep ? $lastStep + 1 : 1;
             $imagePath = null;
             if ($request->hasFile('image')) {
@@ -32,7 +38,9 @@ class InspectionGuideController extends Controller
                 $imagePath = '/storage/' . $path;
             }
 
+
             InspectionGuideContent::create([
+                'type'        => $request->type,
                 'title'       => $request->title,
                 'content'     => $request->content,
                 'image_path'  => $imagePath,
@@ -49,6 +57,7 @@ class InspectionGuideController extends Controller
     {
         try {
             $request->validate([
+                'type' => 'required|string',
                 'title'   => 'required|string|max:255',
                 'content' => 'required|string',
                 'image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -66,6 +75,7 @@ class InspectionGuideController extends Controller
             }
 
             $guide->title   = $request->title;
+            $guide->type   = $request->type;
             $guide->content = $request->content;
             $guide->save();
 

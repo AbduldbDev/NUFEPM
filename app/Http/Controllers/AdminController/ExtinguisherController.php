@@ -23,13 +23,13 @@ class ExtinguisherController extends Controller
 {
     public function ShowActiveExtinguishers()
     {
-        $items = Extinguishers::with(['location',  'user'])->where('status', '!=', 'Retired')->paginate(50);
+        $items = Extinguishers::with(['location',  'user'])->where('status', '!=', 'Retired')->latest()->paginate(50);
         return view('Admin.extinguisher.table', compact('items'));
     }
 
     public function ShowRetiredExtinguishers()
     {
-        $items = Extinguishers::with(['location', 'user'])->where('status', 'Retired')->paginate(50);
+        $items = Extinguishers::with(['location', 'user'])->where('status', 'Retired')->latest()->paginate(50);
         return view('Admin.extinguisher.table', compact('items'));
     }
 
@@ -109,7 +109,10 @@ class ExtinguisherController extends Controller
 
             Storage::disk('public')->put("QRcodes/{$filename}", $binaryData);
 
-            Extinguishers::create([
+
+
+
+            $extinguisher =  Extinguishers::create([
                 'created_by' => Auth::user()->id,
                 'extinguisher_id'   => $extinguisherId,
                 'serial_number'     => $request->serial_number,
@@ -124,10 +127,21 @@ class ExtinguisherController extends Controller
                 'qr_code_path'      => 'QRcodes/' . $filename,
             ]);
 
+            $questions = InspectionQuestions::where('type', $extinguisher->category)->get();
+
+
+            foreach ($questions as $question) {
+                QuestionAssigned::create([
+                    'extinguisher_id' => $extinguisher->id,
+                    'question_id'     => $question->id,
+                    'assigned_by'  => Auth::user()->id,
+                ]);
+            }
+
+
             return redirect()->route('admin.ShowActiveExtinguishers')->with('success', 'Extinguisher added successfully!');
         } catch (\Exception $e) {
-            Log::error('AddNewTank failed: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Failed to add extinguisher. Please try again.');
+            return redirect()->back()->withErrors('errors',  $e->getMessage());
         }
     }
 
@@ -259,10 +273,8 @@ class ExtinguisherController extends Controller
 
         $details = Extinguishers::findOrFail($id);
         $buildings = ExtinguisherLocations::select('building')->groupBy('building')->pluck('building');
+        $assignedQuestion = QuestionAssigned::with('question')->where('extinguisher_id', $id)->get();
 
-        $allQuestions = InspectionQuestions::all();
-        $assignedQuestionIds = QuestionAssigned::where('extinguisher_id', $id)->pluck('question_id')->toArray();
-
-        return view('Admin.extinguisher.details', compact('details', 'buildings',  'allQuestions', 'assignedQuestionIds'));
+        return view('Admin.extinguisher.details', compact('details', 'buildings',  'assignedQuestion'));
     }
 }

@@ -14,14 +14,7 @@
                 @method('PUT')
 
                 <div class="modal-body text-start">
-                    <div class="row g-4">
-                        <div class="mb-3">
-                            <input type="hidden" name="id" value="{{ $item->id }}">
-                            <label for="question{{ $item->id }}" class="form-label">Question: <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" name="question" id="question{{ $item->id }}" class="form-control"
-                                value="{{ $item->question }}">
-                        </div>
+                    <div class="row g-2">
 
                         <div class="mb-3">
                             <label for="interval{{ $item->id }}" class="form-label">Maintence Interval: <span
@@ -30,12 +23,32 @@
                                 value="{{ $item->maintenance_interval }}">
                         </div>
 
+                        <div class="col-12">
+                            <label for="type" class="form-label">Question Type: <span
+                                    class="text-danger">*</span></label>
+                            <select name="type" id="type" class="form-control" required>
+                                <option value="Extinguisher" {{ $item->type == 'Extinguisher' ? 'selected' : '' }}>
+                                    Fire Extinguisher
+                                </option>
+                                <option value="Fire_Hose" {{ $item->type == 'Fire_Hose' ? 'selected' : '' }}>
+                                    Fire Hose </option>
+                            </select>
+                        </div>
+
                         <div class="mb-3">
                             <label for="fail{{ $item->id }}" class="form-label">Fail Schedule: <span
                                     class="text-danger">*</span></label>
                             <input type="number" name="fail" id="fail{{ $item->id }}" class="form-control"
                                 value="{{ $item->fail_reschedule_days }}">
                         </div>
+
+                        <div class="mb-3">
+                            <input type="hidden" name="id" value="{{ $item->id }}">
+                            <label for="question{{ $item->id }}" class="form-label">Question: <span
+                                    class="text-danger">*</span></label>
+                            <textarea name="question" class="form-control" id="question" cols="30" rows="5" required>{{ $item->question }}</textarea>
+                        </div>
+
                     </div>
                 </div>
 

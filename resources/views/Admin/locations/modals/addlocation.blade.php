@@ -22,7 +22,8 @@
                         <div class="col-12">
                             <label for="building" class="form-label">Building: <span
                                     class="text-danger">*</span></label>
-                            <input type="text" name="building" class="form-control" required>
+                            <input type="text" name="building" class="form-control" readonly
+                                value="{{ $building }}">
                         </div>
 
                         <div class="col-12">
