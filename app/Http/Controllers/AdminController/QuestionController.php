@@ -13,9 +13,18 @@ class QuestionController extends Controller
 {
     public function ShowAllQuestions()
     {
-        $items = InspectionQuestions::with(['user'])->paginate(50);
-        return view('Admin.questions.allquestions', compact('items'));
+        // $items = InspectionQuestions::with(['user'])->paginate(50);
+        // return view('Admin.questions.allquestions', compact('items'));
+        return view('Admin.SubMenu.questions');
     }
+
+    public function ShowQuestionType($type)
+    {
+
+        $items = InspectionQuestions::where('type', $type)->with(['user'])->paginate(50);
+        return view('Admin.questions.allquestions', compact('items', 'type'));
+    }
+
 
 
     public function SubmitNewQuestion(Request $request)
@@ -69,17 +78,18 @@ class QuestionController extends Controller
 
     public function AssignInspectionQuestion(Request $request)
     {
-        $extingusiher = Extinguishers::findOrFail($request->id);
-        $questions = InspectionQuestions::where('type', $extingusiher->category)->get();
+        $extinguisher = Extinguishers::findOrFail($request->id);
+        $questions = InspectionQuestions::where('type', $extinguisher->category)->get();
+
+        QuestionAssigned::where('extinguisher_id', $extinguisher->id)->delete();
 
         foreach ($questions as $question) {
             QuestionAssigned::create([
-                'extinguisher_id' => $extingusiher->id,
+                'extinguisher_id' => $extinguisher->id,
                 'question_id'     => $question->id,
-                'assigned_by'  => Auth::user()->id,
+                'assigned_by'     => Auth::id(),
             ]);
         }
-
 
         return back()->with('success', 'Questions updated successfully!');
     }

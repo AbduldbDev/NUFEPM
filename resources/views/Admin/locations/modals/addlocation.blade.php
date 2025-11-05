@@ -18,6 +18,38 @@
                             <input type="text" name="serial_number" class="form-control" readonly
                                 value="{{ Auth::user()->lname }}, {{ Auth::user()->fname }}">
                         </div>
+                        {{-- <div class="col-12">
+                            <label for="Icon" class="form-label">Icon: <span class="text-danger">*</span></label>
+                            <select name="Icon" id="Icon" class="form-control">
+                                <option value="" disabled selected>Select an icon</option>
+
+                                <!-- Buildings -->
+                                <option value="fa-solid fa-building">Building</option>
+                                <option value="fa-solid fa-city">City / Complex</option>
+                                <option value="fa-solid fa-landmark">Landmark</option>
+                                <option value="fa-solid fa-warehouse">Warehouse</option>
+
+                                <!-- School -->
+                                <option value="fa-solid fa-school">School / Campus</option>
+                                <option value="fa-solid fa-graduation-cap">Graduation / Education</option>
+                                <option value="fa-solid fa-chalkboard-teacher">Classroom / Teaching</option>
+
+                                <!-- Rooms -->
+                                <option value="fa-solid fa-door-open">Door / Room</option>
+                                <option value="fa-solid fa-bed">Bedroom</option>
+                                <option value="fa-solid fa-couch">Lounge / Common Room</option>
+
+                                <!-- Lab -->
+                                <option value="fa-solid fa-flask">Laboratory</option>
+                                <option value="fa-solid fa-vials">Test Tubes / Lab</option>
+                                <option value="fa-solid fa-microscope">Microscope</option>
+
+                                <!-- Hotel -->
+                                <option value="fa-solid fa-hotel">Hotel / Building</option>
+                                <option value="fa-solid fa-bath">Bathroom</option>
+                                <option value="fa-solid fa-concierge-bell">Hotel Reception</option>
+                            </select>
+                        </div> --}}
 
                         <div class="col-12">
                             <label for="building" class="form-label">Building: <span

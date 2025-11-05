@@ -15,8 +15,12 @@
                     <a href="{{ route('dashboard') }}">Home</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item ">
+                    <a href="{{ url('/Questions') }}">Questions</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
-                    <span>Questions</span>
+                    <span> {{ ucwords(str_replace('_', ' ', $type)) }}</span>
                 </div>
             </nav>
         </div>

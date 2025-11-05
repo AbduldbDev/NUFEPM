@@ -13,19 +13,12 @@
                 @csrf
                 <div class="modal-body px-4 py-3 text-start">
                     <div class="row g-2">
+                        <input class=" form-control" readonly type="hidden" name="type" id="type"
+                            value="{{ $type }}">
                         <div class="col-12">
                             <label for="created_by" class="form-label">Created By: </label>
                             <input id="created_by" type="text" name="serial_number" class="form-control" readonly
                                 value="{{ Auth::user()->lname }}, {{ Auth::user()->fname }}">
-                        </div>
-
-                        <div class="col-12">
-                            <label for="type" class="form-label">Question Type: <span
-                                    class="text-danger">*</span></label>
-                            <select name="type" id="type" class="form-control" required>
-                                <option value="Extinguisher">Fire Extinguisher</option>
-                                <option value="Fire_hose">Fire Hose </option>
-                            </select>
                         </div>
 
                         <div class="col-12">

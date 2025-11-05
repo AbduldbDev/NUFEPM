@@ -12,6 +12,7 @@ use App\Models\ExtinguishersTypes;
 use App\Models\ExtinguisherLocations;
 use App\Models\InspectionQuestions;
 use App\Models\QuestionAssigned;
+use App\Models\Buildings;
 use Illuminate\Support\Facades\Storage;
 
 use Carbon\Carbon;
@@ -23,14 +24,107 @@ class ExtinguisherController extends Controller
 {
     public function ShowActiveExtinguishers()
     {
-        $items = Extinguishers::with(['location',  'user'])->where('status', '!=', 'Retired')->latest()->paginate(50);
-        return view('Admin.extinguisher.table', compact('items'));
+        $items = Buildings::withCount([
+            'locations as extinguisher_count' => function ($q) {
+                $q->whereHas('extinguishers', function ($qq) {
+                    $qq->where('status', '!=', 'Retired');
+                });
+            }
+        ])->get();
+
+        $url = 'Extinguisher/Active/';
+        $type = "Active Extinguishers";
+        $total = Extinguishers::where('status', '!=', 'Retired')->count();
+        return view('Admin.SubMenu.BuildingsMenu', compact('items', 'url', 'type', 'total'));
     }
+
+    public function ShowActiveTypeExtinguishers($type)
+    {
+
+        $base = Extinguishers::with(['location', 'user'])
+            ->where('status', '!=', 'Retired');
+
+        if ($type !== 'all') {
+            $base->whereHas('location', function ($q) use ($type) {
+                $q->where('building', $type);
+            });
+        }
+
+        $items = (clone $base)->orderBy('id', 'desc')->paginate(100);
+
+        $totalExtinguishers = (clone $base)->where('category', 'Extinguisher')->count();
+        $totalFireHose = (clone $base)->where('category', 'Fire_Hose')->count();
+
+
+        $nearExpirationQuery = (clone $base)->whereDate('life_span', '<=', now()->addDays(30));
+        $nearExpiration = $nearExpirationQuery->count();
+        $nearestExpirationDate = $nearExpirationQuery->orderBy('life_span', 'asc')->value('life_span');
+
+        $nearInspectionQuery = (clone $base)->whereDate('next_maintenance', '<=', now()->addDays(30));
+        $nearInspection = $nearInspectionQuery->count();
+        $nearestInspectionDate = $nearInspectionQuery->orderBy('next_maintenance', 'asc')->value('next_maintenance');
+
+        return view('Admin.extinguisher.table', compact(
+            'items',
+            'type',
+            'totalExtinguishers',
+            'nearExpiration',
+            'nearestExpirationDate',
+            'nearInspection',
+            'nearestInspectionDate',
+            'totalFireHose'
+        ));
+    }
+
+
 
     public function ShowRetiredExtinguishers()
     {
-        $items = Extinguishers::with(['location', 'user'])->where('status', 'Retired')->latest()->paginate(50);
-        return view('Admin.extinguisher.table', compact('items'));
+        $items = Buildings::withCount([
+            'locations as extinguisher_count' => function ($q) {
+                $q->whereHas('extinguishers', function ($qq) {
+                    $qq->where('status', 'Retired');
+                });
+            }
+        ])->get();
+
+        $url = 'Extinguisher/Retired/';
+        $type = "Retired Extinguishers";
+        $total = Extinguishers::where('status', 'Retired')->count();
+        return view('Admin.SubMenu.BuildingsMenu', compact('items', 'url', 'type', 'total'));
+    }
+
+    public function ShowRetiredTypeExtinguishers($type)
+    {
+        $base = Extinguishers::with(['location', 'user'])
+            ->where('status', '!=', 'Retired');
+
+        if ($type !== 'all') {
+            $base->whereHas('location', function ($q) use ($type) {
+                $q->where('building', $type);
+            });
+        }
+
+        $items = (clone $base)->orderBy('id', 'desc')->paginate(100);
+
+        $totalExtinguishers = (clone $base)->where('category', 'Extinguisher')->count();
+        $totalFireHose = (clone $base)->where('category', 'Fire_Hose')->count();
+
+
+        $nearExpirationQuery = (clone $base)->whereDate('life_span', '<=', now()->addDays(30));
+        $nearExpiration = $nearExpirationQuery->count();
+        $nearestExpirationDate = $nearExpirationQuery->orderBy('life_span', 'asc')->value('life_span');
+
+        $nearInspectionQuery = (clone $base)->whereDate('next_maintenance', '<=', now()->addDays(30));
+        $nearInspection = $nearInspectionQuery->count();
+        $nearestInspectionDate = $nearInspectionQuery->orderBy('next_maintenance', 'asc')->value('next_maintenance');
+
+        return view('Admin.extinguisher.retired', compact(
+            'items',
+            'type',
+            'totalExtinguishers',
+            'totalFireHose'
+        ));
     }
 
     public function ShowAddTankForm()

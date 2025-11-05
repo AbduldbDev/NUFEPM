@@ -116,4 +116,5 @@
 @endsection
 @push('css')
     <link href="{{ asset('css/components/menu.css') }}?v={{ time() }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}?v={{ time() }}" rel="stylesheet">
 @endpush

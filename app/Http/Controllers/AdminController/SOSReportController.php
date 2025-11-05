@@ -49,15 +49,15 @@ class SOSReportController extends Controller
             foreach ($admins as $admin) {
                 Notification::create([
                     'user_id' => $admin->id,
-                    'notifiable_type' => 'sos',
+                    'notifiable_type' => 'Incident Report',
                     'notifiable_id' => $report->id,
                     'type' => 'sos',
-                    'message' => "Accident Report: {$request->description} at {$request->location}",
+                    'message' => "Incident Report: {$request->description} at {$request->location}",
                 ]);
             }
 
 
-            return redirect()->back()->with('success', 'Accident Report submitted successfully.');
+            return redirect()->back()->with('success', 'Incident Report submitted successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error', $e->getMessage()]);
         }

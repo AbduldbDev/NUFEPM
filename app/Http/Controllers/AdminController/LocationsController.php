@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminController;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Buildings;
 use Illuminate\Http\Request;
 use App\Models\ExtinguisherLocations;
 
@@ -11,8 +12,9 @@ class LocationsController extends Controller
 {
     public function ShowLocations()
     {
+        $items = Buildings::get();
 
-        return view('Admin.SubMenu.Buildings');
+        return view('Admin.SubMenu.Buildings', compact('items'));
     }
 
     public function ShowAddLocationBuilding($building)

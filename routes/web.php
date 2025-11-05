@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AdminController\AccountsController;
+use App\Http\Controllers\AdminController\BuildingController;
 use App\Http\Controllers\AdminController\DeviceController;
 use App\Http\Controllers\AdminController\EmergencyHotlinesController;
 use App\Http\Controllers\AdminController\ExtinguisherController;
@@ -43,7 +44,13 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
 
     Route::prefix('Extinguisher')->group(function () {
         Route::get('/Active', [ExtinguisherController::class, 'ShowActiveExtinguishers'])->name('admin.ShowActiveExtinguishers');
+        Route::get('/Active/{type}', [ExtinguisherController::class, 'ShowActiveTypeExtinguishers'])->name('admin.ShowActiveTypeExtinguishers');
+
         Route::get('/Retired', [ExtinguisherController::class, 'ShowRetiredExtinguishers'])->name('admin.ShowRetiredExtinguishers');
+        Route::get('/Retired/{type}', [ExtinguisherController::class, 'ShowRetiredTypeExtinguishers'])->name('admin.ShowRetiredTypeExtinguishers');
+
+
+
         Route::get('/Add', [ExtinguisherController::class, 'ShowAddTankForm'])->name('admin.ShowAddTankForm');
         Route::get('/Details/{id}', [ExtinguisherController::class, 'ShowExtinguishersDetails'])->name('admin.ShowExtinguishersDetails');
         Route::put('/Update', [ExtinguisherController::class, 'UpdateExtinguishers'])->name('admin.UpdateExtinguishers');
@@ -80,8 +87,17 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::delete('/Delete', [LocationsController::class, 'DeleteLocation'])->name('admin.DeleteLocation');
     });
 
+
+    Route::prefix('Locations/buildings')->group(function () {
+        Route::get('/new', [BuildingController::class, 'NewBuildingForm'])->name('admin.NewBuildingForm');
+        Route::put('/update', [BuildingController::class, 'UpdateBuilding'])->name('admin.UpdateBuilding');
+        Route::post('/create', [BuildingController::class, 'SubmitNewBuilding'])->name('admin.SubmitNewBuilding');
+        Route::delete('/Delete', [BuildingController::class, 'DeleteBuilding'])->name('admin.DeleteBuilding');
+    });
+
     Route::prefix('Questions/')->group(function () {
         Route::get('/', [QuestionController::class, 'ShowAllQuestions'])->name('admin.ShowAllQuestions');
+        Route::get('/type/{type}', [QuestionController::class, 'ShowQuestionType'])->name('admin.ShowQuestionType');
         Route::put('/Update', [QuestionController::class, 'UpdateQuestion'])->name('admin.UpdateQuestion');
         Route::put('/Asign', [QuestionController::class, 'AssignInspectionQuestion'])->name('admin.AssignInspectionQuestion');
         Route::post('/Submit', [QuestionController::class, 'SubmitNewQuestion'])->name('admin.SubmitNewQuestion');
@@ -92,6 +108,7 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::get('/Recent', [InspectionLogsController::class, 'ShowRecentLogs'])->name('admin.ShowRecentLogs');
         Route::get('/Answer/{id}', [InspectionLogsController::class, 'ShowInspectionAnswer'])->name('admin.ShowInspectionAnswer');
         Route::get('/Extinguishers', [InspectionLogsController::class, 'ShowInspectionExtinguishers'])->name('admin.ShowInspectionExtinguishers');
+        Route::get('/Extinguishers/{type}', [InspectionLogsController::class, 'ShowTypeInspectionExtinguishers'])->name('admin.ShowTypeInspectionExtinguishers');
         Route::get('/Table/{id}', [InspectionLogsController::class, 'ShowInspectionLogsTable'])->name('admin.ShowInspectionLogsTable');
     });
 

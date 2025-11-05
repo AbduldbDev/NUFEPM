@@ -16,7 +16,7 @@
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
-                    <span>Accident Reports</span>
+                    <span>Incident Reports</span>
                 </div>
             </nav>
         </div>

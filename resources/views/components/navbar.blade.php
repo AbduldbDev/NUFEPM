@@ -76,7 +76,7 @@
                             @endphp
 
                             <li class="notification-item {{ $notif->is_read ? '' : 'unread' }}">
-                                <a href="{{ url('Extinguisher/Active') }}" class="dropdown-item d-flex">
+                                <a href="{{ $url }}" class="dropdown-item d-flex">
                                     <div class="notification-icon-type {{ $containerClass }}">
                                         <i class="fa-solid {{ $iconClass }}"></i>
                                     </div>
@@ -86,7 +86,10 @@
                                             {{ ucwords(str_replace('_', ' ', $notif->notifiable_type)) }}
                                         </div>
 
-                                        <div class="small">{{ $notif->message }}</div>
+                                        <div class="small">
+                                            {{ $notif->type === 'sos' ? Str::limit($notif->message, 150, '...') : $notif->message }}
+                                        </div>
+
                                         <div class="notification-time">{{ $notif->created_at->diffForHumans() }}</div>
 
                                         <div class="d-flex gap-2 mt-1">

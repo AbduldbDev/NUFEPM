@@ -17,7 +17,7 @@
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div class="mb-3">
+                        <div class="mb-1">
                             <label for="email" class="form-label fw-semibold small">Email Address</label>
                             <div class="input-group @error('email') has-validation @enderror">
                                 <span
@@ -36,7 +36,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="password" class="form-label fw-semibold small">Password</label>
                             <div class="input-group @error('password') has-validation @enderror position-relative">
                                 <span
@@ -52,14 +52,14 @@
                                     <i class="fas fa-eye text-muted small" id="togglePasswordIcon"></i>
                                 </span>
                             </div>
-                            <div class="min-height-20 text-danger small mt-1 ps-3">
+                            <div class="min-height-0 text-danger small mt-1 ps-3">
                                 @error('password')
                                     {{ $message }}
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="mb-3 d-flex justify-content-between align-items-center">
+                        <div class="mb-5 d-flex justify-content-between align-items-center">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="formCheck" name="remember">
                                 <label for="formCheck" class="form-check-label text-muted small">Remember Me</label>

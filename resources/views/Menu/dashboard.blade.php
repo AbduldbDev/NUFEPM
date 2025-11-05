@@ -88,18 +88,18 @@
                     </div>
                 </div>
 
-                <!-- User Accounts Card -->
+                <!-- Tickets Card -->
                 <div class="menu-card">
-                    <a href="{{ route('admin.ShowAccountsMenu') }}" class="card-link"></a>
+                    <a href="{{ route('admin.ShowAdminInspectionMenu') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
                             <div class="card-icon">
-                                <i class="fa-solid fa-user-gear"></i>
+                                <i class="fa-solid fa-ticket"></i> <!-- Changed Icon -->
                             </div>
                         </div>
-                        <h3 class="card-title">User Accounts</h3>
+                        <h3 class="card-title">Tickets</h3>
                         <p class="card-description">
-                            Manage user accounts with full control over access and roles.
+                            View and manage issue tickets, reports, and follow-up actions.
                         </p>
                     </div>
                 </div>
@@ -112,9 +112,9 @@
                                 <i class="fa-solid fa-triangle-exclamation"></i>
                             </div>
                         </div>
-                        <h3 class="card-title">Accident Reports</h3>
+                        <h3 class="card-title">Incident Reports</h3>
                         <p class="card-description">
-                            View and manage Accident reports submitted by users, including location details and
+                            View and manage Incident reports submitted by users, including location details and
                             attachments for
                             immediate action.
                         </p>
@@ -148,6 +148,22 @@
                         <h3 class="card-title">Inspection Questions</h3>
                         <p class="card-description">
                             Manage and customize inspection questions for evaluating equipment and safety compliance.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- User Accounts Card -->
+                <div class="menu-card">
+                    <a href="{{ route('admin.ShowAccountsMenu') }}" class="card-link"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-user-gear"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">User Accounts</h3>
+                        <p class="card-description">
+                            Manage user accounts with full control over access and roles.
                         </p>
                     </div>
                 </div>
@@ -225,9 +241,9 @@
                                 <i class="fa-solid fa-bullhorn"></i>
                             </div>
                         </div>
-                        <h3 class="card-title">Submit Accident Report</h3>
+                        <h3 class="card-title">Submit Incident Report</h3>
                         <p class="card-description">
-                            Quickly submit an Accident report with location details, description for immediate
+                            Quickly submit an Incident report with location details, description for immediate
                             response.
                         </p>
                     </div>
@@ -273,10 +289,11 @@
                                 <i class="fa-solid fa-circle-question"></i>
                             </div>
                         </div>
-                        <h3 class="card-title">Extinguisher Inspection Guide</h3>
+                        <h3 class="card-title">Inspection Guide</h3>
                         <p class="card-description">
-                            Review step-by-step guidelines for inspecting fire extinguishers to maintain compliance and
-                            readiness.
+                            Review step-by-step guidelines for inspecting fire safety equipment to ensure readiness and
+                            compliance.
+
                         </p>
                     </div>
                 </div>
