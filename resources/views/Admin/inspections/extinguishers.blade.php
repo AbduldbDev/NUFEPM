@@ -64,7 +64,7 @@
                         <div class="d-flex">
                             <i class="fa-solid fa-calendar-times me-2 mt-1 text-muted"></i>
                             <div>
-                                <small class="text-muted">Near Expiration</small><br>
+                                <small class="text-muted">Earliest Expiration</small><br>
                                 <span class="fw-medium text-danger">{{ $nearExpiration }}</span>
                                 <small class="text-muted ms-1">
                                     @if ($nearestExpirationDate)

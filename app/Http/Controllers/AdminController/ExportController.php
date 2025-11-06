@@ -16,7 +16,8 @@ class ExportController extends Controller
 {
     public function ShowExportForm()
     {
-        return view('Admin.export.exportlogs',);
+        return view('Admin.SubMenu.ExportLogs',);
+        // return view('Admin.export.exportlogs',);
     }
 
     public function export(Request $request)
@@ -36,14 +37,14 @@ class ExportController extends Controller
     {
         $today = now();
         $limit = now()->addDays(30);
-        $data = Extinguishers::whereBetween('life_span', [$today, $limit])->get();
+        $data = Extinguishers::whereBetween('life_span', [$today, $limit])->where('status', "!=", 'Retired')->get();
 
         return Excel::download(new NearExpiration($data), 'near_expiration.xlsx');
     }
 
     public function notinspect(Request $request)
     {
-        $data = Extinguishers::where('next_maintenance', '<', now())->get();
+        $data = Extinguishers::where('next_maintenance', '<', now())->where('status', "!=", 'Retired')->get();
 
         return Excel::download(new NotInspected($data), 'no_inspections.xlsx');
     }

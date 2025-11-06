@@ -65,6 +65,32 @@
                                         $type === 'sos'
                                             ? url('SOS/Reports/details/' . $notif->notifiable_id)
                                             : url('Extinguisher/Details/' . $notif->notifiable_id);
+
+                                    switch ($type) {
+                                        case 'sos':
+                                            $url = url('SOS/Reports/details/' . $notif->notifiable_id);
+                                            break;
+
+                                        case 'maintenance':
+                                            $url = url('Notification/Extinguishers/NearMaintenance/');
+                                            break;
+
+                                        case 'overdue_maintenance':
+                                            $url = url('Notification/Extinguishers/OverDueInspection/');
+                                            break;
+
+                                        case 'overdue':
+                                            $url = url('Notification/Extinguishers/ExpiredLifeSpan/');
+                                            break;
+
+                                        case 'expiration':
+                                            $url = url('Notification/Extinguishers/NearExpiration/');
+                                            break;
+
+                                        default:
+                                            $url = '#';
+                                            break;
+                                    }
                                 } else {
                                     if ($type === 'sos') {
                                         $url = null;

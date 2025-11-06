@@ -114,10 +114,9 @@
                         </div>
                         <h3 class="card-title">Incident Reports</h3>
                         <p class="card-description">
-                            View and manage Incident reports submitted by users, including location details and
-                            attachments for
-                            immediate action.
+                            View and manage submitted incident reports with locations and attachments.
                         </p>
+
                     </div>
                 </div>
 

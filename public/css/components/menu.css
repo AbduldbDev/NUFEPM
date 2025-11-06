@@ -187,6 +187,19 @@
     animation-delay: 0.4s;
 }
 
+.menu-card:nth-child(9) {
+    animation-delay: 0.1s;
+}
+.menu-card:nth-child(10) {
+    animation-delay: 0.2s;
+}
+.menu-card:nth-child(11) {
+    animation-delay: 0.3s;
+}
+.menu-card:nth-child(12) {
+    animation-delay: 0.4s;
+}
+
 @media (max-width: 1200px) {
     .menu-grid {
         grid-template-columns: repeat(3, 1fr);

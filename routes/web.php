@@ -154,6 +154,12 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::put('/Update', [EmergencyHotlinesController::class, 'UpdateHotline'])->name('admin.UpdateHotline');
         Route::delete('/delete', [EmergencyHotlinesController::class, 'DeleteEmergencyHotline'])->name('admin.DeleteEmergencyHotline');
     });
+    Route::prefix('Notification/Extinguishers/')->group(function () {
+        Route::get('/NearMaintenance', [NotificationController::class, 'NearMaintenance'])->name('admin.NearMaintenance');
+        Route::get('/OverDueInspection', [NotificationController::class, 'OverDueInspection'])->name('admin.OverDueInspection');
+        Route::get('/ExpiredLifeSpan', [NotificationController::class, 'ExpiredLifeSpan'])->name('admin.ExpiredLifeSpan');
+        Route::get('/NearExpiration', [NotificationController::class, 'NearExpiration'])->name('admin.NearExpiration');
+    });
 });
 
 
