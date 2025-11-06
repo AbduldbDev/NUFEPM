@@ -38,7 +38,7 @@ class BuildingSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'AGETAC Buildings',
+                'name' => 'AGETAC Building',
                 'icon' => 'fa-solid fa-tools',
                 'description' => 'Administrative and technical support building used for equipment storage, logistics, and maintenance operations.',
                 'created_at' => now(),

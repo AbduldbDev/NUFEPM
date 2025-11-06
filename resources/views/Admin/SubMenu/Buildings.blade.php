@@ -40,7 +40,6 @@
             @foreach ($items as $item)
                 @include('Admin.locations.modals.editbuilding')
                 <div class="menu-card position-relative">
-
                     <div class="card-actions"
                         style="z-index: 10; position: absolute; top: 10px; right: 10px; display: flex; gap: 8px;">
                         <button class="edit-btn" style="color: #35408e; border: none; background-color: transparent"
