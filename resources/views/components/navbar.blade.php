@@ -63,7 +63,7 @@
                                 if (Auth::user()->type === 'admin' || Auth::user()->type === 'engineer') {
                                     $url =
                                         $type === 'sos'
-                                            ? url('SOS/Reports/')
+                                            ? url('SOS/Reports/details/' . $notif->notifiable_id)
                                             : url('Extinguisher/Details/' . $notif->notifiable_id);
                                 } else {
                                     if ($type === 'sos') {

@@ -31,19 +31,16 @@ class InspectionLogsController extends Controller
     {
 
         $items = Buildings::withCount([
-            'locations as extinguisher_count' => function ($q) {
-                $q->whereHas('extinguishers', function ($qq) {
-                    $qq->where('status', '!=', 'Retired');
-                });
+            'extinguishers as extinguisher_count' => function ($q) {
+                $q->where('status', '!=', 'Retired');
             }
         ])->get();
+
 
         $url = '/Inspection/Logs/Extinguishers/';
         $type = "Active Extinguishers";
         $total = Extinguishers::where('status', '!=', 'Retired')->count();
         return view('Admin.SubMenu.BuildingsMenu', compact('items', 'url', 'type', 'total'));
-        // $items = Extinguishers::with(['location'])->where('status', '!=', 'Retired')->paginate(100);
-        // return view('Admin.inspections.extinguishers', compact('items'));
     }
 
     public function ShowTypeInspectionExtinguishers($type)

@@ -15,15 +15,19 @@
                     <a href="{{ route('dashboard') }}">Home</a>
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
-
-                <div class="breadcrumb-item active">
-                    <span>Incident Reports</span>
+                <div class="breadcrumb-item ">
+                    <a href="{{ route('admin.ShowSOSReports') }}">Incident Reports</a>
+                </div>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <div class="breadcrumb-item active ">
+                    <span>Details</span>
                 </div>
             </nav>
         </div>
 
-        <form action="{{ route('maintenance.SubmitSOSReport') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.UpdateSOS') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @METHOD('PUT')
             <div class="row">
                 <div class="col-lg-6 col-md-12 mb-4">
                     <div class="card shadow-sm h-100">
@@ -34,27 +38,40 @@
                         </div>
                         <div class="card-body px-4">
                             <div class="form-floating mb-3">
+                                <input type="hidden" name="id" value="{{ $item->id }}">
                                 <input id="location" type="text" name="location" class="form-control"
-                                    placeholder="Location" required>
-                                <label for="location">Location <span class="text-danger">*</span></label>
+                                    placeholder="Location" readonly value="{{ $item->location }}">
+                                <label for="location">Location</label>
                             </div>
 
                             <div class="form-floating mb-3">
                                 <textarea id="description" name="description" class="form-control" style="height: 120px" placeholder="Description"
-                                    required></textarea>
-                                <label for="description">Description <span class="text-danger">*</span></label>
+                                    readonly>{{ $item->location }}</textarea>
+                                <label for="description">Description</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="datetime-local" id="date_time" name="date_time" class="form-control"
-                                    required></input>
-                                <label for="description">Date & Time <span class="text-danger">*</span></label>
+                                <input type="datetime-local" id="date_time" name="date_time" class="form-control" readonly
+                                    value="{{ $item->date_time }}"></input>
+                                <label for="description">Date & Time</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input id="images" type="file" name="image[]" class="form-control" accept="image/*"
-                                    multiple>
-                                <label for="image">Upload Image (Optional)</label>
+                                <select name="status" id="status" class="form-control">
+                                    <option value="pending" {{ $item->status == 'pending' ? 'selected' : '' }}>
+                                        Pending
+                                    </option>
+
+                                    <option value="inprogress" {{ $item->status == 'inprogress' ? 'selected' : '' }}>
+                                        Inprogress
+                                    </option>
+
+                                    <option value="completed" {{ $item->status == 'completed' ? 'selected' : '' }}>
+                                        Completed
+                                    </option>
+                                </select>
+
+                                <label for="status">Status</label>
                             </div>
                         </div>
                     </div>
@@ -68,46 +85,33 @@
                         </div>
                         <div class="card-body px-4">
                             <div class="card-body px-4">
-                                <div id="preview-container" class="row g-2"></div>
+                                <div id="preview-container" class="row g-2">
+                                    @foreach (json_decode($item->image, true) as $img)
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <div class="ratio ratio-4x3 rounded border overflow-hidden">
+                                                <img src="{{ $img }}" width="auto"
+                                                    class="w-100 h-100 object-fit-cover">
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row mb-3">
+            <div class="row
+                                                    mb-3">
                 <div class="col-12 col-lg-6">
                     <button type="submit" class="btn red-btn mt-2 w-100">
-                        <i class="fa-solid fa-paper-plane"></i> Submit Incident Report
+                        <i class="fa-solid fa-paper-plane"></i> Update Incident Report
                     </button>
                 </div>
             </div>
         </form>
     </div>
-    <script>
-        document.getElementById('images').addEventListener('change', function(event) {
-            let preview = document.getElementById('preview-container');
-            preview.innerHTML = "";
-
-            Array.from(event.target.files).forEach(file => {
-                if (!file.type.startsWith("image/")) return;
-
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    let col = document.createElement("div");
-                    col.classList.add("col-6", "col-md-4", "col-lg-3");
-
-                    col.innerHTML = `
-                <div class="ratio ratio-4x3 rounded border overflow-hidden">
-                    <img src="${e.target.result}" class="w-100 h-100 object-fit-cover">
-                </div>
-            `;
-                    preview.appendChild(col);
-                };
-                reader.readAsDataURL(file);
-            });
-        });
-    </script>
 @endsection
 
 @push('css')

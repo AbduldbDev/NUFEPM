@@ -6,6 +6,8 @@
             @include('Admin.SubMenu.Components.BreadCrumbs.Extinguishers')
         @elseif(Route::currentRouteName() == 'admin.ShowInspectionExtinguishers')
             @include('Admin.SubMenu.Components.BreadCrumbs.InspectionExtinguisher')
+        @elseif(Route::currentRouteName() == 'admin.ShowDevices')
+            @include('Admin.SubMenu.Components.BreadCrumbs.Devices')
         @endif
 
         <div class="menu-grid">
@@ -15,6 +17,8 @@
                 @include('Admin.SubMenu.Components.Cards.RetiredExtinguisher')
             @elseif (Route::currentRouteName() == 'admin.ShowInspectionExtinguishers')
                 @include('Admin.SubMenu.Components.Cards.InspectionExtinguishers')
+            @elseif (Route::currentRouteName() == 'admin.ShowDevices')
+                @include('Admin.SubMenu.Components.Cards.Devices')
             @endif
 
             @foreach ($items as $item)

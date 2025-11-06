@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
             // InspectionGuideContentSeeder::class,
             EmergencyPlanSeeder::class,
             EmergencyHotlineSeeder::class,
-            // ExtinguisherLocationsSeeder::class,
+            BuildingSeeder::class,
+            ExtinguisherLocationsSeeder::class,
         ]);
     }
 }

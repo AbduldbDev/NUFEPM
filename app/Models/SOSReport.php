@@ -16,6 +16,8 @@ class SOSReport extends Model
         'location',
         'description',
         'image',
+        'date_time',
+        'status'
     ];
 
     public function user()

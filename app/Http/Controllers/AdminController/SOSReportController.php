@@ -18,6 +18,22 @@ class SOSReportController extends Controller
         return view('Admin.SOS.table', compact('items'));
     }
 
+    public function ShowDetails($id)
+    {
+        $item = SOSReport::with('user')->findOrFail($id);
+        return view('Admin.SOS.details', compact('item'));
+    }
+
+    public function UpdateSOS(Request $request)
+    {
+        $item = SOSReport::findOrFail($request->id);
+        $item->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('admin.ShowSOSReports')->with('success', 'Incident Updated successfully.');
+    }
+
     public function ShowCreateForm()
     {
         return view('Maintenance.SOS.sendsos');
@@ -30,19 +46,25 @@ class SOSReportController extends Controller
             $request->validate([
                 'location' => 'required|string|max:255',
                 'description' => 'required|string',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+                'date_time' => 'required|max:255',
+                'image.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:25600'
             ]);
 
-            $imagePath = null;
+            $imagePaths = [];
+
             if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('sos_reports', 'public');
+                foreach ($request->file('image') as $image) {
+                    $path = $image->store('sos_images', 'public');
+                    $imagePaths[] = '/storage/' . $path;
+                }
             }
 
             $report = SOSReport::create([
                 'user_id' => Auth::id(),
                 'location' => $request->location,
                 'description' => $request->description,
-                'image' => $imagePath ? '/storage/' . $imagePath : null,
+                'date_time' => $request->date_time,
+                'image'       => json_encode($imagePaths),
             ]);
 
             $admins = User::whereIn('type', ['admin', 'engineer'])->get();
@@ -55,7 +77,6 @@ class SOSReportController extends Controller
                     'message' => "Incident Report: {$request->description} at {$request->location}",
                 ]);
             }
-
 
             return redirect()->back()->with('success', 'Incident Report submitted successfully.');
         } catch (\Exception $e) {

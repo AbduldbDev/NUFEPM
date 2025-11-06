@@ -25,12 +25,11 @@ class ExtinguisherController extends Controller
     public function ShowActiveExtinguishers()
     {
         $items = Buildings::withCount([
-            'locations as extinguisher_count' => function ($q) {
-                $q->whereHas('extinguishers', function ($qq) {
-                    $qq->where('status', '!=', 'Retired');
-                });
+            'extinguishers as extinguisher_count' => function ($q) {
+                $q->where('status', '!=', 'Retired');
             }
         ])->get();
+
 
         $url = 'Extinguisher/Active/';
         $type = "Active Extinguishers";
@@ -81,12 +80,11 @@ class ExtinguisherController extends Controller
     public function ShowRetiredExtinguishers()
     {
         $items = Buildings::withCount([
-            'locations as extinguisher_count' => function ($q) {
-                $q->whereHas('extinguishers', function ($qq) {
-                    $qq->where('status', 'Retired');
-                });
+            'extinguishers as extinguisher_count' => function ($q) {
+                $q->where('status', '!=', 'Retired');
             }
         ])->get();
+
 
         $url = 'Extinguisher/Retired/';
         $type = "Retired Extinguishers";

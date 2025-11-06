@@ -45,12 +45,8 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
     Route::prefix('Extinguisher')->group(function () {
         Route::get('/Active', [ExtinguisherController::class, 'ShowActiveExtinguishers'])->name('admin.ShowActiveExtinguishers');
         Route::get('/Active/{type}', [ExtinguisherController::class, 'ShowActiveTypeExtinguishers'])->name('admin.ShowActiveTypeExtinguishers');
-
         Route::get('/Retired', [ExtinguisherController::class, 'ShowRetiredExtinguishers'])->name('admin.ShowRetiredExtinguishers');
         Route::get('/Retired/{type}', [ExtinguisherController::class, 'ShowRetiredTypeExtinguishers'])->name('admin.ShowRetiredTypeExtinguishers');
-
-
-
         Route::get('/Add', [ExtinguisherController::class, 'ShowAddTankForm'])->name('admin.ShowAddTankForm');
         Route::get('/Details/{id}', [ExtinguisherController::class, 'ShowExtinguishersDetails'])->name('admin.ShowExtinguishersDetails');
         Route::put('/Update', [ExtinguisherController::class, 'UpdateExtinguishers'])->name('admin.UpdateExtinguishers');
@@ -61,6 +57,7 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
 
     Route::prefix('Devices')->group(function () {
         Route::get('/', [DeviceController::class, 'ShowDevices'])->name('admin.ShowDevices');
+        Route::get('/type/{type}', [DeviceController::class, 'ShowTypeDevices'])->name('admin.ShowTypeDevices');
         Route::get('/new', [DeviceController::class, 'ShowAddForm'])->name('admin.ShowAddForm');
         Route::post('/Create', [DeviceController::class, 'CreateDevice'])->name('admin.CreateDevice');
         Route::put('/Update', [DeviceController::class, 'UpdateDevice'])->name('admin.UpdateDevice');
@@ -139,14 +136,17 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::delete('/delete', [InspectionGuideController::class, 'DeleteGuide'])->name('admin.DeleteGuide');
     });
 
-
     Route::prefix('SOS/Reports')->group(function () {
         Route::get('/', [SOSReportController::class, 'ShowAll'])->name('admin.ShowSOSReports');
-        Route::delete('/{id}', [SOSReportController::class, 'DestroyReport'])->name('admin.DeleteSOSReport');
+        Route::get('details/{id}', [SOSReportController::class, 'ShowDetails'])->name('admin.ShowDetails');
+        Route::put('/update', [SOSReportController::class, 'UpdateSOS'])->name('admin.UpdateSOS');
+        Route::delete('delete/{id}', [SOSReportController::class, 'DestroyReport'])->name('admin.DeleteSOSReport');
     });
 
-    Route::get('/EmergencyPlans/manage', [EmergencyPlanController::class, 'ManageEmergencyPlans'])->name('admin.ManageEmergencyPlans');
-    Route::put('/EmergencyPlans/update', [EmergencyPlanController::class, 'UpdateEmergencyPlan'])->name('admin.UpdateEmergencyPlan');
+    Route::prefix('EmergencyPlans')->group(function () {
+        Route::get('/manage', [EmergencyPlanController::class, 'ManageEmergencyPlans'])->name('admin.ManageEmergencyPlans');
+        Route::put('/update', [EmergencyPlanController::class, 'UpdateEmergencyPlan'])->name('admin.UpdateEmergencyPlan');
+    });
 
     Route::prefix('/EmergencyHotlines')->group(function () {
         Route::get('/', [EmergencyHotlinesController::class, 'ManageEmergencyHotlines'])->name('admin.ManageEmergencyHotlines');

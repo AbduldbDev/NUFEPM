@@ -20,9 +20,14 @@ class ExtinguisherLocations extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-    
+
     public function extinguishers()
     {
         return $this->hasMany(Extinguishers::class, 'location_id', 'id');
+    }
+
+    public function device()
+    {
+        return $this->hasMany(Equipment::class, 'loc_id', 'id');
     }
 }

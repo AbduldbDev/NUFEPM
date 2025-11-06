@@ -90,7 +90,7 @@
 
                 <!-- Tickets Card -->
                 <div class="menu-card">
-                    <a href="{{ route('admin.ShowAdminInspectionMenu') }}" class="card-link"></a>
+                    <a href="{{ route('dashboard') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
                             <div class="card-icon">

@@ -53,7 +53,15 @@
                                         class="desc">▼</span></span>
                             </th>
                             <th class="text-center sortable align-middle" data-index="4" onclick="sortTable(this)">
-                                Date/Time <span class="sort-icons"><span class="asc">▲</span><span
+                                Incident Date Time <span class="sort-icons"><span class="asc">▲</span><span
+                                        class="desc">▼</span></span>
+                            </th>
+                            <th class="text-center sortable align-middle" data-index="5" onclick="sortTable(this)">
+                                Submitted At <span class="sort-icons"><span class="asc">▲</span><span
+                                        class="desc">▼</span></span>
+                            </th>
+                            <th class="text-center sortable align-middle" data-index="6" onclick="sortTable(this)">
+                                Status <span class="sort-icons"><span class="asc">▲</span><span
                                         class="desc">▼</span></span>
                             </th>
                             <th class="text-center sortable align-middle">Action</th>
@@ -76,29 +84,31 @@
                                     {{ $item->description }}
                                 </td>
                                 <td class="text-center">
+                                    {{ \Carbon\Carbon::parse($item->date_time)->format('M. d Y g:ia') }}
+                                </td>
+                                <td class="text-center">
                                     {{ $item->created_at->format('M. d Y g:ia') }}
+                                </td>
+                                <td style="vertical-align: middle; text-align: center;">
+                                    @php
+                                        $status = $item->status;
+                                        $badgeClass = match ($status) {
+                                            'pending' => 'warning',
+                                            'inprogress' => 'primary',
+                                            'completed' => 'success',
+                                            default => 'secondary',
+                                        };
+                                    @endphp
+
+                                    <span
+                                        class="badge text-capitalize px-3 py-2 rounded-pill bg-{{ $badgeClass }}">{{ $status }}</span>
                                 </td>
 
                                 <td class="text-center align-middle">
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <button class="edit-btn" style="border: none; background-color: transparent"
-                                            data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                            <i class="fa-regular fa-eye"></i>
-                                        </button>
-                                        @include('Admin.SOS.modals.view')
-
-                                        {{-- <form action="{{ route('admin.DeleteAccount') }}" method="POST"
-                                            onsubmit="return confirmDelete(this);">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="id" value="{{ $item->id }}">
-                                            <button class="mx-2 delete-btn" type="submit" title="Delete"
-                                                style="border: none; background-color: transparent">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </form>
-                                        @include('layouts.components.deletepopup') --}}
-
+                                        <a href="{{ url('SOS/Reports/details/' . $item->id) }}"> <i
+                                                class="fa-regular fa-eye"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
