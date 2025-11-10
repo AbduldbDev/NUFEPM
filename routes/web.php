@@ -122,6 +122,11 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::get('/Export', [ExportController::class, 'export'])->name('inspections.export');
         Route::get('/Expiration', [ExportController::class, 'expiration'])->name('export.expiration');
         Route::get('/Notinspect', [ExportController::class, 'notinspect'])->name('export.notinspect');
+        Route::get('/RefillLogs', [ExportController::class, 'exportRefillLogs']);
+        Route::get('/nearexpiration', [ExportController::class, 'exportNearExpiryCertificates']);
+        Route::get('/all-equipment', [ExportController::class, 'exportAllEquipment']);
+        Route::get('/completedsos', [ExportController::class, 'exportCompletedSOS']);
+        Route::get('/ExpiredExtinguishers', [ExportController::class, 'ExpiredExtinguishers']);
     });
 
     Route::prefix('Refill/Logs')->group(function () {

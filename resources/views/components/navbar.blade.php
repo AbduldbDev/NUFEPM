@@ -50,7 +50,17 @@
                                         'icon' => 'fa-clock',
                                     ],
 
+                                    'certificate_expiry' => [
+                                        'container' => 'notification-icon-warning',
+                                        'icon' => 'fa-clock',
+                                    ],
+
                                     'overdue_maintenance' => [
+                                        'container' => 'notification-icon-urgent',
+                                        'icon' => 'fa-exclamation',
+                                    ],
+
+                                    'certificate_expired' => [
                                         'container' => 'notification-icon-urgent',
                                         'icon' => 'fa-exclamation',
                                     ],

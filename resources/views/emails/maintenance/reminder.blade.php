@@ -55,7 +55,7 @@
                                 Please inspect before the due date to ensure safety.
                             </p>
 
-                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                            {{-- <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td align="center" style="padding: 20px 0;">
                                         <a href="{{ url('http://127.0.0.1:8000/') }}"
@@ -64,7 +64,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                            </table>
+                            </table> --}}
                         </td>
                     </tr>
 

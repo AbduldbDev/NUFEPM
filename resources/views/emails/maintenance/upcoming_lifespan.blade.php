@@ -43,12 +43,12 @@
                                 </tbody>
                             </table>
                             <p style="margin-top: 20px;">Please replace or evaluate the equipment before it expires.</p>
-                            <div style="text-align: center; margin-top: 30px;">
+                            {{-- <div style="text-align: center; margin-top: 30px;">
                                 <a href="{{ url('http://127.0.0.1:8000/') }}"
                                     style="background-color: #35408e; color: white; padding: 12px 24px; border-radius: 4px; text-decoration: none; font-weight: bold;">
                                     View Dashboard
                                 </a>
-                            </div>
+                            </div> --}}
                         </td>
                     </tr>
                     <tr>

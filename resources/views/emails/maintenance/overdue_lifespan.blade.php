@@ -23,7 +23,8 @@
                     <tr>
                         <td style="padding: 30px;">
                             <p>The following equipment has <strong>expired</strong> as of
-                                <strong>{{ $formattedDate }}</strong>:</p>
+                                <strong>{{ $formattedDate }}</strong>:
+                            </p>
                             <table width="100%" style="border-collapse: collapse; margin-top: 20px;">
                                 <thead>
                                     <tr style="background-color: #35408e; color: white;">
@@ -43,12 +44,12 @@
                             </table>
                             <p style="margin-top: 20px; color: #35408e;">Immediate action is required to ensure
                                 compliance and safety.</p>
-                            <div style="text-align: center; margin-top: 30px;">
-                               <a href="{{ url('http://127.0.0.1:8000/') }}"
+                            {{-- <div style="text-align: center; margin-top: 30px;">
+                                <a href="{{ url('http://127.0.0.1:8000/') }}"
                                     style="background-color: #35408e; color: white; padding: 12px 24px; border-radius: 4px; text-decoration: none; font-weight: bold;">
                                     View Dashboard
                                 </a>
-                            </div>
+                            </div> --}}
                         </td>
                     </tr>
                     <tr>

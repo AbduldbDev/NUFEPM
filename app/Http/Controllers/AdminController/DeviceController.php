@@ -180,7 +180,7 @@ class DeviceController extends Controller
     {
         $details = Equipment::findOrFail($id);
         $buildings = ExtinguisherLocations::select('building')->groupBy('building')->pluck('building');
-        $items = InspectionCertificate::latest()->paginate(50);
+        $items = InspectionCertificate::where('equipment_id', $id)->latest()->paginate(50);
         return view('Admin.Device.details', compact('details', 'buildings', 'items'));
     }
 }

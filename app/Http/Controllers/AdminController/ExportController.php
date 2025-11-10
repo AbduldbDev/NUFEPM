@@ -7,17 +7,22 @@ use Illuminate\Http\Request;
 use App\Exports\InspectionExport;
 use App\Exports\NearExpiration;
 use App\Exports\NotInspected;
+use App\Exports\RefillLogs;
+use App\Exports\CertificateNearExpirationExport;
+use App\Exports\AllEquipmentCertificatesExport;
+use App\Exports\CompletedSOSReportsExport;
+use App\Exports\ExpiredExtinguishersExport;
 use App\Models\Extinguishers;
 use App\Models\InspectionLogs;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Models\ExtinguisherRefill;
 
 class ExportController extends Controller
 {
     public function ShowExportForm()
     {
         return view('Admin.SubMenu.ExportLogs',);
-        // return view('Admin.export.exportlogs',);
+        return view('Admin.export.exportlogs',);
     }
 
     public function export(Request $request)
@@ -41,11 +46,40 @@ class ExportController extends Controller
 
         return Excel::download(new NearExpiration($data), 'near_expiration.xlsx');
     }
+    public function ExpiredExtinguishers()
+    {
+        $expired = Extinguishers::with(['location'])
+            ->get();
+
+        return Excel::download(new ExpiredExtinguishersExport($expired), 'expired_extinguishers.xlsx');
+    }
 
     public function notinspect(Request $request)
     {
         $data = Extinguishers::where('next_maintenance', '<', now())->where('status', "!=", 'Retired')->get();
 
         return Excel::download(new NotInspected($data), 'no_inspections.xlsx');
+    }
+
+
+    public function exportRefillLogs()
+    {
+        $refillLogs = ExtinguisherRefill::with(['user', 'extinguisher.location'])->get();
+        return Excel::download(new RefillLogs($refillLogs), 'refill_logs.xlsx');
+    }
+
+    public function exportNearExpiryCertificates()
+    {
+        return Excel::download(new CertificateNearExpirationExport, 'near_expiration_certificates.xlsx');
+    }
+
+    public function exportAllEquipment()
+    {
+        return Excel::download(new AllEquipmentCertificatesExport, 'all_equipment_certificates.xlsx');
+    }
+
+    public function exportCompletedSOS()
+    {
+        return Excel::download(new CompletedSOSReportsExport, 'completed_sos_reports.xlsx');
     }
 }
