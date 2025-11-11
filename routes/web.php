@@ -159,12 +159,6 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::put('/Update', [EmergencyHotlinesController::class, 'UpdateHotline'])->name('admin.UpdateHotline');
         Route::delete('/delete', [EmergencyHotlinesController::class, 'DeleteEmergencyHotline'])->name('admin.DeleteEmergencyHotline');
     });
-    Route::prefix('Notification/Extinguishers/')->group(function () {
-        Route::get('/NearMaintenance', [NotificationController::class, 'NearMaintenance'])->name('admin.NearMaintenance');
-        Route::get('/OverDueInspection', [NotificationController::class, 'OverDueInspection'])->name('admin.OverDueInspection');
-        Route::get('/ExpiredLifeSpan', [NotificationController::class, 'ExpiredLifeSpan'])->name('admin.ExpiredLifeSpan');
-        Route::get('/NearExpiration', [NotificationController::class, 'NearExpiration'])->name('admin.NearExpiration');
-    });
 });
 
 
@@ -221,6 +215,19 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/mark-all-read', [NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
         Route::post('/{id}/mark-read', [NotificationController::class, 'markRead'])->name('notifications.markRead');
         Route::delete('/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+    });
+
+    Route::prefix('Notification/Extinguishers/')->group(function () {
+        Route::get('/NearMaintenance', [NotificationController::class, 'NearMaintenance'])->name('admin.NearMaintenance');
+        Route::get('/OverDueInspection', [NotificationController::class, 'OverDueInspection'])->name('admin.OverDueInspection');
+        Route::get('/ExpiredLifeSpan', [NotificationController::class, 'ExpiredLifeSpan'])->name('admin.ExpiredLifeSpan');
+        Route::get('/NearExpiration', [NotificationController::class, 'NearExpiration'])->name('admin.NearExpiration');
+        Route::get('/NearExpirationDevice', [NotificationController::class, 'NearExpirationDevice'])->name('admin.NearExpirationDevice');
+        Route::get('/ExpiredDevice', [NotificationController::class, 'ExpiredDevice'])->name('admin.ExpiredDevice');
+    });
+    Route::prefix('Notification/Devices/')->group(function () {
+        Route::get('/NearExpirationDevice', [NotificationController::class, 'NearExpirationDevice'])->name('admin.NearExpirationDevice');
+        Route::get('/ExpiredDevice', [NotificationController::class, 'ExpiredDevice'])->name('admin.ExpiredDevice');
     });
 });
 

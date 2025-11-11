@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Notification;
 use App\Models\Extinguishers;
-
+use App\Models\Equipment;
 
 class NotificationController extends Controller
 {
@@ -200,6 +200,75 @@ class NotificationController extends Controller
             'nearInspection',
             'nearestInspectionDate',
             'totalFireHose'
+        ));
+    }
+
+    public function NearExpirationDevice()
+    {
+        $type = 'all';
+
+        $base = Equipment::with(['location', 'user', 'latestCertificate'])
+            ->where('status', 'Active')
+            ->whereHas('latestCertificate', function ($q) {
+                $q->whereBetween('expiry_date', [
+                    now(),
+                    now()->addDays(30)
+                ]);
+            });
+
+        if ($type !== 'all') {
+            $base->whereHas('location', function ($q) use ($type) {
+                $q->where('building', $type);
+            });
+        }
+
+        $items = (clone $base)->orderBy('id', 'desc')->paginate(100);
+
+        $sprinkler = (clone $base)->where('type', 'sprinkler')->count();
+        $smokedetector = (clone $base)->where('type', 'smoke_detector')->count();
+        $emergencylights = (clone $base)->where('type', 'emergency_lights')->count();
+        $firealarm = (clone $base)->where('type', 'fire_alarm')->count();
+
+        return view('Admin.Device.table', compact(
+            'items',
+            'type',
+            'sprinkler',
+            'smokedetector',
+            'emergencylights',
+            'firealarm'
+        ));
+    }
+
+
+    public function ExpiredDevice()
+    {
+        $type = 'all';
+        $base = Equipment::with(['location', 'user', 'latestCertificate'])
+            ->where('status', 'Active')
+            ->whereHas('latestCertificate', function ($q) {
+                $q->where('expiry_date', '<', now());
+            });
+
+        if ($type !== 'all') {
+            $base->whereHas('location', function ($q) use ($type) {
+                $q->where('building', $type);
+            });
+        }
+
+        $items = (clone $base)->orderBy('id', 'desc')->paginate(100);
+
+        $sprinkler = (clone $base)->where('type', 'sprinkler')->count();
+        $smokedetector = (clone $base)->where('type', 'smoke_detector')->count();
+        $emergencylights = (clone $base)->where('type', 'emergency_lights')->count();
+        $firealarm = (clone $base)->where('type', 'fire_alarm')->count();
+
+        return view('Admin.Device.table', compact(
+            'items',
+            'type',
+            'sprinkler',
+            'smokedetector',
+            'emergencylights',
+            'firealarm'
         ));
     }
 }

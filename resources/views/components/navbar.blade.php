@@ -97,6 +97,14 @@
                                             $url = url('Notification/Extinguishers/NearExpiration/');
                                             break;
 
+                                        case 'certificate_expiry':
+                                            $url = url('Notification/Devices/NearExpirationDevice/');
+                                            break;
+
+                                        case 'certificate_expired':
+                                            $url = url('Notification/Devices/ExpiredDevice/');
+                                            break;
+
                                         default:
                                             $url = '#';
                                             break;

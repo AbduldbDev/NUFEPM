@@ -54,7 +54,7 @@ class CheckExpiredCertificates extends Command
                     'notifiable_type' => 'Certificate Expired',
                     'notifiable_id' => $user->id,
                     'type' => 'certificate_expired',
-                    'message' => "{$expiredCount}/{$totalEquipment} equipment certificates ({$percentage}%) have EXPIRED (earliest: {$earliestExpiredDate}). Immediate renewal required."
+                    'message' => "{$expiredCount}/{$totalEquipment} devices certificates ({$percentage}%) have EXPIRED (earliest: {$earliestExpiredDate}). Immediate renewal required."
                 ]);
 
 
