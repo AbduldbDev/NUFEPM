@@ -34,6 +34,11 @@
                             onkeyup="filterTable()">
                     </div>
                 </div>
+                <div class="col-12 col-lg-2 text-end">
+                    <a href="{{ url('/Tickets/new') }}" class="btn add-new-btn mb-3 w-100" id="download-selected">
+                        <i class="fa-solid fa-plus"></i> Submit New Ticket
+                    </a>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="sortable-table table table-responsive table-bordered w-100" id="sortableTable">
