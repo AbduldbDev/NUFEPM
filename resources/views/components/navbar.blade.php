@@ -64,6 +64,16 @@
                                         'container' => 'notification-icon-urgent',
                                         'icon' => 'fa-exclamation',
                                     ],
+
+                                    'new_ticket' => [
+                                        'container' => 'notification-icon-warning',
+                                        'icon' => 'fa-clock',
+                                    ],
+
+                                    'user_new_ticket' => [
+                                        'container' => 'notification-icon-warning',
+                                        'icon' => 'fa-clock',
+                                    ],
                                 ];
 
                                 $type = trim($notif->type);
@@ -105,18 +115,29 @@
                                             $url = url('Notification/Devices/ExpiredDevice/');
                                             break;
 
+                                        case 'new_ticket':
+                                            $url = url('Tickets/details/' . $notif->notifiable_id);
+                                            break;
+
+                                        case 'user_new_ticket':
+                                            $url = url('User/Tickets/details/' . $notif->notifiable_id);
+                                            break;
+
                                         default:
                                             $url = '#';
                                             break;
                                     }
                                 } else {
-                                    if ($type === 'sos') {
-                                        $url = null;
-                                    } else {
-                                        $url = url('Inspection/Details/' . $notif->notifiable_id);
+                                    switch ($type) {
+                                        case 'user_new_ticket':
+                                            $url = url('User/Tickets/details/' . $notif->notifiable_id);
+                                            break;
+
+                                        default:
+                                            $url = '#';
+                                            break;
                                     }
                                 }
-
                             @endphp
 
                             <li class="notification-item {{ $notif->is_read ? '' : 'unread' }}">

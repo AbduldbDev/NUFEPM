@@ -18,7 +18,7 @@ class CheckCertificateExpiry extends Command
 
     public function handle()
     {
-        $users = User::whereIn('type', ['admin', 'maintenance'])->get();
+        $users = User::whereIn('type', ['admin', 'engineer'])->get();
 
         $today = now();
         $limit = now()->addDays(30);

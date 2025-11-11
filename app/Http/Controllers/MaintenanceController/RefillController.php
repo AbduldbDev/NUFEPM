@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use App\Models\Ticket;
 use Illuminate\Support\Str;
+use App\Models\Notification;
+use App\Models\User;
 
 class RefillController extends Controller
 {
@@ -55,18 +57,31 @@ class RefillController extends Controller
                 'refill_date' => Carbon::now(),
                 'remarks'  => $request->remarks,
             ]);
+
+            $details = Extinguishers::where('id', $request->id)->first();
             do {
 
                 $ticketID = 'TIX' . strtoupper(Str::random(5));
             } while (Ticket::where('ticket_id', $ticketID)->exists());
 
             if ($request->remarks !== 'good') {
-                Ticket::create([
+                $ticket = Ticket::create([
                     'ticket_id' => $ticketID,
                     'created_by' => Auth::id(),
-                    'description' => "During Refill of extinguisher #{$request->id}, the remark was ({$request->remarks}), inspected by " . Auth::user()->lname . ", " . Auth::user()->fname,
+                    'description' => "During Refill of extinguisher #{$details->extinguisher_id}, the remark was ({$request->remarks}), refilled by " . Auth::user()->lname . ", " . Auth::user()->fname,
 
                 ]);
+
+                $users = User::whereIn('type', ['admin', 'engineer'])->get();
+                foreach ($users as $user) {
+                    Notification::create([
+                        'user_id' => $user->id,
+                        'notifiable_type' => 'New Ticket',
+                        'notifiable_id' => $ticket->id,
+                        'type' => 'new_ticket',
+                        'message' => "Extinguisher #{$details->extinguisher_id} the remark was ({$request->remarks}), refilled by " . Auth::user()->lname . ", " . Auth::user()->fname,
+                    ]);
+                }
             }
             return redirect()->route('maintenance.ShowRefillConfirmation')->with('success', 'Refill log saved successfully.');
         } catch (\Exception $e) {

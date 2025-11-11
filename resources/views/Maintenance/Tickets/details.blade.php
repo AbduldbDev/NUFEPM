@@ -76,7 +76,7 @@
                             @if ($detail->completed_at)
                                 <div class="form-floating mb-3">
                                     <input type="datetime-local" id="completed_at" name="completed_at" class="form-control"
-                                        value="{{ $detail->completed_at }}"></input>
+                                        value="{{ $detail->completed_at }}" readonly></input>
                                     <label for="completed_at">Completed At</label>
                                 </div>
                             @endif
@@ -126,9 +126,11 @@
             </div>
             <div class="row mb-3">
                 <div class="col-12 col-lg-6">
-                    <button type="submit" class="btn save-btn mt-2 w-100">
-                        <i class="fa-solid fa-paper-plane"></i> Complete Ticket
-                    </button>
+                    @if (!$detail->completed_at)
+                        <button type="submit" class="btn save-btn mt-2 w-100">
+                            <i class="fa-solid fa-paper-plane"></i> Complete Ticket
+                        </button>
+                    @endforelse
                 </div>
             </div>
         </form>

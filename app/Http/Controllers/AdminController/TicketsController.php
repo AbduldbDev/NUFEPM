@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
 class TicketsController extends Controller
@@ -72,6 +73,14 @@ class TicketsController extends Controller
                 'instructions'  => $request->instructions,
                 'status'        => $request->status,
                 'created_at'    => $request->submitted_at ?? $ticket->created_at,
+            ]);
+
+            Notification::create([
+                'user_id' => $request->assignee_to,
+                'notifiable_type' => 'New Ticket',
+                'notifiable_id' => $ticket->id,
+                'type' => 'user_new_ticket',
+                'message' => "A new pending ticket ({$ticket->ticket_id}) has been assigned to you.",
             ]);
 
             if ($request->status === 'completed' && !$ticket->completed_at) {

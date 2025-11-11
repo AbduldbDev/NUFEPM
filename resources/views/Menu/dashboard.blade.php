@@ -280,6 +280,21 @@
                 </div>
 
                 <div class="menu-card">
+                    <a href="{{ url('User/Tickets') }}" class="card-link"></a>
+                    <div class="card-body">
+                        <div class="card-icon-container">
+                            <div class="card-icon">
+                                <i class="fa-solid fa-ticket"></i>
+                            </div>
+                        </div>
+                        <h3 class="card-title">Tickets</h3>
+                        <p class="card-description">
+                            View and manage issue tickets, reports, and follow-up actions.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="menu-card">
                     <a href="{{ route('maintenance.ShowInspectionGuide') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">

@@ -37,7 +37,7 @@
                         </div>
                         <div class="card-body px-4">
                             <div class="form-floating mb-3">
-                                <select id="assignee_to" name="assignee_to" class="form-select">
+                                <select id="assignee_to" name="assignee_to" class="form-select" required>
                                     @foreach ($users as $user)
                                         <option value="{{ $user->id }}">
                                             {{ $user->lname }}, {{ $user->fname }}
@@ -48,12 +48,14 @@
                             </div>
 
                             <div class="form-floating mb-3">
-                                <textarea id="description" name="description" class="form-control" style="height: 120px" placeholder="Description"></textarea>
+                                <textarea id="description" name="description" class="form-control" style="height: 120px" placeholder="Description"
+                                    required></textarea>
                                 <label for="description">Description</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <textarea id="instructions" name="instructions" class="form-control" style="height: 120px" placeholder="instructions"></textarea>
+                                <textarea id="instructions" name="instructions" class="form-control" style="height: 120px" placeholder="instructions"
+                                    required></textarea>
                                 <label for="instructions">Instructions</label>
                             </div>
                         </div>

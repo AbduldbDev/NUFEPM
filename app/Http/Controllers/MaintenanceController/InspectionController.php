@@ -11,6 +11,8 @@ use App\Models\QuestionAssigned;
 use App\Models\InspectionLogs;
 use App\Models\InspectionAnswer;
 use App\Models\Ticket;
+use App\Models\User;
+use App\Models\Notification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -125,12 +127,23 @@ class InspectionController extends Controller
                 $ticketID = 'TIX' . strtoupper(Str::random(5));
             } while (Ticket::where('ticket_id', $ticketID)->exists());
             if ($status !== 'Good') {
-                Ticket::create([
+                $ticket = Ticket::create([
                     'ticket_id' => $ticketID,
                     'created_by' => Auth::id(),
                     'description' => "During inspection of extinguisher #{$extinguisher->extinguisher_id}, the remark was ({$status}), inspected by " . Auth::user()->lname . ", " . Auth::user()->fname,
 
                 ]);
+
+                $users = User::whereIn('type', ['admin', 'engineer'])->get();
+                foreach ($users as $user) {
+                    Notification::create([
+                        'user_id' => $user->id,
+                        'notifiable_type' => 'New Ticket',
+                        'notifiable_id' => $ticket->id,
+                        'type' => 'new_ticket',
+                        'message' => "Extinguisher #{$extinguisher->extinguisher_id} the remark was ({$request->remarks}), inspected by " . Auth::user()->lname . ", " . Auth::user()->fname,
+                    ]);
+                }
             }
 
             foreach ($validated['answers'] as $questionId => $answer) {

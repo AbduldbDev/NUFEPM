@@ -138,7 +138,6 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::get('/ExpiredExtinguishers', [ExportController::class, 'ExpiredExtinguishers'])->name('export.ExpiredExtinguishers');
     });
 
-
     Route::prefix('Refill/Logs')->group(function () {
         Route::get('/History', [RefillLogsController::class, 'ShowAllRefills'])->name('admin.ShowAllRefills');
     });

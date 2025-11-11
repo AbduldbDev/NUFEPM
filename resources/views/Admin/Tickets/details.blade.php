@@ -65,12 +65,14 @@
                             </div>
 
                             <div class="form-floating mb-3">
-                                <textarea id="description" name="description" class="form-control" style="height: 120px" placeholder="Description">{{ $detail->description }}</textarea>
+                                <textarea id="description" name="description" class="form-control" style="height: 120px" placeholder="Description"
+                                    required>{{ $detail->description }}</textarea>
                                 <label for="description">Description</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <textarea id="instructions" name="instructions" class="form-control" style="height: 120px" placeholder="instructions">{{ $detail->instructions }}</textarea>
+                                <textarea id="instructions" name="instructions" class="form-control" style="height: 120px" placeholder="instructions"
+                                    required>{{ $detail->instructions }}</textarea>
                                 <label for="instructions">Instructions</label>
                             </div>
 
@@ -116,24 +118,24 @@
                                 <i class="fa-solid fa-circle-exclamation me-2"></i>
                                 <h5 class="mb-0">Ticket Images</h5>
                             </div>
+
                             <div class="card-body px-4">
-                                <div class="card-body px-4">
-                                    <div class="form-floating mb-3">
-                                        <textarea id="Remarks" name="Remarks" class="form-control" style="height: 120px" placeholder="Remarks" readonly>{{ $detail->remarks }}</textarea>
-                                        <label for="Remarks">Remarks</label>
-                                    </div>
-                                    <div id="preview-container" class="row g-2">
-                                        @foreach (json_decode($detail->images, true) as $img)
-                                            <div class="col-6 col-md-4 col-lg-3">
-                                                <div class="ratio ratio-4x3 rounded border overflow-hidden">
-                                                    <img src="{{ $img }}" width="auto"
-                                                        class="w-100 h-100 object-fit-cover">
-                                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea id="Remarks" name="Remarks" class="form-control" style="height: 120px" placeholder="Remarks" readonly>{{ $detail->remarks }}</textarea>
+                                    <label for="Remarks">Remarks</label>
+                                </div>
+                                <div id="preview-container" class="row g-2">
+                                    @foreach (json_decode($detail->images, true) as $img)
+                                        <div class="col-6 col-md-4 col-lg-3">
+                                            <div class="ratio ratio-4x3 rounded border overflow-hidden">
+                                                <img src="{{ $img }}" width="auto"
+                                                    class="w-100 h-100 object-fit-cover">
                                             </div>
-                                        @endforeach
-                                    </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 @endif
