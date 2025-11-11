@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('ticket_id');
-            $table->foreignId('extinguisher_id')->nullable()->constrained('extinguishers')->nullOnDelete();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('assigned_to')->nullable()->constrained('users')->nullOnDelete();
+            $table->text('description')->nullable();
             $table->text('instructions')->nullable();
             $table->text('remarks')->nullable();
             $table->text('images')->nullable();
             $table->enum('status', ['open', 'in_progress', 'completed'])->default('open');
-            $table->date('completed_at')->nullable();
+            $table->dateTime('completed_at')->nullable();
             $table->timestamps();
         });
     }

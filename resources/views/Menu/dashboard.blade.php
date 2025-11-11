@@ -88,13 +88,12 @@
                     </div>
                 </div>
 
-                <!-- Tickets Card -->
                 <div class="menu-card">
-                    <a href="{{ route('dashboard') }}" class="card-link"></a>
+                    <a href="{{ url('/Tickets') }}" class="card-link"></a>
                     <div class="card-body">
                         <div class="card-icon-container">
                             <div class="card-icon">
-                                <i class="fa-solid fa-ticket"></i> <!-- Changed Icon -->
+                                <i class="fa-solid fa-ticket"></i>
                             </div>
                         </div>
                         <h3 class="card-title">Tickets</h3>

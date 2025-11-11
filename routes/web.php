@@ -17,10 +17,12 @@ use App\Http\Controllers\AdminController\InspectionLogsController;
 use App\Http\Controllers\AdminController\RefillLogsController;
 use App\Http\Controllers\AdminController\SOSReportController;
 use App\Http\Controllers\AdminController\EmergencyPlanController;
+use App\Http\Controllers\AdminController\TicketsController;
 use App\Http\Controllers\MaintenanceController\GuideController;
 use App\Http\Controllers\MaintenanceController\InspectionController;
 use App\Http\Controllers\MaintenanceController\LogsController;
 use App\Http\Controllers\MaintenanceController\RefillController;
+use App\Http\Controllers\MaintenanceController\UserTicketController;
 use App\Http\Controllers\NotificationController;
 
 Route::get('/', [MenuController::class, 'ShowDashboard'])->middleware(['auth'])->name('dashboard');
@@ -159,6 +161,15 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::put('/Update', [EmergencyHotlinesController::class, 'UpdateHotline'])->name('admin.UpdateHotline');
         Route::delete('/delete', [EmergencyHotlinesController::class, 'DeleteEmergencyHotline'])->name('admin.DeleteEmergencyHotline');
     });
+
+    Route::prefix('/Tickets')->group(function () {
+        Route::get('/', [TicketsController::class, 'ShowAll'])->name('admin.ShowAllTickets');
+        Route::get('/new', [TicketsController::class, 'AddNew'])->name('admin.ShowAllTickets');
+        Route::get('/details/{id}', [TicketsController::class, 'ShowDetails'])->name('admin.ShowDetailsTicket');
+        Route::post('/create', [TicketsController::class, 'CreateTicket'])->name('admin.CreateNewTicket');
+        Route::put('/update', [TicketsController::class, 'UpdateTicket'])->name('admin.UpdateTicket');
+        Route::delete('/delete', [TicketsController::class, 'DeleteTicket'])->name('admin.DeleteTicket');
+    });
 });
 
 
@@ -228,6 +239,12 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('Notification/Devices/')->group(function () {
         Route::get('/NearExpirationDevice', [NotificationController::class, 'NearExpirationDevice'])->name('admin.NearExpirationDevice');
         Route::get('/ExpiredDevice', [NotificationController::class, 'ExpiredDevice'])->name('admin.ExpiredDevice');
+    });
+
+    Route::prefix('User/Tickets')->group(function () {
+        Route::get('/', [UserTicketController::class, 'ShowAll'])->name('admin.ShowAllTickets');
+        Route::get('/details/{id}', [UserTicketController::class, 'ShowDetails'])->name('admin.ShowDetailsTicket');
+        Route::put('/complete', [UserTicketController::class, 'UpdateTicketUser'])->name('admin.UpdateTicketUser');
     });
 });
 

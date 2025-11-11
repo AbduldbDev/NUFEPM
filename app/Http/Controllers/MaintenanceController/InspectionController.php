@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\MaintenanceController;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Extinguishers;
@@ -9,9 +10,11 @@ use App\Models\InspectionQuestions;
 use App\Models\QuestionAssigned;
 use App\Models\InspectionLogs;
 use App\Models\InspectionAnswer;
+use App\Models\Ticket;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class InspectionController extends Controller
 {
@@ -101,8 +104,8 @@ class InspectionController extends Controller
             } else {
                 $status = 'Good';
             }
-
-            Extinguishers::where('id', $request->id)->update([
+            $extinguisher =  Extinguishers::where('id', $request->id)->first();
+            $extinguisher->update([
                 'next_maintenance' =>  $nextDueDate,
                 'last_maintenance' =>  Carbon::now(),
                 'status' => $status,
@@ -118,6 +121,18 @@ class InspectionController extends Controller
                 'remarks' => $validated['remarks'],
             ]);
 
+            do {
+                $ticketID = 'TIX' . strtoupper(Str::random(5));
+            } while (Ticket::where('ticket_id', $ticketID)->exists());
+            if ($status !== 'Good') {
+                Ticket::create([
+                    'ticket_id' => $ticketID,
+                    'created_by' => Auth::id(),
+                    'description' => "During inspection of extinguisher #{$extinguisher->extinguisher_id}, the remark was ({$status}), inspected by " . Auth::user()->lname . ", " . Auth::user()->fname,
+
+                ]);
+            }
+
             foreach ($validated['answers'] as $questionId => $answer) {
                 InspectionAnswer::create([
                     'inspection_id' => $inspectionLog->id,
@@ -128,7 +143,8 @@ class InspectionController extends Controller
 
             return redirect()->route('maintenance.ShowConfirmation')->with('success', 'Inspection completed successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e);
+            Log::error('AddNewTank failed: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to save refill log. Please try again.');
         }
     }
 }

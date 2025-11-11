@@ -6,17 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
-
-
-    // Table name (optional if follows Laravel convention)
     protected $table = 'tickets';
-
-    // Mass assignable fields
     protected $fillable = [
         'ticket_id',
-        'extinguisher_id',
         'created_by',
         'assigned_to',
+        'description',
         'instructions',
         'remarks',
         'images',
@@ -37,11 +32,6 @@ class Ticket extends Model
     public function assignee()
     {
         return $this->belongsTo(User::class, 'assigned_to');
-    }
-
-    public function extinguisher()
-    {
-        return $this->belongsTo(Extinguishers::class, 'extinguisher_id');
     }
 
     public function isCompleted()
