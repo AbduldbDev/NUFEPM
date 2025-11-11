@@ -16,14 +16,14 @@
                 </div>
                 <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
                 <div class="breadcrumb-item active">
-                    <span>Inspection Guide</span>
+                    <span>Export Logs</span>
                 </div>
             </nav>
         </div>
         <div class="menu-grid">
 
             <div class="menu-card">
-                <a href="{{ url('Logs/Export/Extinguishers') }}" class="card-link"></a>
+                <a href="{{ route('admin.ShowExportExtinguisher') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
                         <div class="card-icon">
@@ -38,7 +38,7 @@
             </div>
 
             <div class="menu-card">
-                <a href="{{ url('Logs/Export/Devices') }}" class="card-link"></a>
+                <a href="{{ route('admin.ShowExportDevices') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
                         <div class="card-icon">
@@ -53,14 +53,14 @@
             </div>
 
             <div class="menu-card">
-                <a href="{{ url('Logs/Export/SOS') }}" class="card-link"></a>
+                <a href="{{ route('admin.ShowExportIncident') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
                         <div class="card-icon">
                             <i class="fa-solid fa-triangle-exclamation"></i>
                         </div>
                     </div>
-                    <h3 class="card-title">SOS Reports</h3>
+                    <h3 class="card-title">Incident Reports</h3>
                     <p class="card-description">
                         Export emergency incident reports submitted by users for quick action.
                     </p>
@@ -68,7 +68,7 @@
             </div>
 
             <div class="menu-card">
-                <a href="{{ url('Logs/Export/Refill') }}" class="card-link"></a>
+                <a href="{{ route('admin.ShowExportRefill') }}" class="card-link"></a>
                 <div class="card-body">
                     <div class="card-icon-container">
                         <div class="card-icon">

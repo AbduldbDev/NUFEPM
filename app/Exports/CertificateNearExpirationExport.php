@@ -13,18 +13,23 @@ use Carbon\Carbon;
 class CertificateNearExpirationExport implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize
 {
     private $rowNumber = 0;
+    private $startDate;
+    private $endDate;
+
+    public function __construct($startDate, $endDate)
+    {
+        $this->startDate = Carbon::parse($startDate)->startOfDay();
+        $this->endDate = Carbon::parse($endDate)->endOfDay();
+    }
 
     public function collection()
     {
-        $now = Carbon::today();
-        $next30 = Carbon::today()->addDays(30);
-
         $collection = Equipment::with(['location', 'latestCertificate'])
             ->get()
-            ->filter(function ($equipment) use ($now, $next30) {
+            ->filter(function ($equipment) {
                 if (!$equipment->latestCertificate) return false;
                 $expiry = Carbon::parse($equipment->latestCertificate->expiry_date);
-                return $expiry->between($now, $next30);
+                return $expiry->between($this->startDate, $this->endDate);
             })
             ->map(function ($equipment) {
                 $certificate = $equipment->latestCertificate;

@@ -19,10 +19,30 @@ use App\Models\ExtinguisherRefill;
 
 class ExportController extends Controller
 {
-    public function ShowExportForm()
+    public function ShowExportMenu()
     {
         return view('Admin.SubMenu.ExportLogs',);
         return view('Admin.export.exportlogs',);
+    }
+
+    public function ShowExportExtinguisher()
+    {
+        return view('Admin.export.extinguisher',);
+    }
+
+    public function ShowExportRefill()
+    {
+        return view('Admin.export.refill',);
+    }
+
+    public function ShowExportIncident()
+    {
+        return view('Admin.export.sosreport',);
+    }
+
+    public function ShowExportDevices()
+    {
+        return view('Admin.export.devices',);
     }
 
     public function export(Request $request)
@@ -62,24 +82,42 @@ class ExportController extends Controller
     }
 
 
-    public function exportRefillLogs()
+    public function exportRefillLogs(Request $request)
     {
-        $refillLogs = ExtinguisherRefill::with(['user', 'extinguisher.location'])->get();
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date'   => 'required|date|after_or_equal:start_date',
+        ]);
+        $refillLogs = ExtinguisherRefill::with(['user', 'extinguisher.location'])->whereBetween('created_at', [$request->start_date, $request->end_date])->get();
         return Excel::download(new RefillLogs($refillLogs), 'refill_logs.xlsx');
     }
 
-    public function exportNearExpiryCertificates()
+    public function exportNearExpiryCertificates(Request $request)
     {
-        return Excel::download(new CertificateNearExpirationExport, 'near_expiration_certificates.xlsx');
+        $validated = $request->validate([
+            'start_date' => 'required|date',
+            'end_date'   => 'required|date|after_or_equal:start_date',
+        ]);
+
+        return Excel::download(
+            new CertificateNearExpirationExport($validated['start_date'], $validated['end_date']),
+            'near_expiration_certificates.xlsx'
+        );
     }
+
 
     public function exportAllEquipment()
     {
         return Excel::download(new AllEquipmentCertificatesExport, 'all_equipment_certificates.xlsx');
     }
 
-    public function exportCompletedSOS()
+    public function exportCompletedSOS(Request $request)
     {
-        return Excel::download(new CompletedSOSReportsExport, 'completed_sos_reports.xlsx');
+        $validated = $request->validate([
+            'start_date' => 'required|date',
+            'end_date'   => 'required|date|after_or_equal:start_date',
+        ]);
+
+        return Excel::download(new CompletedSOSReportsExport($validated['start_date'], $validated['end_date']), 'completed_sos_reports.xlsx');
     }
 }

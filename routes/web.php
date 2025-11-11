@@ -119,17 +119,25 @@ Route::middleware(['auth', 'UserType:admin,engineer'])->group(function () {
         Route::get('/show/{id}', [ExtinguisherController::class, 'ShowLocationID']);
     });
 
+    Route::prefix('Export/Menu')->group(function () {
+        Route::get('/Logs', [ExportController::class, 'ShowExportMenu'])->name('admin.ShowExportForm');
+        Route::get('/Extinguisher', [ExportController::class, 'ShowExportExtinguisher'])->name('admin.ShowExportExtinguisher');
+        Route::get('/Refill', [ExportController::class, 'ShowExportRefill'])->name('admin.ShowExportRefill');
+        Route::get('/Incident', [ExportController::class, 'ShowExportIncident'])->name('admin.ShowExportIncident');
+        Route::get('/Devices', [ExportController::class, 'ShowExportDevices'])->name('admin.ShowExportDevices');
+    });
+
     Route::prefix('Export')->group(function () {
-        Route::get('/Logs', [ExportController::class, 'ShowExportForm'])->name('admin.ShowExportForm');
         Route::get('/Export', [ExportController::class, 'export'])->name('inspections.export');
         Route::get('/Expiration', [ExportController::class, 'expiration'])->name('export.expiration');
         Route::get('/Notinspect', [ExportController::class, 'notinspect'])->name('export.notinspect');
-        Route::get('/RefillLogs', [ExportController::class, 'exportRefillLogs']);
-        Route::get('/nearexpiration', [ExportController::class, 'exportNearExpiryCertificates']);
-        Route::get('/all-equipment', [ExportController::class, 'exportAllEquipment']);
-        Route::get('/completedsos', [ExportController::class, 'exportCompletedSOS']);
-        Route::get('/ExpiredExtinguishers', [ExportController::class, 'ExpiredExtinguishers']);
+        Route::get('/RefillLogs', [ExportController::class, 'exportRefillLogs'])->name('export.refilllogs');
+        Route::get('/nearexpiration', [ExportController::class, 'exportNearExpiryCertificates'])->name('export.exportNearExpiryCertificates');
+        Route::get('/all-equipment', [ExportController::class, 'exportAllEquipment'])->name('export.exportAllEquipment');
+        Route::get('/completedsos', [ExportController::class, 'exportCompletedSOS'])->name('export.completedsos');
+        Route::get('/ExpiredExtinguishers', [ExportController::class, 'ExpiredExtinguishers'])->name('export.ExpiredExtinguishers');
     });
+
 
     Route::prefix('Refill/Logs')->group(function () {
         Route::get('/History', [RefillLogsController::class, 'ShowAllRefills'])->name('admin.ShowAllRefills');

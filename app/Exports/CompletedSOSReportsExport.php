@@ -13,21 +13,30 @@ use Carbon\Carbon;
 class CompletedSOSReportsExport implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize
 {
     private $rowNumber = 0;
+    private $startDate;
+    private $endDate;
+
+    public function __construct($startDate, $endDate)
+    {
+        $this->startDate = Carbon::parse($startDate)->startOfDay();
+        $this->endDate = Carbon::parse($endDate)->endOfDay();
+    }
 
     public function collection()
     {
         $collection = SOSReport::with('user')
             ->where('status', 'completed')
+            ->whereBetween('created_at', [$this->startDate, $this->endDate])
             ->orderBy('date_time', 'desc')
             ->get()
             ->map(function ($report) {
                 return [
-                    'Reported By'   => $report->user ? $report->user->fname . ' ' . $report->user->lname : 'Unknown',
-                    'Location'      => $report->location,
-                    'Description'   => $report->description,
-                    'Date & Time'   => Carbon::parse($report->date_time)->format('F j, Y g:i A'),
-                    'Submitted AT'   => Carbon::parse($report->date_time)->format('F j, Y g:i A'),
-                    'Status'        => ucfirst($report->status),
+                    'Reported By' => $report->user ? $report->user->fname . ' ' . $report->user->lname : 'Unknown',
+                    'Location'    => $report->location,
+                    'Description' => $report->description,
+                    'Date & Time' => Carbon::parse($report->date_time)->format('F j, Y g:i A'),
+                    'Submitted At' => Carbon::parse($report->created_at)->format('F j, Y g:i A'),
+                    'Status'      => ucfirst($report->status),
                 ];
             });
 
@@ -42,7 +51,7 @@ class CompletedSOSReportsExport implements FromCollection, WithHeadings, WithSty
             'Location',
             'Description',
             'Date & Time',
-            'Submitted AT',
+            'Submitted At',
             'Status'
         ];
     }
@@ -51,7 +60,7 @@ class CompletedSOSReportsExport implements FromCollection, WithHeadings, WithSty
     {
         $rowCount = $this->rowNumber + 1;
 
-        // Add border
+        // Borders
         $sheet->getStyle('A1:F' . $this->rowNumber)->applyFromArray([
             'borders' => [
                 'allBorders' => [
